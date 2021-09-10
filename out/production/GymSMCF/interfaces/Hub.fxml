@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HubController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="471.0" prefWidth="745.0" VBox.vgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="505.0" layoutX="130.0" opacity="0.45" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo_new-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnUsuariosInterfaz" layoutX="38.0" layoutY="62.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="128.0" prefWidth="136.0">
+               <graphic>
+                  <ImageView fitHeight="84.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/resume.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button layoutX="259.0" layoutY="62.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="136.0">
+               <graphic>
+                  <ImageView fitHeight="106.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/business.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button layoutX="462.0" layoutY="62.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="136.0">
+               <graphic>
+                  <ImageView fitHeight="96.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/dumbbell.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="btnRegistroVisitas" layoutX="256.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="128.0" prefWidth="136.0">
+               <graphic>
+                  <ImageView fitHeight="110.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/appointment.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="1102.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UsuariosController">
+    <children>
+        <ImageView fitHeight="632.0" fitWidth="1102.0" opacity="0.3" pickOnBounds="true">
+            <image>
+                <Image url="@../images/fondo1.jpg"  />
+            </image>
+        </ImageView>
+        <VBox layoutX="-1.0" layoutY="56.0" prefHeight="577.0" prefWidth="154.0" />
+        <Accordion layoutX="153.0" layoutY="56.0" prefHeight="577.0" prefWidth="948.0">
+            <panes>
+                <TitledPane animated="false" prefHeight="525.0" prefWidth="908.0" text="AGREGA UN NUEVO MIEMBRO">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="501.0" prefWidth="936.0">
+                            <children>
+                                <TextField fx:id="txtNombres" layoutX="20.0" layoutY="22.0" promptText="Nombres(s)" />
+                                <TextField fx:id="txtApellidoPat" layoutX="20.0" layoutY="65.0" promptText="Apellido Paterno" />
+                                <TextField fx:id="txtApellidoMat" layoutX="20.0" layoutY="109.0" promptText="Apellido Materno" />
+                                <TextField fx:id="txtTelefono" layoutX="20.0" layoutY="153.0" promptText="Teléfono" />
+                                <TextField fx:id="txtEmail" layoutX="20.0" layoutY="196.0" promptText="E-mail" />
+                                <DatePicker fx:id="txtFecNacimiento" layoutX="20.0" layoutY="237.0" prefHeight="27.0" prefWidth="148.0" promptText="Nacimiento" style="-fx-border-color: #000000;" />
+                                <ImageView fx:id="imgHuella" fitHeight="195.0" fitWidth="200.0" layoutX="587.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/fingerprint.png" />
+                                    </image>
+                                </ImageView>
+                                <TextField fx:id="txtMensajes" layoutX="608.0" layoutY="252.0" prefHeight="25.0" prefWidth="154.0" />
+                                <Button fx:id="btnGuardarMiembro" layoutX="608.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#HandleEvents" prefHeight="25.0" prefWidth="154.0" text="Guardar" />
+                                <Button fx:id="btnVerificar" layoutX="649.0" layoutY="284.0" mnemonicParsing="false" onMouseClicked="#identificarHuella" text="Verificar" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </TitledPane>
+                <TitledPane animated="false" text="untitled 2">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </TitledPane>
+                <TitledPane animated="false" text="untitled 3">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </TitledPane>
+            </panes>
+        </Accordion>
+        <Pane layoutX="-1.0" prefHeight="57.0" prefWidth="1102.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
+    </children>
+</Pane>
