@@ -19,6 +19,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,7 +33,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import utils.ConnectionUtil;
+import models.MiembrosModel;
+import persistence.MiembrosDB;
+import persistence.RegistroVisitasDB;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
@@ -43,11 +46,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class UsuariosController implements Initializable{
+public class MiembrosController implements Initializable{
     
     @FXML
     private Button btnVerificar;
@@ -69,15 +71,21 @@ public class UsuariosController implements Initializable{
     
     @FXML
     private DatePicker txtFecNacimiento;
+
+    @FXML
+    private TextField txtTelefono;
     
     @FXML
     private Button btnSave;
     
     @FXML
     private ComboBox<String> txtGender;
-    
-   // @FXML
-   // Label lblMensajes;
+
+    @FXML
+    private RadioButton hombreRadBtn;
+
+    @FXML
+    private RadioButton mujerRadBtn;
 
     @FXML
     TableView tblData;
@@ -93,7 +101,49 @@ public class UsuariosController implements Initializable{
     
     @FXML
     private TextField txtMensajes;
-    
+
+    @FXML
+    private ComboBox comboMembresias;
+
+    @FXML
+    private TextField txtMontoMem;
+
+    @FXML
+    private TitledPane detallesPane;
+
+    @FXML
+    private CheckBox chkDescuentoEspecial;
+
+    @FXML
+    private TextField txtPorcenDescuento;
+
+    @FXML
+    private Button btnTotalMembresia;
+
+    @FXML
+    private Button btnCobrar;
+
+    private MiembrosModel miembrosModel = new MiembrosModel();
+    private String sexo;
+    final ToggleGroup group = new ToggleGroup();
+    private double costoMembresia;
+
+    public double getCostoMembresia() {
+        return costoMembresia;
+    }
+
+    public void setCostoMembresia(double costoMembresia) {
+        this.costoMembresia = costoMembresia;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
     @FXML
     public void regresaMenuPrincipal(MouseEvent event) {
         if (event.getSource() == btnMenuPrincipal) {
@@ -118,7 +168,7 @@ public class UsuariosController implements Initializable{
     PreparedStatement preparedStatement;
     Connection connection;
 
-    public UsuariosController() {
+    public MiembrosController() {
         //connection = (Connection) ConnectionUtil.conDB();
     }
 
@@ -306,43 +356,7 @@ public class UsuariosController implements Initializable{
            }
                 }
 }
-    
-    public void guardarHuella(){
-     ConnectionUtil newCon = new ConnectionUtil(); 
-     //Obtiene los datos del template de la huella actual
-     ByteArrayInputStream datosHuella = new ByteArrayInputStream(template.serialize());
-     Integer tamañoHuella=template.serialize().length;
 
-     //Pregunta el nombre de la persona a la cual corresponde dicha huella
-     String nombre = txtNombres.getText();
-     try {
-     //Establece los valores para la sentencia SQL
-     //Connection c=con.conectar(); //establece la conexion con la BD
-     PreparedStatement guardarStmt = newCon.conDB().prepareStatement("INSERT INTO HUELLA(HUELLANOMBRE, HUELLA) values(?,?)");
-
-     guardarStmt.setString(1,nombre);
-     guardarStmt.setBinaryStream(2, datosHuella,tamañoHuella);
-     //Ejecuta la sentencia
-     guardarStmt.execute();
-     guardarStmt.close();
-     JOptionPane.showMessageDialog(null,"Huella Guardada Correctamente");
-     //connection.close();
-     newCon.conDB().close();
-     //btnGuardar.setEnabled(false);
-     //btnVerificar.grabFocus();
-     } catch (SQLException ex) {
-     //Si ocurre un error lo indica en la consola
-     System.out.println("Error: "+ ex);
-     System.err.println("Error al guardar los datos de la huella.");
-     }finally{
-         try {
-             //connection.close();
-               newCon.conDB().close();
-         } catch (SQLException ex) {
-             Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-     }
-   }
     
     public void EnviarTexto(String string) {
        txtMensajes.setText(string + "\n");
@@ -351,6 +365,10 @@ public class UsuariosController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        comboMembresias.getItems().add("Mensual");
+        comboMembresias.getItems().add("Por día");
+        comboMembresias.getItems().add("Cortesía");
+        //detallesPane.setCollapsible(false);
         /*// TODO
         txtGender.getItems().addAll("Male", "Female", "Other");
         txtGender.getSelectionModel().select("Male");
@@ -359,7 +377,7 @@ public class UsuariosController implements Initializable{
        /* menuLateralPane.setExpanded(true);
         menuLateralPane.setAnimated(true);*/
         Iniciar();
-	start();
+	    start();
         EstadoHuellas();
 
     }
@@ -367,13 +385,80 @@ public class UsuariosController implements Initializable{
 
     @FXML
     private void HandleEvents(MouseEvent event) {
-        if (txtEmail.getText().isEmpty() /*|| txtNombres.getText().isEmpty() || txtApellidoPat.getText().isEmpty() || txtApellidoMat.getText().isEmpty() || txtFecNacimiento.getValue().equals(null)*/) {
+        sexo = radioGroupSexo();
+        if (txtEmail.getText().isEmpty() || txtNombres.getText().isEmpty() || txtApellidoPat.getText().isEmpty() || txtApellidoMat.getText().isEmpty() || txtFecNacimiento.getValue().equals(null)
+                || sexo == null || txtTelefono.getText().isEmpty()) {
             txtMensajes.setText("Llena todos los campos");
-            //lblMensajes.setTextFill(Color.TOMATO);
         } else {
-            saveData();
+            //MiembrosModel miembrosModel = new MiembrosModel();
+            miembrosModel.setNombres(txtNombres.getText());
+            miembrosModel.setApellidoPat(txtApellidoPat.getText());
+            miembrosModel.setApellidoMat(txtApellidoMat.getText());
+            miembrosModel.setTelefono(txtTelefono.getText());
+            miembrosModel.setEmail(txtEmail.getText());
+            miembrosModel.setFecha_Nacimiento(txtFecNacimiento.getValue().toString());
+            miembrosModel.setSexo(sexo);
+            guardarMiembro(miembrosModel);
+
         }
 
+    }
+
+    @FXML
+    private void abreDetallesPane(MouseEvent event) {
+        //MiembrosDB miembrosDB = new MiembrosDB();
+       // System.out.println(comboMembresias.getSelectionModel().getSelectedItem().toString());
+       //costoMembresia = miembrosDB.obtenerCostoMembresia(comboMembresias.getSelectionModel().getSelectedItem().toString());
+        txtMontoMem.setDisable(true);
+    }
+
+    @FXML
+    private void comboMembresiasOnChange(ActionEvent event) {
+        MiembrosDB miembrosDB = new MiembrosDB();
+        costoMembresia = miembrosDB.obtenerCostoMembresia(comboMembresias.getSelectionModel().getSelectedItem().toString());
+        txtMontoMem.setText(String.valueOf(costoMembresia));
+        txtMontoMem.setStyle("-fx-font-weight: bold");
+    }
+
+    @FXML
+    private void calculaPorcentaje(MouseEvent event){
+            Double precioMembresia;
+            Double porcentajeDescuento;
+            precioMembresia = Double.valueOf(txtMontoMem.getText().toString());
+            porcentajeDescuento = Double.valueOf(txtPorcenDescuento.getText().toString());
+            Double totalMembresia = (precioMembresia*porcentajeDescuento)/100;
+            totalMembresia = precioMembresia - totalMembresia;
+            txtMontoMem.setText(String.valueOf(totalMembresia));
+            txtMontoMem.setStyle("-fx-font-weight: bold");
+    }
+
+    @FXML
+    private void cobrarMembresia(){
+        MiembrosDB miembrosDB = new MiembrosDB();
+        String resultado = null;
+        String tipoSuscripcion = comboMembresias.getSelectionModel().getSelectedItem().toString();
+        Double cantidad_Pago = Double.valueOf(txtMontoMem.getText().toString());
+        resultado = miembrosDB.cobrarMembresia(miembrosModel, tipoSuscripcion, cantidad_Pago);
+        if(resultado.contains("éxito")) {
+            JOptionPane.showMessageDialog(null, resultado + " ," + " HDTRPM!", "Resultado Cobro", JOptionPane.INFORMATION_MESSAGE);
+        }else if(resultado.contains("error")){
+            JOptionPane.showMessageDialog(null, resultado + " ," + " HDTRPM!", "Resultado Cobro", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+
+    @FXML
+    private String radioGroupSexo(){
+        String resultado= null;
+        hombreRadBtn.setToggleGroup(group);
+        mujerRadBtn.setToggleGroup(group);
+        if(hombreRadBtn.isSelected()){
+            resultado = "H";
+            mujerRadBtn.setSelected(false);
+        }else if(mujerRadBtn.isSelected()){
+            resultado = "M";
+        }
+        return resultado;
     }
 
     private void clearFields() {
@@ -381,111 +466,38 @@ public class UsuariosController implements Initializable{
         txtApellidoPat.clear();
         txtApellidoMat.clear();
         txtEmail.clear();
+        txtTelefono.clear();
+        txtFecNacimiento.getEditor().clear();
+        hombreRadBtn.setSelected(false);
+        mujerRadBtn.setSelected(false);
     }
     
     
 
-    private String saveData() {
+    private void guardarMiembro(MiembrosModel miembrosModelGuarda) {
     //Obtiene los datos del template de la huella actual
-    ConnectionUtil newCon = new ConnectionUtil(); 
-     
+     String resultado = null;
      ByteArrayInputStream datosHuella = new ByteArrayInputStream(template.serialize());
      Integer tamañoHuella=template.serialize().length;
-        try {
-            String st = "INSERT INTO MIEMBROS ( NOMBRES, APELLIDO_PAT, APELLIDO_MAT, EMAIL, SEXO, FECHA_NACIMIENTO, HUELLA) VALUES (?,?,?,?,?,?,?)";
-            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(st);
-            preparedStatement.setString(1, txtNombres.getText());
-            preparedStatement.setString(2, txtApellidoPat.getText());
-            preparedStatement.setString(3, txtApellidoMat.getText());
-            preparedStatement.setString(4, txtEmail.getText());
-            preparedStatement.setString(5, "H");
-            preparedStatement.setString(6, txtFecNacimiento.getValue().toString());
-            preparedStatement.setBinaryStream(7, datosHuella,tamañoHuella);
+     MiembrosDB miembrosDB = new MiembrosDB();
 
-            preparedStatement.execute();
-            //txtMensajes.setTextFill(Color.GREEN);
-            txtMensajes.setText("Miembro Agregado");
+        try {
+            resultado = miembrosDB.guardarMiembro(miembrosModelGuarda, datosHuella, tamañoHuella);
+            miembrosModel = miembrosDB.consultarMiembro();
+            txtMensajes.setText(resultado);
+            detallesPane.setCollapsible(true);
           //  guardarHuella();
-         //   fetRowList();
+          //   fetRowList();
             //clear fields
             clearFields();
-            return "Success";
+            //return "Success";
 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            //lblMensajes.setTextFill(Color.TOMATO);
-            txtMensajes.setText(ex.getMessage());
-            return "Exception";
+        }catch(Exception ex){
+            ex.printStackTrace();
         }finally{
-        try {
-                Reclutador.clear();
-                newCon.conDB().close();
-            } catch (SQLException ex) {
-                Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Reclutador.clear();
         }
     }
-    
-   /* @FXML
-    private void verificaHuella() {
-      verificarHuella("Elma");  
-      stop();
-      start();
-    }
-    
-    public void verificarHuella(String nom) {
-    try {
-    String duenioDedo = null;
-    ConnectionUtil newCon = new ConnectionUtil(); 
-    //Obtiene la plantilla correspondiente a la persona indicada
-    PreparedStatement verificarStmt = newCon.conDB().prepareStatement("SELECT HUELLA FROM MIEMBROS WHERE NOMBRES=?");
-    verificarStmt.setString(1,nom);
-    ResultSet rs = verificarStmt.executeQuery();
-
-    //Si se encuentra el nombre en la base de datos
-    if (rs.next()){
-    //Lee la plantilla de la base de datos
-    byte templateBuffer[] = rs.getBytes("HUELLA");
-    //duenioDedo = rs.getString("NOMBRES");
-    //Crea una nueva plantilla a partir de la guardada en la base de datos
-    DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(templateBuffer);
-    //Envia la plantilla creada al objeto contendor de Template del componente de huella digital
-    setTemplate(referenceTemplate);
-
-    // Compara las caracteriticas de la huella recientemente capturda con la
-    // plantilla guardada al usuario especifico en la base de datos
-    DPFPVerificationResult result = Verificador.verify(featuresverificacion, getTemplate());
-    
-    PreparedStatement verificarStmt2 = newCon.conDB().prepareStatement("SELECT NOMBRES FROM MIEMBROS WHERE HUELLA=?");
-    byte[] vrr = template.serialize();
-    verificarStmt2.setBytes(1,vrr);
-    ResultSet rs2 = verificarStmt2.executeQuery();
-     if (rs.next()){
-    duenioDedo = rs2.getString("NOMBRES");
-        System.out.println("EL DEDO ES DE:: " + duenioDedo);
-     }
-    //compara las plantilas (actual vs bd)
-    if (result.isVerified())
-    JOptionPane.showMessageDialog(null, "Las huella capturada coinciden con la de "+nom,"Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
-    else
-    JOptionPane.showMessageDialog(null, "No corresponde la huella con "+nom, "Verificacion de Huella", JOptionPane.ERROR_MESSAGE);
-
-    //Si no encuentra alguna huella correspondiente al nombre lo indica con un mensaje
-    } else {
-    JOptionPane.showMessageDialog(null, "No existe un registro de huella para "+nom, "Verificacion de Huella", JOptionPane.ERROR_MESSAGE);
-    }
-    } catch (SQLException e) {
-    //Si ocurre un error lo indica en la consola
-    System.err.println("Error al verificar los datos de la huella.");
-        System.out.println("Error :" +e);
-    }finally{
-        try {
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-   }*/
 
     private ObservableList<ObservableList> data;
     String SQL = "SELECT * FROM MIEMBROS";
@@ -550,52 +562,28 @@ public class UsuariosController implements Initializable{
         txtMensajes.setText(text);
         System.out.println(text);
     }
-    
-    public void identificarHuella() throws IOException{
-     try {
-       //Establece los valores para la sentencia SQL
-       ConnectionUtil newCon = new ConnectionUtil();
 
-       //Obtiene todas las huellas de la bd
-       PreparedStatement identificarStmt = newCon.conDB().prepareStatement("SELECT NOMBRES,HUELLA FROM MIEMBROS");
-       ResultSet rs = identificarStmt.executeQuery();
+    public void identificarHuella() throws  SQLException {
+        RegistroVisitasDB registroVisitasDB = new RegistroVisitasDB();
+        List<MiembrosModel> listaHuellas = registroVisitasDB.identificaHuella();
+        boolean existeHuella = false;
+        for (int i = 0; i < listaHuellas.size(); i++) {
 
-       //Si se encuentra el nombre en la base de datos
-       while(rs.next()){
-            //Lee la plantilla de la base de datos
-            byte templateBuffer[] = rs.getBytes("HUELLA");
-            String nombre=rs.getString("NOMBRES");
-            //Crea una nueva plantilla a partir de la guardada en la base de datos
-            DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(templateBuffer);
-            //Envia la plantilla creada al objeto contendor de Template del componente de huella digital
+            DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(listaHuellas.get(i).getHuella());
             setTemplate(referenceTemplate);
-
-            // Compara las caracteriticas de la huella recientemente capturda con la
-            // alguna plantilla guardada en la base de datos que coincide con ese tipo
             DPFPVerificationResult result = Verificador.verify(featuresverificacion, getTemplate());
-
-            //compara las plantilas (actual vs bd)
-            //Si encuentra correspondencia dibuja el mapa
-            //e indica el nombre de la persona que coincidió.
-            if (result.isVerified()){
+            if (result.isVerified()) {
                 //crea la imagen de los datos guardado de las huellas guardadas en la base de datos
-                JOptionPane.showMessageDialog(null, "Las huella capturada es de "+nombre,"Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
-                return;
+                JOptionPane.showMessageDialog(null, "¡Bienvenido " + listaHuellas.get(i).getNombres() + "," + " HDTRPM!", "Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    registroVisitasDB.registrarVisita(listaHuellas.get(i).getIdMiembro());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                existeHuella = true;
+                break;
             }
-       }
-       newCon.conDB().close();
-
-     //Si no encuentra alguna huella correspondiente al nombre lo indica con un mensaje
-       JOptionPane.showMessageDialog(null, "No existe ningún registro que coincida con la huella", "Verificacion de Huella", JOptionPane.ERROR_MESSAGE);
-       setTemplate(null);
-       } catch (SQLException e) {
-       //Si ocurre un error lo indica en la consola
-       System.err.println("Error al identificar huella dactilar."+e.getMessage());
-       }finally{
-         Reclutador.clear();
-       }
-   }
-
-    
+        }
+    }
    
 }

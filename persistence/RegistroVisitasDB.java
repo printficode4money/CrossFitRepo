@@ -13,7 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 public class RegistroVisitasDB {
-    public void registrarVisita(int idMiembro) throws IOException {
+
+    public void registrarVisita(int idMiembro) throws IOException, SQLException {
         ConnectionUtil connection = new ConnectionUtil();
         PreparedStatement preparedStatement;
         String query = null;
@@ -29,8 +30,11 @@ public class RegistroVisitasDB {
             preparedStatement.execute();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        }finally {
+            connection.conDB().close();
         }
     }
+
     public List<MiembrosModel> identificaHuella() throws SQLException {
         ConnectionUtil connection = new ConnectionUtil();
         List<MiembrosModel> listaMiembros = new ArrayList<>();

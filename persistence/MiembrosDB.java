@@ -1,0 +1,129 @@
+package persistence;
+
+import models.MiembrosModel;
+import utils.ConnectionUtil;
+
+import java.io.ByteArrayInputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class MiembrosDB {
+
+    public String guardarMiembro(MiembrosModel miembrosModel, ByteArrayInputStream datosHuella, Integer tamañoHuella) {
+        String resultado =  null;
+        ConnectionUtil newCon = new ConnectionUtil();
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        PreparedStatement preparedStatement;
+        try {
+            String queryInsert = "INSERT INTO MIEMBROS ( NOMBRES, APELLIDO_PAT, APELLIDO_MAT, EMAIL, SEXO, FECHA_NACIMIENTO, HUELLA, FECHA_REGISTRO) VALUES (?,?,?,?,?,?,?,?)";
+            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(queryInsert);
+            preparedStatement.setString(1, miembrosModel.getNombres());
+            preparedStatement.setString(2, miembrosModel.getApellidoPat());
+            preparedStatement.setString(3, miembrosModel.getApellidoMat());
+            preparedStatement.setString(4, miembrosModel.getEmail());
+            preparedStatement.setString(5, miembrosModel.getSexo());
+            preparedStatement.setString(6, miembrosModel.getFecha_Nacimiento().toString());
+            preparedStatement.setBinaryStream(7, datosHuella,tamañoHuella);
+            preparedStatement.setDate(8, sqlDate);
+            preparedStatement.execute();
+
+
+            return "Miembro agregado con éxito.";
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return "Ocurrió un error. Revise los datos.";
+        } finally {
+            try {
+                newCon.conDB().close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public MiembrosModel consultarMiembro(){
+        MiembrosModel miembrosModelRespuesta = new MiembrosModel();
+        ConnectionUtil newCon = new ConnectionUtil();
+        PreparedStatement preparedStatement;
+        try {
+            String querySelect = "SELECT * FROM MIEMBROS ORDER BY IDMIEMBRO DESC LIMIT 1";
+            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(querySelect);
+            preparedStatement.executeQuery();
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                miembrosModelRespuesta.setIdMiembro(rs.getInt("IDMIEMBRO"));
+                miembrosModelRespuesta.setNombres(rs.getString("NOMBRES"));
+                miembrosModelRespuesta.setApellidoPat(rs.getString("APELLIDO_PAT"));
+                miembrosModelRespuesta.setApellidoMat(rs.getString("APELLIDO_MAT"));
+                miembrosModelRespuesta.setEmail(rs.getString("EMAIL"));
+                miembrosModelRespuesta.setSexo(rs.getString("SEXO"));
+                miembrosModelRespuesta.setFecha_Nacimiento(rs.getString("FECHA_NACIMIENTO"));
+            }
+            return miembrosModelRespuesta;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        } finally {
+            try {
+                newCon.conDB().close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public double obtenerCostoMembresia(String tipoMembresia){
+        double resultado = 0;
+        ConnectionUtil newCon = new ConnectionUtil();
+        PreparedStatement preparedStatement;
+        try {
+            String st = "SELECT COSTO FROM CONFIG_MEMBRESIA WHERE TIPO_MEMBRESIA = ?";
+            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(st);
+            preparedStatement.setString(1, tipoMembresia);
+            preparedStatement.executeQuery();
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                resultado  = rs.getDouble("COSTO");
+            }
+            return resultado;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return 0.0;
+        } finally {
+            try {
+                newCon.conDB().close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public String cobrarMembresia(MiembrosModel miembrosModel, String tipoSuscripcion, double cantidad_Pago){
+        String resultado =  null;
+        ConnectionUtil newCon = new ConnectionUtil();
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date fechaPago = new java.sql.Date(utilDate.getTime());
+        PreparedStatement preparedStatement;
+        try {
+            String st = "INSERT INTO PAGOS_SUSCRIPCION ( IDMIEMBRO, FECHA_PAGO, TIPO_SUSCRIPCION, CANTIDAD_PAGO) VALUES (?,?,?,?)";
+            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(st);
+            preparedStatement.setInt(1, miembrosModel.getIdMiembro());
+            preparedStatement.setDate(2, fechaPago);
+            preparedStatement.setString(3, tipoSuscripcion);
+            preparedStatement.setDouble(4, cantidad_Pago);
+            preparedStatement.execute();
+            return "Pago registrado con éxito.";
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return "Ocurrió un error. Revise los datos.";
+        } finally {
+            try {
+                newCon.conDB().close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+}

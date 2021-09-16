@@ -278,7 +278,7 @@ public class RegistroVisitasController implements Initializable{
 }
 
     public void EnviarTexto(String string) {
-       txtMensajes.setText(string + "\n");
+        txtMensajes.setText(string + "\n");
     }
 
     public void identificarHuella() throws IOException, SQLException {
