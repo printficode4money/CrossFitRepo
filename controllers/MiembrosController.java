@@ -123,6 +123,21 @@ public class MiembrosController implements Initializable{
     @FXML
     private Button btnCobrar;
 
+    @FXML
+    private ComboBox cmbTipoSangre;
+
+    @FXML
+    private TextField txtNombreContactoEmer;
+
+    @FXML
+    private TextField txtTelContactoEmer;
+
+    @FXML
+    private TextArea txtAreaObserv;
+
+    @FXML
+    private Button btnRedirigeEditarUsuarios;
+
     private MiembrosModel miembrosModel = new MiembrosModel();
     private String sexo;
     final ToggleGroup group = new ToggleGroup();
@@ -159,6 +174,23 @@ public class MiembrosController implements Initializable{
                 } catch (IOException ex) {
                     System.err.println(ex.getMessage());
                 } 
+        }
+    }
+
+    @FXML
+    public void abreEditarUsuarios(MouseEvent event){
+        if (event.getSource() == btnRedirigeEditarUsuarios) {
+            try {
+                Lector.stopCapture();
+                Node node = (Node) event.getSource();
+                Stage stage = (Stage) node.getScene().getWindow();
+                stage.close();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Usuarios_Todos_Editar.fxml")));
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
         }
     }
 
@@ -368,6 +400,15 @@ public class MiembrosController implements Initializable{
         comboMembresias.getItems().add("Mensual");
         comboMembresias.getItems().add("Por día");
         comboMembresias.getItems().add("Cortesía");
+        cmbTipoSangre.getItems().add("O+");
+        cmbTipoSangre.getItems().add("O-");
+        cmbTipoSangre.getItems().add("A-");
+        cmbTipoSangre.getItems().add("A+");
+        cmbTipoSangre.getItems().add("B-");
+        cmbTipoSangre.getItems().add("B+");
+        cmbTipoSangre.getItems().add("AB-");
+        cmbTipoSangre.getItems().add("AB+");
+
         //detallesPane.setCollapsible(false);
         /*// TODO
         txtGender.getItems().addAll("Male", "Female", "Other");
@@ -398,6 +439,10 @@ public class MiembrosController implements Initializable{
             miembrosModel.setEmail(txtEmail.getText());
             miembrosModel.setFecha_Nacimiento(txtFecNacimiento.getValue().toString());
             miembrosModel.setSexo(sexo);
+            miembrosModel.setTipoSangre(cmbTipoSangre.getSelectionModel().getSelectedItem().toString());
+            miembrosModel.setNombreContactoEmer(txtNombreContactoEmer.getText());
+            miembrosModel.setTelefonoContactoEmer(txtTelContactoEmer.getText());
+            miembrosModel.setObservaciones(txtAreaObserv.getText());
             guardarMiembro(miembrosModel);
 
         }
@@ -409,7 +454,7 @@ public class MiembrosController implements Initializable{
         //MiembrosDB miembrosDB = new MiembrosDB();
        // System.out.println(comboMembresias.getSelectionModel().getSelectedItem().toString());
        //costoMembresia = miembrosDB.obtenerCostoMembresia(comboMembresias.getSelectionModel().getSelectedItem().toString());
-        txtMontoMem.setDisable(true);
+        txtMontoMem.setEditable(false);
     }
 
     @FXML
@@ -470,6 +515,9 @@ public class MiembrosController implements Initializable{
         txtFecNacimiento.getEditor().clear();
         hombreRadBtn.setSelected(false);
         mujerRadBtn.setSelected(false);
+        txtTelContactoEmer.clear();
+        txtAreaObserv.clear();
+        txtNombreContactoEmer.clear();
     }
     
     
@@ -487,7 +535,7 @@ public class MiembrosController implements Initializable{
             txtMensajes.setText(resultado);
             detallesPane.setCollapsible(true);
           //  guardarHuella();
-          //   fetRowList();
+            // fetRowList();
             //clear fields
             clearFields();
             //return "Success";

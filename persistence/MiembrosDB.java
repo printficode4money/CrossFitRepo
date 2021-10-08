@@ -1,6 +1,7 @@
 package persistence;
 
 import models.MiembrosModel;
+import org.jetbrains.annotations.NotNull;
 import utils.ConnectionUtil;
 
 import java.io.ByteArrayInputStream;
@@ -10,14 +11,14 @@ import java.sql.SQLException;
 
 public class MiembrosDB {
 
-    public String guardarMiembro(MiembrosModel miembrosModel, ByteArrayInputStream datosHuella, Integer tamañoHuella) {
+    public String guardarMiembro(@NotNull MiembrosModel miembrosModel, ByteArrayInputStream datosHuella, Integer tamañoHuella) {
         String resultado =  null;
         ConnectionUtil newCon = new ConnectionUtil();
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         PreparedStatement preparedStatement;
         try {
-            String queryInsert = "INSERT INTO MIEMBROS ( NOMBRES, APELLIDO_PAT, APELLIDO_MAT, EMAIL, SEXO, FECHA_NACIMIENTO, HUELLA, FECHA_REGISTRO) VALUES (?,?,?,?,?,?,?,?)";
+            String queryInsert = "INSERT INTO MIEMBROS ( NOMBRES, APELLIDO_PAT, APELLIDO_MAT, EMAIL, SEXO, FECHA_NACIMIENTO, HUELLA, FECHA_REGISTRO, NOMBRE_CONTACTO_EMER, TELEFONO_CONTACTO_EMER, TIPO_SANGRE, OBSERVACIONES) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(queryInsert);
             preparedStatement.setString(1, miembrosModel.getNombres());
             preparedStatement.setString(2, miembrosModel.getApellidoPat());
@@ -27,6 +28,10 @@ public class MiembrosDB {
             preparedStatement.setString(6, miembrosModel.getFecha_Nacimiento().toString());
             preparedStatement.setBinaryStream(7, datosHuella,tamañoHuella);
             preparedStatement.setDate(8, sqlDate);
+            preparedStatement.setString(9, miembrosModel.getNombreContactoEmer());
+            preparedStatement.setString(10, miembrosModel.getTelefonoContactoEmer());
+            preparedStatement.setString(11, miembrosModel.getTipoSangre());
+            preparedStatement.setString(12, miembrosModel.getObservaciones());
             preparedStatement.execute();
 
 

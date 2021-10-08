@@ -23,6 +23,46 @@ public class MiembrosModel {
 
     private String telefono;
 
+    private String telefonoContactoEmer;
+
+    private String tipoSangre;
+
+    private String Observaciones;
+
+    private String nombreContactoEmer;
+
+    public String getTelefonoContactoEmer() {
+        return telefonoContactoEmer;
+    }
+
+    public void setTelefonoContactoEmer(String telefonoContactoEmer) {
+        this.telefonoContactoEmer = telefonoContactoEmer;
+    }
+
+    public String getTipoSangre() {
+        return tipoSangre;
+    }
+
+    public void setTipoSangre(String tipoSangre) {
+        this.tipoSangre = tipoSangre;
+    }
+
+    public String getObservaciones() {
+        return Observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        Observaciones = observaciones;
+    }
+
+    public String getNombreContactoEmer() {
+        return nombreContactoEmer;
+    }
+
+    public void setNombreContactoEmer(String nombreContactoEmer) {
+        this.nombreContactoEmer = nombreContactoEmer;
+    }
+
     public String getFecha_Nacimiento() {
         return fecha_Nacimiento;
     }
