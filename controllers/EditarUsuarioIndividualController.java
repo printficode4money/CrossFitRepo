@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class EditarUsuarioIndividual implements Initializable {
+public class EditarUsuarioIndividualController implements Initializable {
     @FXML
     private Button btnRedirigeEditarUsuarios;
 

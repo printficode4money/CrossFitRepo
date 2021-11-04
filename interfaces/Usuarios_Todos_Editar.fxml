@@ -67,6 +67,7 @@
             <TableColumn fx:id="NOMBRES" prefWidth="75.0" text="NOMBRES" />
             <TableColumn fx:id="APELLIDO_PAT" prefWidth="75.0" text="APELLIDO_PAT" />
             <TableColumn fx:id="APELLIDO_MAT" prefWidth="75.0" text="APELLIDO_MAT" />
+            <TableColumn fx:id="FECHA_REGISTRO" prefWidth="75.0" text="FECHA_REGISTRO" />
          </columns>
       </TableView>
    </children>

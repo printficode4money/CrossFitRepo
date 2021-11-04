@@ -49,6 +49,9 @@ public class MiembrosEditarController implements Initializable {
     TableColumn APELLIDO_MAT;
 
     @FXML
+    TableColumn FECHA_REGISTRO;
+
+    @FXML
     private RadioButton hombreRadBtn;
 
     @FXML
@@ -144,6 +147,7 @@ public class MiembrosEditarController implements Initializable {
         NOMBRES.setCellValueFactory(new PropertyValueFactory<>("nombres"));
         APELLIDO_PAT.setCellValueFactory(new PropertyValueFactory<>("apellido_pat"));
         APELLIDO_MAT.setCellValueFactory(new PropertyValueFactory<>("apellido_mat"));
+        FECHA_REGISTRO.setCellValueFactory(new PropertyValueFactory<>("fecha_registro"));
         tableMiembros.setEditable(true);
         tableMiembros.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tableMiembros.getSelectionModel().setCellSelectionEnabled(false);
@@ -172,7 +176,7 @@ public class MiembrosEditarController implements Initializable {
                             Parent root = loader.load();
 
                             //Get controller of scene2
-                            EditarUsuarioIndividual scene2Controller = loader.getController();
+                            EditarUsuarioIndividualController scene2Controller = loader.getController();
                             //Pass whatever data you want. You can have multiple method calls here
                             scene2Controller.receiveData(miembro);
 

@@ -137,6 +137,11 @@ public class MiembrosDB {
                 miembrosModelRespuesta.setEmail(rs.getString("EMAIL"));
                 miembrosModelRespuesta.setSexo(rs.getString("SEXO"));
                 miembrosModelRespuesta.setFecha_Nacimiento(rs.getString("FECHA_NACIMIENTO"));
+                miembrosModelRespuesta.setTelefono(rs.getString("TELEFONO"));
+                miembrosModelRespuesta.setTelefonoContactoEmer(rs.getString("TELEFONO_CONTACTO_EMER"));
+                miembrosModelRespuesta.setNombreContactoEmer(rs.getString("NOMBRE_CONTACTO_EMER"));
+                miembrosModelRespuesta.setObservaciones(rs.getString("OBSERVACIONES"));
+                miembrosModelRespuesta.setTipoSangre(rs.getString("TIPO_SANGRE"));
             }
             return miembrosModelRespuesta;
         } catch (SQLException ex) {
@@ -210,16 +215,17 @@ public class MiembrosDB {
         data = FXCollections.observableArrayList();
         ResultSet rs;
         try {
-            rs = newCon.conDB().createStatement().executeQuery("SELECT IDMIEMBRO, NOMBRES, APELLIDO_PAT, APELLIDO_MAT  FROM MIEMBROS");
+            rs = newCon.conDB().createStatement().executeQuery("SELECT IDMIEMBRO, NOMBRES, APELLIDO_PAT, APELLIDO_MAT, FECHA_REGISTRO FROM MIEMBROS");
 
             while (rs.next()) {
-                MiembrosDataTableModel fila = new MiembrosDataTableModel(null, null, null, null);
+                MiembrosDataTableModel fila = new MiembrosDataTableModel(null, null, null, null, null);
                 int idMiembro = rs.getInt("idmiembro");
                 String idMiembroStg = String.valueOf(idMiembro);
                 fila.setIdmiembro(idMiembroStg);
                 fila.setNombres(rs.getString("nombres"));
                 fila.setApellido_pat(rs.getString("apellido_pat"));
                 fila.setApellido_mat(rs.getString("apellido_mat"));
+                fila.setFecha_registro(rs.getString("fecha_registro"));
                 data.add(fila);
             }
             //tableMiembros.setItems(data);

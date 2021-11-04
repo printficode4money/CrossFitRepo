@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPaneRaiz" minHeight="0.0" minWidth="0.0" prefHeight="501.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditarUsuarioIndividual">
+<AnchorPane fx:id="anchorPaneRaiz" minHeight="0.0" minWidth="0.0" prefHeight="501.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditarUsuarioIndividualController">
    <children>
       <TextField fx:id="txtNombres" layoutX="20.0" layoutY="22.0" promptText="Nombres(s)" />
       <TextField fx:id="txtApellidoPat" layoutX="20.0" layoutY="65.0" promptText="Apellido Paterno" />

@@ -6,13 +6,15 @@ public class MiembrosDataTableModel {
     String apellido_pat;
     String apellido_mat;
     String email;
+    String fecha_registro;
 
-    public MiembrosDataTableModel(String idmiembro, String nombres, String apellido_pat, String apellido_mat){
+    public MiembrosDataTableModel(String idmiembro, String nombres, String apellido_pat, String apellido_mat, String fecha_registro){
         super();
         this.idmiembro = idmiembro;
         this.nombres = nombres;
         this.apellido_pat = apellido_pat;
         this.apellido_mat = apellido_mat;
+        this.fecha_registro = fecha_registro;
     }
 
     public MiembrosDataTableModel() {
@@ -57,5 +59,13 @@ public class MiembrosDataTableModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFecha_registro() {
+        return fecha_registro;
+    }
+
+    public void setFecha_registro(String fecha_registro) {
+        this.fecha_registro = fecha_registro;
     }
 }
