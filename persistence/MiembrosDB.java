@@ -88,13 +88,45 @@ public class MiembrosDB {
         }
     }
 
-    public MiembrosModel consultarMiembro(){
+    public MiembrosModel consultarMiembroMasReciente(){
         MiembrosModel miembrosModelRespuesta = new MiembrosModel();
         ConnectionUtil newCon = new ConnectionUtil();
         PreparedStatement preparedStatement;
         try {
             String querySelect = "SELECT * FROM MIEMBROS ORDER BY IDMIEMBRO DESC LIMIT 1";
             preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(querySelect);
+            preparedStatement.executeQuery();
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                miembrosModelRespuesta.setIdMiembro(rs.getInt("IDMIEMBRO"));
+                miembrosModelRespuesta.setNombres(rs.getString("NOMBRES"));
+                miembrosModelRespuesta.setApellidoPat(rs.getString("APELLIDO_PAT"));
+                miembrosModelRespuesta.setApellidoMat(rs.getString("APELLIDO_MAT"));
+                miembrosModelRespuesta.setEmail(rs.getString("EMAIL"));
+                miembrosModelRespuesta.setSexo(rs.getString("SEXO"));
+                miembrosModelRespuesta.setFecha_Nacimiento(rs.getString("FECHA_NACIMIENTO"));
+            }
+            return miembrosModelRespuesta;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        } finally {
+            try {
+                newCon.conDB().close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public MiembrosModel consultarMiembroPorIdMiembro(String idMiembro){
+        MiembrosModel miembrosModelRespuesta = new MiembrosModel();
+        ConnectionUtil newCon = new ConnectionUtil();
+        PreparedStatement preparedStatement;
+        try {
+            String querySelect = "SELECT * FROM MIEMBROS WHERE IDMIEMBRO = ?";
+            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(querySelect);
+            preparedStatement.setString(1,idMiembro);
             preparedStatement.executeQuery();
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){

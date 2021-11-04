@@ -531,7 +531,7 @@ public class MiembrosController implements Initializable{
 
         try {
             resultado = miembrosDB.guardarMiembro(miembrosModelGuarda, datosHuella, tamañoHuella);
-            miembrosModel = miembrosDB.consultarMiembro();
+            miembrosModel = miembrosDB.consultarMiembroMasReciente();
             txtMensajes.setText(resultado);
             detallesPane.setCollapsible(true);
           //  guardarHuella();

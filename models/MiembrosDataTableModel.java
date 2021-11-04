@@ -15,6 +15,10 @@ public class MiembrosDataTableModel {
         this.apellido_mat = apellido_mat;
     }
 
+    public MiembrosDataTableModel() {
+
+    }
+
     public String getIdmiembro() {
         return idmiembro;
     }

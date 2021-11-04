@@ -6,9 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -83,7 +85,50 @@ public class MiembrosEditarController implements Initializable {
     private TextArea txtAreaObserv;
 
     @FXML
+    private ImageView imgHuella;
+
+    @FXML
     private TextField txtMensajes;
+
+    @FXML
+    private Button btnVerificar;
+
+    @FXML
+    private Button btnGuardarMiembro;
+
+
+
+    @FXML
+    private Button btnSave;
+
+    @FXML
+    private ComboBox<String> txtGender;
+
+    @FXML
+    TableView tblData;
+
+
+    @FXML
+    private ComboBox comboMembresias;
+
+    @FXML
+    private TextField txtMontoMem;
+
+    @FXML
+    private TitledPane detallesPane;
+
+    @FXML
+    private CheckBox chkDescuentoEspecial;
+
+    @FXML
+    private TextField txtPorcenDescuento;
+
+    @FXML
+    private Button btnTotalMembresia;
+
+    @FXML
+    private Button btnCobrar;
+
 
     private ObservableList<MiembrosDataTableModel> data;
     private MiembrosModel miembrosModel = new MiembrosModel();
@@ -112,13 +157,29 @@ public class MiembrosEditarController implements Initializable {
                     if(mouseEvent.getClickCount() == 2){
                         try {
                             MiembrosDataTableModel miembro = (MiembrosDataTableModel) tableMiembros.getSelectionModel().getSelectedItem();
-                            Node node = (Node) mouseEvent.getSource();
-                            Stage stage = (Stage) node.getScene().getWindow();
-                            //stage.setMaximized(true);
-                            stage.close();
-                            Scene scene = null;
-                            scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/EditarUsuario.fxml")));
-                            stage.setScene(scene);
+//                            Node node = (Node) mouseEvent.getSource();
+//                            Stage stage = (Stage) node.getScene().getWindow();
+//                            //stage.setMaximized(true);
+//                            stage.close();
+//                            Scene scene = null;
+//                            scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/EditarUsuario.fxml")));
+//                            stage.setUserData(miembro);
+//                            stage.setScene(scene);
+//                            stage.show();
+
+                            //Load second scene
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/EditarUsuario.fxml"));
+                            Parent root = loader.load();
+
+                            //Get controller of scene2
+                            EditarUsuarioIndividual scene2Controller = loader.getController();
+                            //Pass whatever data you want. You can have multiple method calls here
+                            scene2Controller.receiveData(miembro);
+
+                            //Show scene 2 in new window
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(root));
+                            stage.setTitle("Second Window");
                             stage.show();
                         } catch (IOException e) {
                             e.printStackTrace();
