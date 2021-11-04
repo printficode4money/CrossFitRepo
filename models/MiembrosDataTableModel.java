@@ -1,14 +1,13 @@
 package models;
 
 public class MiembrosDataTableModel {
-    int idmiembro;
+    String idmiembro;
     String nombres;
     String apellido_pat;
     String apellido_mat;
     String email;
 
-    public MiembrosDataTableModel(int idmiembro, String nombres, String apellido_pat, String apellido_mat)
-    {
+    public MiembrosDataTableModel(String idmiembro, String nombres, String apellido_pat, String apellido_mat){
         super();
         this.idmiembro = idmiembro;
         this.nombres = nombres;
@@ -16,11 +15,11 @@ public class MiembrosDataTableModel {
         this.apellido_mat = apellido_mat;
     }
 
-    public int getIdmiembro() {
+    public String getIdmiembro() {
         return idmiembro;
     }
 
-    public void setIdmiembro(int idmiembro) {
+    public void setIdmiembro(String idmiembro) {
         this.idmiembro = idmiembro;
     }
 
