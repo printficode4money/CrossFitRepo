@@ -15,26 +15,26 @@
    <children>
       <VBox layoutX="-1.0" layoutY="56.0" prefHeight="577.0" prefWidth="154.0" style="-fx-background-color: #000000;">
          <children>
-            <JFXButton alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="176.0" styleClass="sidebarItem" text="AGREGAR" textFill="WHITE">
+            <JFXButton fx:id="btnRedirigeAgregarUsuarios" alignment="BASELINE_LEFT" onMouseClicked="#abreAgregarUsuarios" prefHeight="18.0" prefWidth="176.0" styleClass="sidebarItem" text=" AGREGAR" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/add1.png" />
+                        <Image url="@../images/add_color.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnRedirigeEditarUsuarios" alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" styleClass="sidebarItem" text="EDITAR" textFill="WHITE">
+            <JFXButton fx:id="btnRedirigeEditarUsuarios" alignment="BASELINE_LEFT" prefHeight="38.0" prefWidth="176.0" styleClass="sidebarItem" text=" EDITAR" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/edit.png" />
+                        <Image url="@../images/edit_color.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -27,7 +27,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import models.Adeudo;
 import models.MiembrosModel;
+import models.Pagos_Suscripcion_Model;
+import persistence.MiembrosDB;
+import persistence.ParametrosDB;
 import persistence.RegistroVisitasDB;
 
 import javax.swing.*;
@@ -36,11 +40,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static java.lang.Math.abs;
 
 /**
  *
@@ -65,7 +74,6 @@ public class RegistroVisitasController implements Initializable{
     @FXML
     private Button btnMenuPrincipal;
 
-
     @FXML
     public void regresaMenuPrincipal(MouseEvent event) {
         if (event.getSource() == btnMenuPrincipal) {
@@ -87,7 +95,10 @@ public class RegistroVisitasController implements Initializable{
     }
 
     RegistroVisitasDB registroVisitasDB;
+    MiembrosController miembrosController;
+    ParametrosDB parametrosDB = new ParametrosDB();
     private DPFPCapture Lector = DPFPGlobal.getCaptureFactory().createCapture();
+    double multaDia = parametrosDB.consultaMulta();
 
     //Varible que permite establecer las capturas de la huellas, para determina sus caracteristicas
     // y poder estimar la creacion de un template de la huella para luego poder guardarla
@@ -286,17 +297,89 @@ public class RegistroVisitasController implements Initializable{
             @Override
             public void run() {
                 try {
+                    Pagos_Suscripcion_Model datos_Membresia = new Pagos_Suscripcion_Model();
                     registroVisitasDB = new RegistroVisitasDB();
+                    miembrosController = new MiembrosController();
+                    MiembrosDB miembrosDb = new MiembrosDB();
+                    Adeudo adeudo = new Adeudo();
+                    long diferenciaDias;
+                    Date fechaVenc = new Date();
                     List<MiembrosModel> listaHuellas = registroVisitasDB.identificaHuella();
                     boolean existeHuella = false;
-                    for (int i = 0; i < listaHuellas.size(); i++) {
+                    Optional<ButtonType> resultadoOpcModal;
 
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Verificación de Huella");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Elige una opción:");
+                    for (int i = 0; i < listaHuellas.size(); i++) {
                         DPFPTemplate referenceTemplate = DPFPGlobal.getTemplateFactory().createTemplate(listaHuellas.get(i).getHuella());
                         setTemplate(referenceTemplate);
                         DPFPVerificationResult result = Verificador.verify(featuresverificacion, getTemplate());
+
                         if (result.isVerified()) {
+                            datos_Membresia = registroVisitasDB.consultaVigenciaMembresia(listaHuellas.get(i).getIdMiembro());
+
+                            if(datos_Membresia != null){
+                                LocalDate todaysDate = LocalDate.now();
+                                todaysDate.toString();
+                                datos_Membresia.getVencimiento().toString();
+
+                                diferenciaDias = diferenciaEntreFechas(todaysDate.toString(), datos_Membresia.getVencimiento().toString());
+                                if(diferenciaDias >= 4){
+                                    JOptionPane.showMessageDialog(null, "¡Bienvenid@ " + listaHuellas.get(i).getNombres() + "," + " HDTRPM!", "Verificación de Huella", JOptionPane.INFORMATION_MESSAGE);
+                                }else if(diferenciaDias <=abs(3) && diferenciaDias >=abs(1)){
+                                    //TODO avisar de multas
+                                    JOptionPane.showMessageDialog(null, "¡Bienvenid@ " + listaHuellas.get(i).getNombres() + "," + " ATENCION! TU MEMBRESIA VENCE EL DIA: "+ datos_Membresia.getVencimiento().toString(), "Verificación de Huella", JOptionPane.WARNING_MESSAGE);
+                                }else if(diferenciaDias <= -1){
+                                    alert.setTitle("Verificación de Huella");
+                                    alert.setHeaderText("Membresía Vencida");
+                                    alert.setContentText("Elige una opción:");
+                                    ButtonType btnAceptarMulta = new ButtonType("Aceptar Multa");
+                                    ButtonType btnRenovar = new ButtonType("Renovar");
+                                    ButtonType btnCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+                                    alert.getButtonTypes().setAll(btnAceptarMulta, btnRenovar, btnCancelar);
+
+                                    resultadoOpcModal = alert.showAndWait();
+                                    if (resultadoOpcModal.get() == btnAceptarMulta) {
+                                        //TODO validar que solo una multa por dia sea posible
+                                        adeudo = miembrosDb.generaAdeudo(listaHuellas.get(i).getIdMiembro(), "Multa del día "+ todaysDate.toString(), multaDia);
+                                        JOptionPane.showMessageDialog(null, adeudo.getMensajeRespuesta() + "," + " Por favor preveé tu vencimiento para evitar multas", "Verificación de Huella", JOptionPane.INFORMATION_MESSAGE);
+
+                                    }else if(resultadoOpcModal.get() == btnRenovar) {
+
+                                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/MiembrosRenovar.fxml"));
+                                        Parent root = loader.load();
+                                        MiembrosRenovarController scene2Controller = loader.getController();
+                                        scene2Controller.receiveData(listaHuellas.get(i).getIdMiembro());
+
+                                        //Show scene 2 in new window
+                                        Stage stage = new Stage();
+                                        stage.setScene(new Scene(root));
+                                        stage.setTitle("Second Window");
+                                        stage.show();
+                                    }
+
+                                    //JOptionPane.showMessageDialog(null, "¡Hola " + listaHuellas.get(i).getNombres() + "," + " TU MEMBRESIA VENCIO EL DIA: "+ datos_Membresia.getVencimiento().toString(), "Verificación de Huella", JOptionPane.WARNING_MESSAGE);
+                                }
+
+                                //fechaVenc = miembrosController.validaFecha_Vencimiento(datos_Membresia.getVencimiento(), datos_Membresia.getTipoSuscripcion());
+//                                if(datos_Membresia.getVencimiento()){
+//
+//                                }
+
+
+
+
+
+                            }
+
+
+
+
                             //crea la imagen de los datos guardado de las huellas guardadas en la base de datos
-                            JOptionPane.showMessageDialog(null, "¡Bienvenido " + listaHuellas.get(i).getNombres() + "," + " HDTRPM!", "Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
+                            //TODO validar fecha_vencimiento para mostrar alertas segun dias restantes de membresia
+                            //JOptionPane.showMessageDialog(null, "¡Bienvenido " + listaHuellas.get(i).getNombres() + "," + " HDTRPM!", "Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
                             try {
                                 registroVisitasDB.registrarVisita(listaHuellas.get(i).getIdMiembro());
                             } catch (IOException e) {
@@ -307,8 +390,8 @@ public class RegistroVisitasController implements Initializable{
                         }
                     }
                     //Si no encuentra alguna huella correspondiente al nombre lo indica con un mensaje
-                    if (existeHuella == false) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    if (!existeHuella) {
+                        //Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Verificación de Huella");
                         alert.setHeaderText(null);
                         alert.setContentText("Elige una opción:");
@@ -320,8 +403,8 @@ public class RegistroVisitasController implements Initializable{
 
                         alert.getButtonTypes().setAll(btnRegistrarModal, buttonTypeCancel);
 
-                        Optional<ButtonType> result = alert.showAndWait();
-                        if (result.get() == btnRegistrarModal) {
+                        resultadoOpcModal = alert.showAndWait();
+                        if (resultadoOpcModal.get() == btnRegistrarModal) {
 
                             Lector.stopCapture();
                             Window window = txtMensajes.getScene().getWindow();
@@ -351,6 +434,57 @@ public class RegistroVisitasController implements Initializable{
             }
 
         });
+    }
+
+    public long diferenciaEntreFechas(String start_date, String end_date){
+        long difference_In_Days = 0;
+        // SimpleDateFormat converts the
+        // string format to date object
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Try Block
+        try {
+            // parse method is used to parse
+            // the text from a string to
+            // produce the date
+            Date d1 = sdf.parse(start_date);
+            Date d2 = sdf.parse(end_date);
+
+            // Calucalte time difference
+            // in milliseconds
+            long difference_In_Time
+                    = d2.getTime() - d1.getTime();
+
+            // Calucalte time difference in
+            // seconds, minutes, hours, years,
+            // and days
+            /*long difference_In_Seconds
+                    = (difference_In_Time
+                    / 1000)
+                    % 60;*/
+
+            /*long difference_In_Minutes
+                    = (difference_In_Time
+                    / (1000 * 60))
+                    % 60;*/
+
+            /*long difference_In_Hours
+                    = (difference_In_Time
+                    / (1000 * 60 * 60))
+                    % 24;*/
+
+            /*long difference_In_Years
+                    = (difference_In_Time
+                    / (1000l * 60 * 60 * 24 * 365));*/
+
+            difference_In_Days = (difference_In_Time/ (1000 * 60 * 60 * 24)) % 365;
+        }
+
+        // Catch the Exception
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return difference_In_Days;
     }
 
 }

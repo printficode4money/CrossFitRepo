@@ -20,28 +20,28 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="1102.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MiembrosController">
     <children>
-        <VBox layoutX="-1.0" layoutY="56.0" prefHeight="577.0" prefWidth="154.0" style="-fx-background-color: #000000;">
+        <VBox layoutX="-1.0" layoutY="56.0" prefHeight="577.0" prefWidth="154.0" style="-fx-background-color: #000000; -fx-border-color: #000000;">
          <children>
-            <JFXButton alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="176.0" styleClass="sidebarItem" text="AGREGAR" textFill="WHITE">
+            <JFXButton alignment="BASELINE_LEFT" prefHeight="18.0" prefWidth="176.0" styleClass="sidebarItem" text=" AGREGAR" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/add1.png" />
+                        <Image url="@../images/add_color.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnRedirigeEditarUsuarios" alignment="BASELINE_LEFT" onMouseClicked="#abreEditarUsuarios" prefHeight="38.0" prefWidth="176.0" styleClass="sidebarItem" text="EDITAR" textFill="WHITE">
+            <JFXButton fx:id="btnRedirigeEditarUsuarios" alignment="BASELINE_LEFT" onMouseClicked="#abreEditarUsuarios" prefHeight="38.0" prefWidth="176.0" styleClass="sidebarItem" text=" EDITAR" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/edit.png" />
+                        <Image url="@../images/edit_color.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -102,29 +102,21 @@
                   <Font name="System Bold" size="12.0" />
                </font>
                 </TitledPane>
-                <TitledPane animated="false" text="untitled 3">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </TitledPane>
             </panes>
         </Accordion>
         <Pane layoutX="-1.0" prefHeight="57.0" prefWidth="1102.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;">
          <children>
-            <Button fx:id="btnMenuPrincipal" mnemonicParsing="false" onMouseClicked="#regresaMenuPrincipal" prefHeight="57.0" prefWidth="71.0" style="-fx-border-color: #000000;">
-               <graphic>
-                  <ImageView fitHeight="43.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../Documents/ProyectosNetbeans/Gym/GymApp/src/images/dash1.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label fx:id="MenuClose" layoutX="71.0" layoutY="5.0" prefHeight="47.0" prefWidth="185.0" text="MENU PRINCIPAL" textFill="#b7b7b7">
+            <Button fx:id="btnMenuPrincipal" layoutX="1.0" mnemonicParsing="false" onMouseClicked="#regresaMenuPrincipal" prefHeight="57.0" prefWidth="71.0" style="-fx-border-color: #000000;" />
+            <Label fx:id="MenuClose" layoutX="79.0" layoutY="5.0" prefHeight="47.0" prefWidth="185.0" text="MENU PRINCIPAL" textFill="#b7b7b7">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+            <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Documents/ProyectosNetbeans/Gym/GymApp/src/images/dash1.png" />
+               </image>
+            </ImageView>
          </children></Pane>
     </children>
 </Pane>

@@ -46,8 +46,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MiembrosController implements Initializable{
     
@@ -482,13 +481,40 @@ public class MiembrosController implements Initializable{
         MiembrosDB miembrosDB = new MiembrosDB();
         String resultado = null;
         String tipoSuscripcion = comboMembresias.getSelectionModel().getSelectedItem().toString();
-        Double cantidad_Pago = Double.valueOf(txtMontoMem.getText().toString());
-        resultado = miembrosDB.cobrarMembresia(miembrosModel, tipoSuscripcion, cantidad_Pago);
+        Double cantidad_Pago = Double.valueOf(txtMontoMem.getText());
+        java.util.Date fechaVencimiento = new java.util.Date();
+        fechaVencimiento = validaFecha_Vencimiento(fechaVencimiento, tipoSuscripcion);
+        resultado = miembrosDB.cobrarMembresia(miembrosModel, tipoSuscripcion, cantidad_Pago, fechaVencimiento);
         if(resultado.contains("éxito")) {
-            JOptionPane.showMessageDialog(null, resultado + " ," + " HDTRPM!", "Resultado Cobro", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, resultado, "Resultado Cobro", JOptionPane.INFORMATION_MESSAGE);
         }else if(resultado.contains("error")){
             JOptionPane.showMessageDialog(null, resultado + " ," + " HDTRPM!", "Resultado Cobro", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    private Calendar dateToCalendar(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+
+    private Date calendarToDate(Calendar calendar) {
+        return calendar.getTime();
+    }
+
+    public Date validaFecha_Vencimiento(Date utilDate, String tipoSuscripcion){
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT-7"));
+        calendar.setTime(utilDate);
+        if(tipoSuscripcion.equals("Mensual")){
+            calendar.add(Calendar.DATE, 30);
+        }else if(tipoSuscripcion.equals("Por Día")){
+            calendar.add(Calendar.DATE, 1);
+        }else if(tipoSuscripcion.equals("Cortesía")){
+            calendar.add(Calendar.DATE, 0);
+        }else if(tipoSuscripcion.equals("Semanal")) {
+            calendar.add(Calendar.DATE, 7);
+        }
+        return utilDate = calendar.getTime();
     }
 
 

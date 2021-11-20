@@ -31,6 +31,9 @@ public class MiembrosEditarController implements Initializable {
     private Button btnRedirigeEditarUsuarios;
 
     @FXML
+    private Button btnRedirigeAgregarUsuarios;
+
+    @FXML
     private Button btnMenuPrincipal;
 
     @FXML
@@ -337,5 +340,22 @@ public class MiembrosEditarController implements Initializable {
         txtTelContactoEmer.clear();
         txtAreaObserv.clear();
         txtNombreContactoEmer.clear();
+    }
+
+    @FXML
+    public void abreAgregarUsuarios(MouseEvent event){
+        if (event.getSource() == btnRedirigeAgregarUsuarios) {
+            try {
+                //Lector.stopCapture();
+                Node node = (Node) event.getSource();
+                Stage stage = (Stage) node.getScene().getWindow();
+                stage.close();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Usuarios2.fxml")));
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
     }
 }

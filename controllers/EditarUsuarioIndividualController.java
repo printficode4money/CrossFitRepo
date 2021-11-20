@@ -76,8 +76,6 @@ public class EditarUsuarioIndividualController implements Initializable {
     @FXML
     private Button btnGuardarMiembro;
 
-
-
     @FXML
     private Button btnSave;
 
@@ -112,6 +110,7 @@ public class EditarUsuarioIndividualController implements Initializable {
     private ObservableList<MiembrosDataTableModel> data;
     private MiembrosModel miembrosModel = new MiembrosModel();
     private String sexo;
+    private String idMiembro;
     final ToggleGroup group = new ToggleGroup();
     private double costoMembresia;
     private MiembrosDataTableModel miembrosDataModel = new MiembrosDataTableModel();
@@ -149,7 +148,7 @@ public class EditarUsuarioIndividualController implements Initializable {
             miembrosModel.setEmail(txtEmail.getText());
             miembrosModel.setFecha_Nacimiento(txtFecNacimiento.getValue().toString());
             miembrosModel.setSexo(sexo);
-            miembrosModel.setTipoSangre(cmbTipoSangre.getSelectionModel().getSelectedItem().toString());
+            //miembrosModel.setTipoSangre(cmbTipoSangre.getSelectionModel().getSelectedItem().toString());
             miembrosModel.setNombreContactoEmer(txtNombreContactoEmer.getText());
             miembrosModel.setTelefonoContactoEmer(txtTelContactoEmer.getText());
             miembrosModel.setObservaciones(txtAreaObserv.getText());
@@ -157,16 +156,17 @@ public class EditarUsuarioIndividualController implements Initializable {
         }
     }
 
-    private void actualizaMiembro(MiembrosModel miembrosModelGuarda) {
+    private void actualizaMiembro(MiembrosModel miembro) {
         //Obtiene los datos del template de la huella actual
         String resultado = null;
+        miembro.setIdMiembro(Integer.parseInt(idMiembro));
         /*ByteArrayInputStream datosHuella = new ByteArrayInputStream(template.serialize());
         Integer tamañoHuella=template.serialize().length;*/
         MiembrosDB miembrosDB = new MiembrosDB();
 
         try {
-         /*   resultado = miembrosDB.guardarMiembro(miembrosModelGuarda, datosHuella, tamañoHuella);
-            miembrosModel = miembrosDB.consultarMiembro();
+            resultado = miembrosDB.actualizaMiembro(miembro);
+            //miembrosModel = miembrosDB.consultarMiembro();
             txtMensajes.setText(resultado);
             //detallesPane.setCollapsible(true);
             //  guardarHuella();
@@ -222,7 +222,7 @@ public class EditarUsuarioIndividualController implements Initializable {
 
     public void receiveData(MiembrosDataTableModel miembro) {
         MiembrosDB miembrosDB = new MiembrosDB();
-        String idMiembro = miembro.getIdmiembro();
+        idMiembro = miembro.getIdmiembro();
         miembrosModel = miembrosDB.consultarMiembroPorIdMiembro(idMiembro);
 
         txtNombres.setText(miembrosModel.getNombres());

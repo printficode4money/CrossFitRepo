@@ -1,6 +1,7 @@
 package persistence;
 
 import models.MiembrosModel;
+import models.Pagos_Suscripcion_Model;
 import utils.ConnectionUtil;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -21,7 +22,6 @@ public class RegistroVisitasDB {
         Date fechaHoy = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Timestamp timestamp = new Timestamp(fechaHoy.getTime());
-        System.out.println("TIMESTAMP ::  "+ timestamp);
         try {
             query = "INSERT INTO REGISTRO_VISITAS (IDMIEMBRO, FECHA_ULTIMA_VISITA) VALUES (?,?)";
             preparedStatement = (PreparedStatement) connection.conDB().prepareStatement(query);
@@ -39,7 +39,6 @@ public class RegistroVisitasDB {
         ConnectionUtil connection = new ConnectionUtil();
         List<MiembrosModel> listaMiembros = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement;
             PreparedStatement identificarStmt = connection.conDB().prepareStatement("SELECT NOMBRES, IDMIEMBRO, HUELLA FROM MIEMBROS");
             ResultSet rs = identificarStmt.executeQuery();
             while(rs.next()){
@@ -56,5 +55,29 @@ public class RegistroVisitasDB {
             connection.conDB().close();
         }
         return listaMiembros;
+    }
+
+    public Pagos_Suscripcion_Model consultaVigenciaMembresia(int idMiembro)throws SQLException {
+        ConnectionUtil connection = new ConnectionUtil();
+        List<MiembrosModel> listaMiembros = new ArrayList<>();
+        Pagos_Suscripcion_Model resultado = new Pagos_Suscripcion_Model();
+        try {
+            PreparedStatement identificarStmt = connection.conDB().prepareStatement("SELECT * FROM PAGOS_SUSCRIPCION WHERE IDMIEMBRO = ? ORDER BY FECHA_PAGO DESC LIMIT 1");
+            identificarStmt.setInt(1, idMiembro);
+            ResultSet rs = identificarStmt.executeQuery();
+            while(rs.next()){
+                resultado.setIdPago(rs.getInt("IDPAGO"));
+                resultado.setIdMiembro(rs.getInt("IDMIEMBRO"));
+                resultado.setFechaPago(rs.getDate("FECHA_PAGO"));
+                resultado.setTipoSuscripcion(rs.getString("TIPO_SUSCRIPCION"));
+                resultado.setCantidadPago(rs.getDouble("CANTIDAD_PAGO"));
+                resultado.setVencimiento(rs.getDate("VENCIMIENTO"));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }finally {
+            connection.conDB().close();
+        }
+    return resultado;
     }
 }
