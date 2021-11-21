@@ -27,21 +27,21 @@ public class MiembrosDB {
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         PreparedStatement preparedStatement;
         try {
-            String queryInsert = "INSERT INTO MIEMBROS ( NOMBRES, APELLIDO_PAT, APELLIDO_MAT, EMAIL, SEXO, FECHA_NACIMIENTO, HUELLA, FECHA_REGISTRO, NOMBRE_CONTACTO_EMER, TELEFONO_CONTACTO_EMER, TIPO_SANGRE, OBSERVACIONES) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+            String queryInsert = "INSERT INTO MIEMBROS ( NOMBRES, APELLIDO_PAT, APELLIDO_MAT, TELEFONO, EMAIL, SEXO, FECHA_NACIMIENTO, HUELLA, FECHA_REGISTRO, NOMBRE_CONTACTO_EMER, TELEFONO_CONTACTO_EMER, TIPO_SANGRE, OBSERVACIONES) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(queryInsert);
             preparedStatement.setString(1, miembrosModel.getNombres());
             preparedStatement.setString(2, miembrosModel.getApellidoPat());
             preparedStatement.setString(3, miembrosModel.getApellidoMat());
-            preparedStatement.setString(4, miembrosModel.getEmail());
-            preparedStatement.setString(5, miembrosModel.getSexo());
-            preparedStatement.setString(6, miembrosModel.getFecha_Nacimiento().toString());
-            preparedStatement.setBinaryStream(7, datosHuella,tamañoHuella);
-            preparedStatement.setDate(8, sqlDate);
-            preparedStatement.setString(9, miembrosModel.getNombreContactoEmer());
-            preparedStatement.setString(10, miembrosModel.getTelefonoContactoEmer());
-            preparedStatement.setString(11, miembrosModel.getTipoSangre());
-            preparedStatement.setString(12, miembrosModel.getObservaciones());
-            preparedStatement.setString(13, miembrosModel.getTelefono());
+            preparedStatement.setString(4, miembrosModel.getTelefono());
+            preparedStatement.setString(5, miembrosModel.getEmail());
+            preparedStatement.setString(6, miembrosModel.getSexo());
+            preparedStatement.setString(7, miembrosModel.getFecha_Nacimiento().toString());
+            preparedStatement.setBinaryStream(8, datosHuella,tamañoHuella);
+            preparedStatement.setDate(9, sqlDate);
+            preparedStatement.setString(10, miembrosModel.getNombreContactoEmer());
+            preparedStatement.setString(11, miembrosModel.getTelefonoContactoEmer());
+            preparedStatement.setString(12, miembrosModel.getTipoSangre());
+            preparedStatement.setString(13, miembrosModel.getObservaciones());
             preparedStatement.execute();
             return "Miembro agregado con éxito.";
         } catch (SQLException ex) {
@@ -56,7 +56,43 @@ public class MiembrosDB {
         }
     }
 
-    public String actualizaMiembro(@NotNull MiembrosModel miembrosModel) {
+    public String actualizaMiembro(@NotNull MiembrosModel miembrosModel, ByteArrayInputStream datosHuella, Integer tamañoHuella) {
+        String resultado =  null;
+        ConnectionUtil newCon = new ConnectionUtil();
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        PreparedStatement preparedStatement;
+        try {
+            String queryInsert = "UPDATE MIEMBROS SET NOMBRES=?, APELLIDO_PAT=?, APELLIDO_MAT=?, EMAIL=?, SEXO=?, FECHA_NACIMIENTO=?, HUELLA =?, NOMBRE_CONTACTO_EMER=?, TELEFONO_CONTACTO_EMER=?, TIPO_SANGRE=?, OBSERVACIONES=?, TELEFONO=? WHERE IDMIEMBRO = ?";
+            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(queryInsert);
+            preparedStatement.setString(1, miembrosModel.getNombres());
+            preparedStatement.setString(2, miembrosModel.getApellidoPat());
+            preparedStatement.setString(3, miembrosModel.getApellidoMat());
+            preparedStatement.setString(4, miembrosModel.getEmail());
+            preparedStatement.setString(5, miembrosModel.getSexo());
+            preparedStatement.setString(6, miembrosModel.getFecha_Nacimiento().toString());
+            preparedStatement.setBinaryStream(7, datosHuella,tamañoHuella);
+            preparedStatement.setString(8, miembrosModel.getNombreContactoEmer());
+            preparedStatement.setString(9, miembrosModel.getTelefonoContactoEmer());
+            preparedStatement.setString(10, miembrosModel.getTipoSangre());
+            preparedStatement.setString(11, miembrosModel.getObservaciones());
+            preparedStatement.setString(12, miembrosModel.getTelefono());
+            preparedStatement.setString(13, String.valueOf(miembrosModel.getIdMiembro()));
+            preparedStatement.execute();
+            return "Miembro actualizado con éxito.";
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return "Ocurrió un error. Revise los datos.";
+        } finally {
+            try {
+                newCon.conDB().close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public String actualizaMiembroSinHuella(@NotNull MiembrosModel miembrosModel) {
         String resultado =  null;
         ConnectionUtil newCon = new ConnectionUtil();
         java.util.Date utilDate = new java.util.Date();
@@ -71,8 +107,6 @@ public class MiembrosDB {
             preparedStatement.setString(4, miembrosModel.getEmail());
             preparedStatement.setString(5, miembrosModel.getSexo());
             preparedStatement.setString(6, miembrosModel.getFecha_Nacimiento().toString());
-            //preparedStatement.setBinaryStream(7, datosHuella,tamañoHuella);
-            //preparedStatement.setDate(7, sqlDate);
             preparedStatement.setString(7, miembrosModel.getNombreContactoEmer());
             preparedStatement.setString(8, miembrosModel.getTelefonoContactoEmer());
             preparedStatement.setString(9, miembrosModel.getTipoSangre());
@@ -243,7 +277,7 @@ public class MiembrosDB {
         data = FXCollections.observableArrayList();
         ResultSet rs;
         try {
-            rs = newCon.conDB().createStatement().executeQuery("SELECT IDMIEMBRO, NOMBRES, APELLIDO_PAT, APELLIDO_MAT, FECHA_REGISTRO FROM MIEMBROS");
+            rs = newCon.conDB().createStatement().executeQuery("SELECT IDMIEMBRO, NOMBRES, APELLIDO_PAT, APELLIDO_MAT, DATE_FORMAT( FECHA_REGISTRO,  '%d-%m-%Y' ) as FECHA_REGISTRO FROM MIEMBROS");
 
             while (rs.next()) {
                 MiembrosDataTableModel fila = new MiembrosDataTableModel(null, null, null, null, null);

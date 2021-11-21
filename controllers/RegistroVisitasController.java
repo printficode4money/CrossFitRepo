@@ -307,7 +307,7 @@ public class RegistroVisitasController implements Initializable{
                     List<MiembrosModel> listaHuellas = registroVisitasDB.identificaHuella();
                     boolean existeHuella = false;
                     Optional<ButtonType> resultadoOpcModal;
-
+                    boolean existeMembresia = false;
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Verificación de Huella");
                     alert.setHeaderText(null);
@@ -327,9 +327,11 @@ public class RegistroVisitasController implements Initializable{
 
                                 diferenciaDias = diferenciaEntreFechas(todaysDate.toString(), datos_Membresia.getVencimiento().toString());
                                 if(diferenciaDias >= 4){
+                                    existeMembresia = true;
                                     JOptionPane.showMessageDialog(null, "¡Bienvenid@ " + listaHuellas.get(i).getNombres() + "," + " HDTRPM!", "Verificación de Huella", JOptionPane.INFORMATION_MESSAGE);
                                 }else if(diferenciaDias <=abs(3) && diferenciaDias >=abs(1)){
                                     //TODO avisar de multas
+                                    existeMembresia = true;
                                     JOptionPane.showMessageDialog(null, "¡Bienvenid@ " + listaHuellas.get(i).getNombres() + "," + " ATENCION! TU MEMBRESIA VENCE EL DIA: "+ datos_Membresia.getVencimiento().toString(), "Verificación de Huella", JOptionPane.WARNING_MESSAGE);
                                 }else if(diferenciaDias <= -1){
                                     alert.setTitle("Verificación de Huella");
@@ -343,6 +345,7 @@ public class RegistroVisitasController implements Initializable{
                                     resultadoOpcModal = alert.showAndWait();
                                     if (resultadoOpcModal.get() == btnAceptarMulta) {
                                         //TODO validar que solo una multa por dia sea posible
+                                        existeMembresia = true;
                                         adeudo = miembrosDb.generaAdeudo(listaHuellas.get(i).getIdMiembro(), "Multa del día "+ todaysDate.toString(), multaDia);
                                         JOptionPane.showMessageDialog(null, adeudo.getMensajeRespuesta() + "," + " Por favor preveé tu vencimiento para evitar multas", "Verificación de Huella", JOptionPane.INFORMATION_MESSAGE);
 
@@ -356,32 +359,44 @@ public class RegistroVisitasController implements Initializable{
                                         //Show scene 2 in new window
                                         Stage stage = new Stage();
                                         stage.setScene(new Scene(root));
-                                        stage.setTitle("Second Window");
+                                        stage.setTitle("Renovación de Membresía");
                                         stage.show();
+                                        datos_Membresia = registroVisitasDB.consultaVigenciaMembresia(listaHuellas.get(i).getIdMiembro());
+                                        if(datos_Membresia != null) {
+                                            existeMembresia = true;
+                                        }
                                     }
-
-                                    //JOptionPane.showMessageDialog(null, "¡Hola " + listaHuellas.get(i).getNombres() + "," + " TU MEMBRESIA VENCIO EL DIA: "+ datos_Membresia.getVencimiento().toString(), "Verificación de Huella", JOptionPane.WARNING_MESSAGE);
                                 }
 
-                                //fechaVenc = miembrosController.validaFecha_Vencimiento(datos_Membresia.getVencimiento(), datos_Membresia.getTipoSuscripcion());
-//                                if(datos_Membresia.getVencimiento()){
-//
-//                                }
+                            }else{
+                                alert.setTitle("Verificación de Huella");
+                                alert.setHeaderText("Membresía No Encontrada para el miembro");
+                                alert.setContentText("Elige una opción para continuar:");
+                                ButtonType btnCrearMembresia = new ButtonType("Generar Membresía");
+                                ButtonType btnCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+                                alert.getButtonTypes().setAll(btnCrearMembresia, btnCancelar);
+                                resultadoOpcModal = alert.showAndWait();
+                                if (resultadoOpcModal.get() == btnCrearMembresia) {
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/MiembrosRenovar.fxml"));
+                                    Parent root = loader.load();
+                                    MiembrosRenovarController scene2Controller = loader.getController();
+                                    scene2Controller.receiveData(listaHuellas.get(i).getIdMiembro());
 
-
-
-
-
+                                    Stage stage = new Stage();
+                                    stage.setScene(new Scene(root));
+                                    stage.setTitle("Creación de Membresía");
+                                    stage.show();
+                                    datos_Membresia = registroVisitasDB.consultaVigenciaMembresia(listaHuellas.get(i).getIdMiembro());
+                                    if(datos_Membresia != null) {
+                                        existeMembresia = true;
+                                    }
+                                }
                             }
-
-
-
-
-                            //crea la imagen de los datos guardado de las huellas guardadas en la base de datos
-                            //TODO validar fecha_vencimiento para mostrar alertas segun dias restantes de membresia
-                            //JOptionPane.showMessageDialog(null, "¡Bienvenido " + listaHuellas.get(i).getNombres() + "," + " HDTRPM!", "Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
+//TODO  VALIDAR QUE AL COBRAR SE REGISTRE VISITA
                             try {
-                                registroVisitasDB.registrarVisita(listaHuellas.get(i).getIdMiembro());
+                                if(existeMembresia) {
+                                    registroVisitasDB.registrarVisita(listaHuellas.get(i).getIdMiembro());
+                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -393,41 +408,27 @@ public class RegistroVisitasController implements Initializable{
                     if (!existeHuella) {
                         //Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                         alert.setTitle("Verificación de Huella");
-                        alert.setHeaderText(null);
+                        alert.setHeaderText("No existe un miembro con esta huella");
                         alert.setContentText("Elige una opción:");
-
-                        ButtonType btnRegistrarModal = new ButtonType("Registar");
-                        /*ButtonType buttonTypeTwo = new ButtonType("Cancelar");*/
-                        /* ButtonType buttonTypeThree = new ButtonType("Three");*/
+                        ButtonType btnRegistrarModal = new ButtonType("Registrar");
                         ButtonType buttonTypeCancel = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-
                         alert.getButtonTypes().setAll(btnRegistrarModal, buttonTypeCancel);
-
                         resultadoOpcModal = alert.showAndWait();
-                        if (resultadoOpcModal.get() == btnRegistrarModal) {
 
+                        if (resultadoOpcModal.get() == btnRegistrarModal) {
                             Lector.stopCapture();
                             Window window = txtMensajes.getScene().getWindow();
                             window.hide();
-
                             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Usuarios2.fxml"));
                             Parent root1 = (Parent) fxmlLoader.load();
                             Stage stage = new Stage();
                             stage.setScene(new Scene(root1));
                             stage.show();
-
-                        } /*else if (result.get() == buttonTypeTwo) {
-                            // ... user chose "Two"
-                        } else if (result.get() == buttonTypeThree) {
-                            // ... user chose "Three"
-                        } else {
-                            // ... user chose CANCEL or closed the dialog
-                        }*/
+                        }
                         setTemplate(null);
                     }
                 } catch (SQLException | IOException e) {
-                    //Si ocurre un error lo indica en la consola
-                    System.err.println("Error al identificar huella dactilar." + e.getMessage());
+                    System.err.println("Error al identificar huella digital." + e.getMessage());
                 } finally {
                     Reclutador.clear();
                 }

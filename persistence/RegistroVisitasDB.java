@@ -59,19 +59,22 @@ public class RegistroVisitasDB {
 
     public Pagos_Suscripcion_Model consultaVigenciaMembresia(int idMiembro)throws SQLException {
         ConnectionUtil connection = new ConnectionUtil();
-        List<MiembrosModel> listaMiembros = new ArrayList<>();
         Pagos_Suscripcion_Model resultado = new Pagos_Suscripcion_Model();
         try {
-            PreparedStatement identificarStmt = connection.conDB().prepareStatement("SELECT * FROM PAGOS_SUSCRIPCION WHERE IDMIEMBRO = ? ORDER BY FECHA_PAGO DESC LIMIT 1");
+            PreparedStatement identificarStmt = connection.conDB().prepareStatement("SELECT IDPAGO, IDMIEMBRO, FECHA_PAGO, TIPO_SUSCRIPCION, CANTIDAD_PAGO, VENCIMIENTO FROM PAGOS_SUSCRIPCION WHERE IDMIEMBRO = ? ORDER BY FECHA_PAGO DESC LIMIT 1");
             identificarStmt.setInt(1, idMiembro);
             ResultSet rs = identificarStmt.executeQuery();
-            while(rs.next()){
-                resultado.setIdPago(rs.getInt("IDPAGO"));
-                resultado.setIdMiembro(rs.getInt("IDMIEMBRO"));
-                resultado.setFechaPago(rs.getDate("FECHA_PAGO"));
-                resultado.setTipoSuscripcion(rs.getString("TIPO_SUSCRIPCION"));
-                resultado.setCantidadPago(rs.getDouble("CANTIDAD_PAGO"));
-                resultado.setVencimiento(rs.getDate("VENCIMIENTO"));
+            if (rs.isBeforeFirst() ) {
+                while (rs.next()) {
+                    resultado.setIdPago(rs.getInt("IDPAGO"));
+                    resultado.setIdMiembro(rs.getInt("IDMIEMBRO"));
+                    resultado.setFechaPago(rs.getDate("FECHA_PAGO"));
+                    resultado.setTipoSuscripcion(rs.getString("TIPO_SUSCRIPCION"));
+                    resultado.setCantidadPago(rs.getDouble("CANTIDAD_PAGO"));
+                    resultado.setVencimiento(rs.getDate("VENCIMIENTO"));
+                }
+            }else{
+                resultado =null;
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

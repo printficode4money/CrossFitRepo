@@ -560,6 +560,7 @@ public class MiembrosController implements Initializable{
             miembrosModel = miembrosDB.consultarMiembroMasReciente();
             txtMensajes.setText(resultado);
             detallesPane.setCollapsible(true);
+            identificarHuella();
           //  guardarHuella();
             // fetRowList();
             //clear fields
@@ -620,7 +621,7 @@ public class MiembrosController implements Initializable{
                     //Iterate Column
                     row.add(rs.getString(i));
                 }
-                System.out.println("Row [1] added " + row);
+                //System.out.println("Row [1] added " + row);
                 data.add(row);
 
             }
@@ -648,7 +649,7 @@ public class MiembrosController implements Initializable{
             DPFPVerificationResult result = Verificador.verify(featuresverificacion, getTemplate());
             if (result.isVerified()) {
                 //crea la imagen de los datos guardado de las huellas guardadas en la base de datos
-                JOptionPane.showMessageDialog(null, "¡Bienvenido " + listaHuellas.get(i).getNombres() + "," + " HDTRPM!", "Verificacion de Huella", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "¡Bienvenido " + listaHuellas.get(i).getNombres() + "," + " HDTRPM!", "Verificación de Huella", JOptionPane.INFORMATION_MESSAGE);
                 try {
                     registroVisitasDB.registrarVisita(listaHuellas.get(i).getIdMiembro());
                 } catch (IOException e) {

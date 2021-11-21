@@ -24,9 +24,9 @@
             <Image url="@../images/fingerprint.png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtMensajes" layoutX="571.0" layoutY="252.0" prefHeight="25.0" prefWidth="230.0" />
+      <TextField fx:id="txtMensajes" layoutX="571.0" layoutY="252.0" prefHeight="25.0" prefWidth="230.0" style="-fx-alignment: CENTER;" />
       <Button fx:id="btnGuardarMiembro" layoutX="608.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#HandleEvents" prefHeight="25.0" prefWidth="154.0" text="Guardar" />
-      <Button fx:id="btnVerificar" layoutX="655.0" layoutY="284.0" mnemonicParsing="false" text="Verificar" />
+      <Button fx:id="btnActualizarHuella" layoutX="634.0" layoutY="284.0" mnemonicParsing="false" onMouseClicked="#actualizarHuella" text="Actualizar Huella" />
       <RadioButton fx:id="hombreRadBtn" layoutX="95.0" layoutY="288.0" mnemonicParsing="false" onMouseClicked="#radioGroupSexo" text="H" />
       <RadioButton fx:id="mujerRadBtn" layoutX="137.0" layoutY="288.0" mnemonicParsing="false" onMouseClicked="#radioGroupSexo" text="M" />
       <Label layoutX="32.0" layoutY="288.0" prefHeight="17.0" prefWidth="53.0" text="Sexo:" />

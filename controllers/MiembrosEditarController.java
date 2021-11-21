@@ -102,8 +102,6 @@ public class MiembrosEditarController implements Initializable {
     @FXML
     private Button btnGuardarMiembro;
 
-
-
     @FXML
     private Button btnSave;
 
@@ -112,7 +110,6 @@ public class MiembrosEditarController implements Initializable {
 
     @FXML
     TableView tblData;
-
 
     @FXML
     private ComboBox comboMembresias;
@@ -174,6 +171,9 @@ public class MiembrosEditarController implements Initializable {
 //                            stage.setScene(scene);
 //                            stage.show();
 
+
+//                            Stage currentStage = (Stage) tableMiembros.getScene().getWindow();
+//                            currentStage.close();
                             //Load second scene
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/EditarUsuario.fxml"));
                             Parent root = loader.load();
@@ -186,7 +186,7 @@ public class MiembrosEditarController implements Initializable {
                             //Show scene 2 in new window
                             Stage stage = new Stage();
                             stage.setScene(new Scene(root));
-                            stage.setTitle("Second Window");
+                            stage.setTitle("Editar Datos Miembro");
                             stage.show();
                         } catch (IOException e) {
                             e.printStackTrace();
