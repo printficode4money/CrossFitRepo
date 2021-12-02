@@ -15,16 +15,21 @@ import com.digitalpersona.onetouch.verification.DPFPVerification;
 import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import models.Adeudo;
@@ -49,6 +54,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import static java.lang.Math.abs;
 
 /**
@@ -59,10 +65,20 @@ public class RegistroVisitasController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Iniciar();
-	start();
-        EstadoHuellas();
 
+        Iniciar();
+	    start();
+        EstadoHuellas();
+        Stage stage = (Stage) gridPane.getScene().getWindow();
+        Scene scene = new Scene(gridPane);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent ke) {
+                if (ke.getCode() == KeyCode.ESCAPE) {
+                    System.out.println("Key Pressed: " + ke.getCode());
+                    stage.close();
+                }
+            }
+        });
     }
 
     @FXML
@@ -71,28 +87,32 @@ public class RegistroVisitasController implements Initializable{
     @FXML
     private TextField txtMensajes;
 
-    @FXML
-    private Button btnMenuPrincipal;
+//    @FXML
+//    private Button btnMenuPrincipal;
 
     @FXML
-    public void regresaMenuPrincipal(MouseEvent event) {
-        if (event.getSource() == btnMenuPrincipal) {
-                try {
-                    Lector.stopCapture();
-                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
-                    este.hide();
+    private GridPane gridPane;
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
-                    Parent root1 = (Parent) fxmlLoader.load();
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root1));
-                    stage.show();
 
-                } catch (IOException ex) {
-                    System.err.println(ex.getMessage());
-                }
-        }
-    }
+//    @FXML
+//    public void regresaMenuPrincipal(MouseEvent event) {
+//        if (event.getSource() == gridPane) {
+//                try {
+//                    Lector.stopCapture();
+//                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+//                    este.hide();
+//
+//                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+//                    Parent root1 = (Parent) fxmlLoader.load();
+//                    Stage stage = new Stage();
+//                    stage.setScene(new Scene(root1));
+//                    stage.show();
+//
+//                } catch (IOException ex) {
+//                    System.err.println(ex.getMessage());
+//                }
+//        }
+//    }
 
     RegistroVisitasDB registroVisitasDB;
     MiembrosController miembrosController;

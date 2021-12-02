@@ -8,6 +8,8 @@ import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import com.digitalpersona.onetouch.verification.DPFPVerification;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -149,7 +151,19 @@ public class EditarUsuarioIndividualController implements Initializable {
         cmbTipoSangre.getItems().add("B+");
         cmbTipoSangre.getItems().add("AB-");
         cmbTipoSangre.getItems().add("AB+");
+        Iniciar();
+        start();
+        EstadoHuellas();
 
+
+        txtMensajes.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){
+                if(actualizaHuella  && newValue.equals("La huella ha sido creada")){
+                    btnGuardarMiembro.setDisable(false);
+                }
+            }
+        });
     }
 
     protected void Iniciar(){
@@ -382,11 +396,12 @@ public class EditarUsuarioIndividualController implements Initializable {
     @FXML
     private void actualizarHuella(MouseEvent event){
         actualizaHuella =true;
-        JOptionPane.showMessageDialog(null, "Captura una nueva huella digital antes de guardar", "Verificación de Huella", JOptionPane.INFORMATION_MESSAGE);
-        Iniciar();
-        start();
-        EstadoHuellas();
+//        JOptionPane.showMessageDialog(null, "Captura una nueva huella digital antes de guardar", "Verificación de Huella", JOptionPane.INFORMATION_MESSAGE);
+//        Iniciar();
+//        start();
+//        EstadoHuellas();
         btnActualizarHuella.setDisable(true);
+        btnGuardarMiembro.setDisable(true);
     }
 
     private void actualizaMiembro(MiembrosModel miembro, boolean actualizaHuella, Stage stage) {
@@ -403,10 +418,10 @@ public class EditarUsuarioIndividualController implements Initializable {
                     clearFields();
                     Reclutador.clear();
                     stage.close();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Debes capturar las muestras necesarias para crear una nueva huella digital", "Actualización de Datos", JOptionPane.ERROR_MESSAGE);
-                    stage.setAlwaysOnTop(true);
-                }
+                }//else{
+ //                   JOptionPane.showMessageDialog(null, "Debes capturar las muestras necesarias para crear una nueva huella digital", "Actualización de Datos", JOptionPane.ERROR_MESSAGE);
+                   // stage.setAlwaysOnTop(true);
+                //}
             } else {
                 resultado = miembrosDB.actualizaMiembroSinHuella(miembro);
                 JOptionPane.showMessageDialog(null, resultado, "Actualización de Datos", JOptionPane.INFORMATION_MESSAGE);

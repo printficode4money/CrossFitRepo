@@ -14,7 +14,6 @@ import utils.ConnectionUtil;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 
 /**
@@ -32,15 +31,20 @@ public class HubController implements Initializable{
     public HubController() {
         connection = (Connection) ConnectionUtil.conDB();
     }
-    
-    PreparedStatement preparedStatement;
+
     Connection connection;
-    
+    private Button test;
+   // private static final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
+    private static final String HOVERED_BUTTON_STYLE = "-fx-border-color: #4287f5";
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("fierro");
+        //btnUsuariosInterfaz.setStyle(IDLE_BUTTON_STYLE);
+        btnUsuariosInterfaz.setOnMouseEntered(e -> btnUsuariosInterfaz.setStyle(HOVERED_BUTTON_STYLE));
+        //btnUsuariosInterfaz.setOnMouseExited(e -> btnUsuariosInterfaz.setStyle(IDLE_BUTTON_STYLE));
     }
-    
+
     @FXML
     public void direccionaInterfaces(MouseEvent event) {
 
@@ -56,23 +60,17 @@ public class HubController implements Initializable{
 
                 } catch (IOException ex) {
                     System.err.println(ex.getMessage());
-                    System.out.println("ERROR!!!!:  " +ex.getMessage());
                 }
-
-            
         }else if(event.getSource() == btnRegistroVisitas){
          try {
                     Node node = (Node) event.getSource();
                     Stage stage = (Stage) node.getScene().getWindow();
                     stage.close();
-                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/RegistroVisitas.fxml")));
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/RegistroVisitas_resize.fxml")));
                     stage.setScene(scene);
                     stage.show();
-
-
                 } catch (IOException ex) {
                     System.err.println(ex.getMessage());
-                    System.out.println("ERROR!!!!:  " +ex.getMessage());
                 }
         }
     }

@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox prefHeight="632.0" prefWidth="1102.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HubController">
   <children>
@@ -15,38 +16,50 @@
                   <Image url="@../images/logo_new-removebg-preview.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnUsuariosInterfaz" layoutX="105.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="128.0" prefWidth="136.0">
+            <Button fx:id="btnUsuariosInterfaz" contentDisplay="TOP" layoutX="105.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="MIEMBROS">
                <graphic>
-                  <ImageView fitHeight="84.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="114.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/resume.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
-            <Button layoutX="344.0" layoutY="106.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="136.0">
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font></Button>
+            <Button contentDisplay="TOP" layoutX="344.0" layoutY="107.0" mnemonicParsing="false" prefHeight="157.0" prefWidth="185.0" text="ADMINISTRACION">
                <graphic>
-                  <ImageView fitHeight="92.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="125.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/business.png" />
+                        <Image url="@../images/settings.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
-            <Button layoutX="635.0" layoutY="106.0" mnemonicParsing="false" prefHeight="128.0" prefWidth="136.0">
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Button>
+            <Button contentDisplay="TOP" layoutX="624.0" layoutY="108.0" mnemonicParsing="false" prefHeight="157.0" prefWidth="185.0" text="INVENTARIO">
                <graphic>
-                  <ImageView fitHeight="96.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="114.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/dumbbell.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
-            <Button fx:id="btnRegistroVisitas" layoutX="863.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="128.0" prefWidth="136.0">
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Button>
+            <Button fx:id="btnRegistroVisitas" contentDisplay="TOP" layoutX="863.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="128.0" prefWidth="185.0" text="ASISTENCIA">
                <graphic>
-                  <ImageView fitHeight="110.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="117.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/appointment.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
             </Button>
          </children>
     </AnchorPane>
