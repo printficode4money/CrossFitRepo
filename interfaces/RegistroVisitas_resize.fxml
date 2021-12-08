@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="controllers.RegistroVisitasController">
+<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#regresaMenuPrincipal" prefHeight="960.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegistroVisitasController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -16,22 +16,22 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ImageView fitHeight="604.0" fitWidth="968.0" opacity="0.51" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <ImageView fitHeight="960.0" fitWidth="960.0" opacity="0.51" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <image>
             <Image url="@../images/logo_new-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgHuella" fitHeight="266.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: #000000;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <ImageView fx:id="imgHuella" fitHeight="259.0" fitWidth="254.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: #000000;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <image>
-            <Image url="@../images/fingerprint.png" />
+            <Image url="@../images/animation.gif" />
          </image>
          <GridPane.margin>
             <Insets bottom="200.0" />
          </GridPane.margin>
       </ImageView>
-      <TextField fx:id="txtMensajes" prefHeight="35.0" prefWidth="647.0" style="-fx-border-color: #000000;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <TextField fx:id="txtMensajes" alignment="CENTER" prefHeight="35.0" prefWidth="647.0" style="-fx-border-color: #000000;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <GridPane.margin>
-            <Insets left="1000.0" right="1000.0" />
+            <Insets left="1000.0" right="1000.0" top="200.0" />
          </GridPane.margin>
       </TextField>
    </children>

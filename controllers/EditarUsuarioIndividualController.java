@@ -431,8 +431,6 @@ public class EditarUsuarioIndividualController implements Initializable {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-        }finally {
-           // Reclutador.clear();
         }
     }
 

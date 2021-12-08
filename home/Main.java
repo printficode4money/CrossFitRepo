@@ -1,5 +1,6 @@
 package home;
 
+import eu.mihosoft.scaledfx.ScalableContentPane;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/interfaces/Login.fxml"));
-        //we gonna remove the borderless thingie.  
+        ScalableContentPane scp = new ScalableContentPane (root);
+
         stage.initStyle(StageStyle.DECORATED);
         stage.setMaximized(false);
 
@@ -42,7 +44,7 @@ public class Main extends Application {
             }
         });
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(scp);
         stage.setScene(scene);
         stage.show();
     }

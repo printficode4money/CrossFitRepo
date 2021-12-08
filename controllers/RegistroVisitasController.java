@@ -13,12 +13,13 @@ import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import com.digitalpersona.onetouch.verification.DPFPVerification;
 import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
+import eu.mihosoft.scaledfx.ScalableContentPane;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -27,7 +28,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -65,20 +65,9 @@ public class RegistroVisitasController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         Iniciar();
 	    start();
         EstadoHuellas();
-        Stage stage = (Stage) gridPane.getScene().getWindow();
-        Scene scene = new Scene(gridPane);
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent ke) {
-                if (ke.getCode() == KeyCode.ESCAPE) {
-                    System.out.println("Key Pressed: " + ke.getCode());
-                    stage.close();
-                }
-            }
-        });
     }
 
     @FXML
@@ -94,11 +83,11 @@ public class RegistroVisitasController implements Initializable{
     private GridPane gridPane;
 
 
-//    @FXML
-//    public void regresaMenuPrincipal(MouseEvent event) {
-//        if (event.getSource() == gridPane) {
-//                try {
-//                    Lector.stopCapture();
+    @FXML
+    public void regresaMenuPrincipal(KeyEvent event) {
+        if (event.getSource() == gridPane) {
+                try {
+                    Lector.stopCapture();
 //                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
 //                    este.hide();
 //
@@ -107,12 +96,22 @@ public class RegistroVisitasController implements Initializable{
 //                    Stage stage = new Stage();
 //                    stage.setScene(new Scene(root1));
 //                    stage.show();
-//
-//                } catch (IOException ex) {
-//                    System.err.println(ex.getMessage());
-//                }
-//        }
-//    }
+
+                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+                    este.close();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+                    Parent root = fxmlLoader.load();
+                    ScalableContentPane scp = new ScalableContentPane (root);
+                    Stage stage = new Stage();
+                    stage.setMaximized(true);
+                    stage.setScene(new Scene(scp));
+                    stage.show();
+
+                } catch (IOException ex) {
+                    System.err.println(ex.getMessage());
+                }
+        }
+    }
 
     RegistroVisitasDB registroVisitasDB;
     MiembrosController miembrosController;
@@ -381,6 +380,7 @@ public class RegistroVisitasController implements Initializable{
                                         stage.setScene(new Scene(root));
                                         stage.setTitle("Renovación de Membresía");
                                         stage.show();
+
                                         datos_Membresia = registroVisitasDB.consultaVigenciaMembresia(listaHuellas.get(i).getIdMiembro());
                                         if(datos_Membresia != null) {
                                             existeMembresia = true;
@@ -439,10 +439,18 @@ public class RegistroVisitasController implements Initializable{
                             Lector.stopCapture();
                             Window window = txtMensajes.getScene().getWindow();
                             window.hide();
+//                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Usuarios2.fxml"));
+//                            Parent root1 = (Parent) fxmlLoader.load();
+//                            Stage stage = new Stage();
+//                            stage.setScene(new Scene(root1));
+//                            stage.show();
+
                             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Usuarios2.fxml"));
-                            Parent root1 = (Parent) fxmlLoader.load();
+                            Parent root = fxmlLoader.load();
+                            ScalableContentPane scp = new ScalableContentPane (root);
                             Stage stage = new Stage();
-                            stage.setScene(new Scene(root1));
+                            stage.setMaximized(true);
+                            stage.setScene(new Scene(scp));
                             stage.show();
                         }
                         setTemplate(null);
