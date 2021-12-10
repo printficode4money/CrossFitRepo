@@ -38,7 +38,7 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Button>
-            <Button contentDisplay="TOP" layoutX="624.0" layoutY="108.0" mnemonicParsing="false" prefHeight="157.0" prefWidth="185.0" text="INVENTARIO">
+            <Button fx:id="btnInventario" contentDisplay="TOP" layoutX="624.0" layoutY="108.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="INVENTARIO">
                <graphic>
                   <ImageView fitHeight="114.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
                      <image>

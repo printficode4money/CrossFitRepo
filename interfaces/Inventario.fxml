@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InventarioController">
+   <children>
+      <TableView fx:id="tablaInventario" layoutX="79.0" prefHeight="600.0" prefWidth="678.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Nombre" />
+          <TableColumn prefWidth="315.0" text="Descripción" />
+            <TableColumn prefWidth="150.0" text="Precio" />
+            <TableColumn minWidth="0.0" prefWidth="137.0" text="Existencias" />
+        </columns>
+      </TableView>
+      <VBox layoutX="788.0" layoutY="-6.0" prefHeight="612.0" prefWidth="212.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="0.0" prefWidth="212.0" text="Agregar Artículo">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <padding>
+                  <Insets right="20.0" top="20.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtNombre" promptText="Nombre">
+               <padding>
+                  <Insets right="20.0" top="20.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="txtDescripcion" promptText="Descripción">
+               <padding>
+                  <Insets right="20.0" top="20.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="txtPrecio" promptText="Precio">
+               <padding>
+                  <Insets right="20.0" top="20.0" />
+               </padding>
+            </TextField>
+            <TextField fx:id="txtExistencias" promptText="Existencias">
+               <padding>
+                  <Insets bottom="20.0" right="20.0" top="20.0" />
+               </padding>
+            </TextField>
+            <Button fx:id="btnAgregar" contentDisplay="CENTER" mnemonicParsing="false" text="Agregar">
+               <VBox.margin>
+                  <Insets left="65.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</Pane>
