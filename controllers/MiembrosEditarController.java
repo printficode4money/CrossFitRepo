@@ -197,35 +197,6 @@ public class MiembrosEditarController implements Initializable {
         });
     }
 
-
-
-    //only fetch columns
-    /*private void fetColumnList() {
-        ConnectionUtil newCon = new ConnectionUtil();
-        try {
-            ResultSet rs = newCon.conDB().createStatement().executeQuery(SQL);
-
-            //SQL FOR SELECTING ALL OF CUSTOMER
-            for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                //We are using non property style for making dynamic table
-                final int j = i;
-                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i + 1).toUpperCase());
-                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
-                        return new SimpleStringProperty(param.getValue().get(j).toString());
-                    }
-                });
-
-                tableMiembros.getColumns().removeAll(col);
-                tableMiembros.getColumns().addAll(col);
-            }
-
-        } catch (Exception e) {
-            System.out.println("Error " + e.getMessage());
-
-        }
-    }*/
-
     @FXML
     public void regresaMenuPrincipal(MouseEvent event) {
         if (event.getSource() == btnMenuPrincipal) {
