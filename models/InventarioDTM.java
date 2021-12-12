@@ -1,18 +1,28 @@
 package models;
 
 public class InventarioDTM {
+    String idInventario;
     String nombre;
     String descripcion;
     double precio;
     int existencias;
 
-    public InventarioDTM(String nombre, String descripcion, double precio, int existencias){
+    public InventarioDTM(String idInventario, String nombre, String descripcion, double precio, int existencias){
         super();
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.existencias = existencias;
     }
+
+    public String getIdInventario() {
+        return idInventario;
+    }
+
+    public void setIdInventario(String idInventario) {
+        this.idInventario = idInventario;
+    }
+
     public InventarioDTM(){
 
     }

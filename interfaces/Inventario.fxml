@@ -18,10 +18,11 @@
    <children>
       <TableView fx:id="tablaInventario" layoutX="139.0" prefHeight="600.0" prefWidth="659.0">
         <columns>
-          <TableColumn fx:id="columnaNombre" prefWidth="164.0" text="Nombre" />
-          <TableColumn fx:id="columnaDescripcion" prefWidth="293.0" text="Descripción" />
-            <TableColumn fx:id="columnaPrecio" prefWidth="99.0" text="Precio" />
-            <TableColumn fx:id="columnaExistencias" minWidth="0.0" prefWidth="121.0" text="Existencias" />
+            <TableColumn fx:id="columnaClave" prefWidth="44.0" text="Clave" />
+          <TableColumn fx:id="columnaNombre" prefWidth="158.0" text="Nombre" />
+          <TableColumn fx:id="columnaDescripcion" prefWidth="289.0" text="Descripción" />
+            <TableColumn fx:id="columnaPrecio" prefWidth="87.0" text="Precio" />
+            <TableColumn fx:id="columnaExistencias" minWidth="0.0" text="Existencias" />
         </columns>
       </TableView>
       <TextField fx:id="txtNombre" layoutX="809.0" layoutY="68.0" prefHeight="25.0" prefWidth="155.0" promptText="Nombre" />
@@ -88,6 +89,8 @@
       </VBox>
       <ComboBox fx:id="cmbBuscar" layoutX="809.0" layoutY="68.0" prefHeight="25.0" prefWidth="155.0" />
       <TextField fx:id="txtBusqueda" layoutX="809.0" layoutY="107.0" prefHeight="25.0" prefWidth="155.0" promptText="Búsqueda..." />
-      <Button fx:id="btnRestablecer" contentDisplay="CENTER" layoutX="844.0" layoutY="186.0" mnemonicParsing="false" onMouseClicked="#recargaTablaInventario" prefHeight="25.0" prefWidth="86.0" text="Restablecer" />
+      <Button fx:id="btnRestablecer" contentDisplay="CENTER" layoutX="844.0" layoutY="233.0" mnemonicParsing="false" onMouseClicked="#recargaTablaInventario" prefHeight="25.0" prefWidth="86.0" text="Restablecer" />
+      <Button fx:id="btnEliminarFila" contentDisplay="CENTER" layoutX="907.0" layoutY="186.0" mnemonicParsing="false" onMouseClicked="#eliminarFila" prefHeight="25.0" prefWidth="86.0" text="Eliminar" />
+      <Button fx:id="btnEditar" contentDisplay="CENTER" layoutX="814.0" layoutY="186.0" mnemonicParsing="false" onMouseClicked="#editarFila" prefHeight="25.0" prefWidth="86.0" text="Editar" />
    </children>
 </Pane>

@@ -21,6 +21,7 @@ public class InventarioDB {
 
             while (rs.next()) {
                 InventarioDTM fila = new InventarioDTM();
+                fila.setIdInventario(rs.getString("idinventario"));
                 fila.setNombre(rs.getString("nombre"));
                 fila.setDescripcion(rs.getString("descripcion"));
                 fila.setPrecio(rs.getDouble("precio"));
@@ -60,24 +61,21 @@ public class InventarioDB {
         }
     }
 
-    public String buscarArticuloInventario(InventarioDTM inventarioObj) {
+    public String eliminarFilaInventario(InventarioDTM inventarioObj) {
         String resultado =  null;
         ConnectionUtil newCon = new ConnectionUtil();
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         PreparedStatement preparedStatement;
         try {
-            String queryInsert = "SELECT NOMBRE, DESCRIPCION, PRECIO, EXISTENCIAS FROM INVENTARIO ";
-            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(queryInsert);
-            preparedStatement.setString(1, inventarioObj.getNombre());
-            preparedStatement.setString(2, inventarioObj.getDescripcion());
-            preparedStatement.setDouble(3, inventarioObj.getPrecio());
-            preparedStatement.setInt(4, inventarioObj.getExistencias());
+            String queryInsert = "DELETE FROM INVENTARIO WHERE IDINVENTARIO = ? ";
+            preparedStatement = newCon.conDB().prepareStatement(queryInsert);
+            preparedStatement.setString(1, inventarioObj.getIdInventario());
             preparedStatement.execute();
-            return "Artículo(s) agregado(s) con éxito.";
+            return "Fila eliminada con éxito.";
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            return "Ocurrió un error. Revise los datos.";
+            return "Ocurrió un error.";
         } finally {
             try {
                 newCon.conDB().close();

@@ -3,9 +3,15 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import models.InventarioDTM;
 import persistence.InventarioDB;
 
@@ -31,6 +37,9 @@ public class InventarioController implements Initializable {
     private TableColumn columnaExistencias;
 
     @FXML
+    private TableColumn columnaClave;
+
+    @FXML
     private TextField txtNombre;
 
     @FXML
@@ -51,20 +60,8 @@ public class InventarioController implements Initializable {
     @FXML
     private Button btnEliminar;
 
-//    @FXML
-//    private TextField txtBuscarNombre;
-
     @FXML
     private Button btnBuscarInv;
-
-//    @FXML
-//    private TextField txtBuscarDescrip;
-//
-//    @FXML
-//    private TextField txtBuscarPrecio;
-//
-//    @FXML
-//    private TextField txtBuscarExist;
 
     @FXML
     private Button btnAgregarFila;
@@ -84,23 +81,38 @@ public class InventarioController implements Initializable {
     @FXML
     private Button btnRestablecer;
 
+    @FXML
+    private Button btnEliminarFila;
+
+    @FXML
+    private Button btnEditar;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cmbBuscar.getItems().add("Nombre");
         cmbBuscar.getItems().add("Descripción");
         InventarioDB inventarioDB = new InventarioDB();
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columnaNombre.setCellFactory(TextFieldTableCell.forTableColumn());
         columnaDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        columnaDescripcion.setCellFactory(TextFieldTableCell.forTableColumn());
         columnaPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        //columnaPrecio.setCellFactory(new PropertyValueFactory<>("precio"));
         columnaExistencias.setCellValueFactory(new PropertyValueFactory<>("existencias"));
+        //columnaExistencias.setCellValueFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        columnaClave.setVisible(false);
         tablaInventario.setEditable(true);
         tablaInventario.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tablaInventario.getSelectionModel().setCellSelectionEnabled(true);
+        tablaInventario.getSelectionModel().setCellSelectionEnabled(false);
+        tablaInventario.setEditable(true);
         data = inventarioDB.consultaInventario();
         tablaInventario.setItems(data);
         cmbBuscar.setVisible(false);
         txtBusqueda.setVisible(false);
         btnBuscarInv.setVisible(false);
+        btnRestablecer.setVisible(false);
+        btnEliminarFila.setVisible(false);
+        btnEditar.setVisible(false);
         lblBuscar.setVisible(false);
 
 //        tablaInventario.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -135,6 +147,9 @@ public class InventarioController implements Initializable {
         cmbBuscar.setVisible(false);
         txtBusqueda.setVisible(false);
         btnBuscarInv.setVisible(false);
+        btnRestablecer.setVisible(false);
+        btnEliminarFila.setVisible(false);
+        btnEditar.setVisible(false);
         lblBuscar.setVisible(false);
     }
 
@@ -148,11 +163,10 @@ public class InventarioController implements Initializable {
         cmbBuscar.setVisible(true);
         txtBusqueda.setVisible(true);
         btnBuscarInv.setVisible(true);
+        btnRestablecer.setVisible(true);
+        btnEliminarFila.setVisible(true);
+        btnEditar.setVisible(true);
         lblBuscar.setVisible(true);
-    }
-
-    public void eliminarFila() {
-
     }
 
     public void guardarArticuloInventario() {
@@ -188,7 +202,7 @@ public class InventarioController implements Initializable {
         columnaExistencias.setCellValueFactory(new PropertyValueFactory<>("existencias"));
         tablaInventario.setEditable(true);
         tablaInventario.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        tablaInventario.getSelectionModel().setCellSelectionEnabled(true);
+        tablaInventario.getSelectionModel().setCellSelectionEnabled(false);
         data = inventarioDB.consultaInventario();
         tablaInventario.setItems(data);
     }
@@ -239,6 +253,36 @@ public class InventarioController implements Initializable {
         }
         if(!listaBusqueda.isEmpty()){
             recargaTablaInventarioConBusqueda(listaBusqueda);
+        }
+    }
+
+    public void eliminarFila(){
+        String resultado;
+            InventarioDTM inventarioObj = (InventarioDTM) tablaInventario.getSelectionModel().getSelectedItem();
+            InventarioDB inventarioDB = new InventarioDB();
+            resultado = inventarioDB.eliminarFilaInventario(inventarioObj);
+            JOptionPane.showMessageDialog(null, resultado, "Mensaje Informativo de Inventario", JOptionPane.INFORMATION_MESSAGE);
+            recargaTablaInventario();
+    }
+
+    public void editarFila(){
+        try {
+            InventarioDTM inventarioObj = (InventarioDTM) tablaInventario.getSelectionModel().getSelectedItem();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ModificaInventarioModal.fxml"));
+            Parent root = loader.load();
+
+            ModificaArticuloInventario scene2Controller = loader.getController();
+            //Pass whatever data you want. You can have multiple method calls here
+            scene2Controller.receiveData(inventarioObj);
+
+            //Show scene 2 in new window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Editar Inventario");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
     }
 
