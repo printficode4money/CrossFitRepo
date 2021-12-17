@@ -31,17 +31,17 @@
       </AnchorPane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <ImageView fitHeight="402.0" fitWidth="693.0" layoutX="146.0" layoutY="3.0" opacity="0.51" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="402.0" fitWidth="693.0" layoutX="146.0" layoutY="2.0" opacity="0.51" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/logo_new-removebg-preview.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="imgHuella" fitHeight="266.0" fitWidth="196.0" layoutX="249.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: #000000;">
+            <ImageView fx:id="imgHuella" fitHeight="198.0" fitWidth="199.0" layoutX="248.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: #000000;">
                <image>
-                  <Image url="@../images/fingerprint.png" />
+                  <Image url="@../images/finger_circle.gif" />
                </image>
             </ImageView>
-            <TextField fx:id="txtMensajes" layoutX="208.0" layoutY="269.0" prefHeight="35.0" prefWidth="278.0" style="-fx-border-color: #000000;" />
+            <TextField fx:id="txtMensajes" layoutX="208.0" layoutY="302.0" prefHeight="35.0" prefWidth="278.0" style="-fx-border-color: #000000;" />
          </children>
     </AnchorPane>
   </children>

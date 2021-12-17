@@ -61,6 +61,11 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
+            <Button fx:id="btnEstadisticas" contentDisplay="TOP" layoutX="105.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="ESTADISTICAS">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
          </children>
     </AnchorPane>
   </children>

@@ -32,6 +32,9 @@ public class HubController implements Initializable{
 
     @FXML
     private Button btnInventario;
+
+    @FXML
+    private Button btnEstadisticas;
     
     public HubController() {
         connection = (Connection) ConnectionUtil.conDB();
@@ -89,7 +92,7 @@ public class HubController implements Initializable{
              Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
              este.close();
 
-             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/RegistroVisitas_resize.fxml"));
+             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/RegistroVisitas.fxml"));
              Parent root = fxmlLoader.load();
              ScalableContentPane scp = new ScalableContentPane (root);
              Stage stage = new Stage();
@@ -117,6 +120,23 @@ public class HubController implements Initializable{
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }
+        }else if(event.getSource() == btnEstadisticas){
+            try {
+                Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+                este.close();
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Estadisticas.fxml"));
+                Parent root = fxmlLoader.load();
+                ScalableContentPane scp = new ScalableContentPane (root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
+                stage.show();
+
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+
         }
     }
    

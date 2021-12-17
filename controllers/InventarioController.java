@@ -1,21 +1,24 @@
 package controllers;
 
+import eu.mihosoft.scaledfx.ScalableContentPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.InventarioDTM;
 import persistence.InventarioDB;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -93,9 +96,9 @@ public class InventarioController implements Initializable {
         cmbBuscar.getItems().add("Descripción");
         InventarioDB inventarioDB = new InventarioDB();
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        columnaNombre.setCellFactory(TextFieldTableCell.forTableColumn());
+        //columnaNombre.setCellFactory(TextFieldTableCell.forTableColumn());
         columnaDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-        columnaDescripcion.setCellFactory(TextFieldTableCell.forTableColumn());
+        //columnaDescripcion.setCellFactory(TextFieldTableCell.forTableColumn());
         columnaPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         //columnaPrecio.setCellFactory(new PropertyValueFactory<>("precio"));
         columnaExistencias.setCellValueFactory(new PropertyValueFactory<>("existencias"));
@@ -114,25 +117,6 @@ public class InventarioController implements Initializable {
         btnEliminarFila.setVisible(false);
         btnEditar.setVisible(false);
         lblBuscar.setVisible(false);
-
-//        tablaInventario.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-//                    if(mouseEvent.getClickCount() == 2){
-////                        try {
-//                            InventarioDTM filaInventario = (InventarioDTM) tablaInventario.getSelectionModel().getSelectedItem();
-//
-//
-//
-////                        } catch (IOException e) {
-////                            e.printStackTrace();
-////                        }
-//                    }
-//                }
-//            }
-//        });
-
     }
 
     private ObservableList<InventarioDTM> data;
@@ -196,6 +180,7 @@ public class InventarioController implements Initializable {
 
     public void recargaTablaInventario() {
         InventarioDB inventarioDB = new InventarioDB();
+        tablaInventario.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnaDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         columnaPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
@@ -215,6 +200,7 @@ public class InventarioController implements Initializable {
         tablaInventario.setEditable(true);
         tablaInventario.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tablaInventario.getSelectionModel().setCellSelectionEnabled(true);
+        tablaInventario.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tablaInventario.setItems(listaBusqueda);
     }
 
@@ -270,22 +256,35 @@ public class InventarioController implements Initializable {
             InventarioDTM inventarioObj = (InventarioDTM) tablaInventario.getSelectionModel().getSelectedItem();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ModificaInventarioModal.fxml"));
             Parent root = loader.load();
-
             ModificaArticuloInventario scene2Controller = loader.getController();
-            //Pass whatever data you want. You can have multiple method calls here
-            scene2Controller.receiveData(inventarioObj);
-
-            //Show scene 2 in new window
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Editar Inventario");
+            scene2Controller.receiveData(inventarioObj, stage);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+            recargaTablaInventario();
         }catch(Exception ex){
             ex.printStackTrace();
         }
     }
 
+    public void regresarMenuPrincipal(MouseEvent event){
+            try {
+                Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+                este.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+                Parent root = fxmlLoader.load();
+                ScalableContentPane scp = new ScalableContentPane (root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
+                stage.show();
+
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
 
 
 }

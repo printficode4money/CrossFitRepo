@@ -23,7 +23,7 @@
       </ImageView>
       <ImageView fx:id="imgHuella" fitHeight="259.0" fitWidth="254.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: #000000;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <image>
-            <Image url="@../images/animation.gif" />
+            <Image url="@../images/finger_circle.gif" />
          </image>
          <GridPane.margin>
             <Insets bottom="200.0" />
