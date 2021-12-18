@@ -125,7 +125,7 @@ public class HubController implements Initializable{
                 Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
                 este.close();
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Estadisticas.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Sample.fxml"));
                 Parent root = fxmlLoader.load();
                 ScalableContentPane scp = new ScalableContentPane (root);
                 Stage stage = new Stage();
