@@ -62,8 +62,10 @@ public class EstadisticasController implements Initializable {
     @FXML private TableView tablaDiciembre;
     @FXML private TableColumn colFechaDic;
     @FXML private TableColumn colVisDic;
-    @FXML private TextField txtMayor;
-    @FXML private TextField txtMenor;
+    @FXML
+    private TextField txtMayor;
+    @FXML
+    private TextField txtMenor;
 
     @FXML private LineChart<String, Integer> graph;
     private List<EstadisticasModel> lista;
@@ -106,7 +108,7 @@ public class EstadisticasController implements Initializable {
                 fechaTop = elemento.getFechas();
             }
         }
-        txtMayor.setText(String.valueOf(top) + " " + fechaTop);
+        txtMayor.setText(fechaTop);
         txtMenor.setText(String.valueOf(menor));
         for (EstadisticasModel elemento : lista) {
             series.getData().add(new XYChart.Data<String, Integer>(elemento.getFechas(), elemento.getTotal()));

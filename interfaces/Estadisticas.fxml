@@ -62,13 +62,13 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField editable="false" layoutX="234.0" layoutY="674.0" prefHeight="25.0" prefWidth="125.0" />
+                                          <TextField fx:id="txtMayor" editable="false" layoutX="234.0" layoutY="674.0" prefHeight="25.0" prefWidth="125.0" />
                                           <Label layoutX="409.0" layoutY="677.0" prefHeight="20.0" prefWidth="113.0" text="Menor afluencia:">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField editable="false" layoutX="535.0" layoutY="675.0" prefHeight="25.0" prefWidth="125.0" />
+                                          <TextField fx:id="txtMenor" editable="false" layoutX="535.0" layoutY="675.0" prefHeight="25.0" prefWidth="125.0" />
                                           <TableView fx:id="tablaVisitasDiariasGeneral" layoutX="89.0" layoutY="752.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
                                              <columns>
                                                 <TableColumn fx:id="columnaFecha" prefWidth="160.0" text="Fecha" />
