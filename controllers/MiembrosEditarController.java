@@ -1,5 +1,6 @@
 package controllers;
 
+import eu.mihosoft.scaledfx.ScalableContentPane;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -316,17 +317,44 @@ public class MiembrosEditarController implements Initializable {
     @FXML
     public void abreAgregarUsuarios(MouseEvent event){
         if (event.getSource() == btnRedirigeAgregarUsuarios) {
+//            try {
+//                //Lector.stopCapture();
+//                Node node = (Node) event.getSource();
+//                Stage stage = (Stage) node.getScene().getWindow();
+//                stage.close();
+//                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Usuarios2.fxml")));
+//                stage.setScene(scene);
+//                stage.show();
             try {
-                //Lector.stopCapture();
-                Node node = (Node) event.getSource();
-                Stage stage = (Stage) node.getScene().getWindow();
-                stage.close();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Usuarios2.fxml")));
-                stage.setScene(scene);
+                Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+                este.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Usuarios2.fxml"));
+                Parent root = fxmlLoader.load();
+                ScalableContentPane scp = new ScalableContentPane (root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
                 stage.show();
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }
+        }
+    }
+
+    public void regresarMenuPrincipal(MouseEvent event){
+        try {
+            Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+            este.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+            Parent root = fxmlLoader.load();
+            ScalableContentPane scp = new ScalableContentPane (root);
+            Stage stage = new Stage();
+            stage.setMaximized(true);
+            stage.setScene(new Scene(scp));
+            stage.show();
+
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
         }
     }
 }

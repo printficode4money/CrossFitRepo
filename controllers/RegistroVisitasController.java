@@ -28,7 +28,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -83,35 +83,35 @@ public class RegistroVisitasController implements Initializable{
     private GridPane gridPane;
 
 
-    @FXML
-    public void regresaMenuPrincipal(KeyEvent event) {
-        if (event.getSource() == gridPane) {
-                try {
-                    Lector.stopCapture();
-//                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
-//                    este.hide();
+//    @FXML
+//    public void regresaMenuPrincipal(KeyEvent event) {
+//        if (event.getSource() == gridPane) {
+//                try {
+//                    Lector.stopCapture();
+////                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+////                    este.hide();
+////
+////                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+////                    Parent root1 = (Parent) fxmlLoader.load();
+////                    Stage stage = new Stage();
+////                    stage.setScene(new Scene(root1));
+////                    stage.show();
 //
+//                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+//                    este.close();
 //                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
-//                    Parent root1 = (Parent) fxmlLoader.load();
+//                    Parent root = fxmlLoader.load();
+//                    ScalableContentPane scp = new ScalableContentPane (root);
 //                    Stage stage = new Stage();
-//                    stage.setScene(new Scene(root1));
+//                    stage.setMaximized(true);
+//                    stage.setScene(new Scene(scp));
 //                    stage.show();
-
-                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
-                    este.close();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
-                    Parent root = fxmlLoader.load();
-                    ScalableContentPane scp = new ScalableContentPane (root);
-                    Stage stage = new Stage();
-                    stage.setMaximized(true);
-                    stage.setScene(new Scene(scp));
-                    stage.show();
-
-                } catch (IOException ex) {
-                    System.err.println(ex.getMessage());
-                }
-        }
-    }
+//
+//                } catch (IOException ex) {
+//                    System.err.println(ex.getMessage());
+//                }
+//        }
+//    }
 
     RegistroVisitasDB registroVisitasDB;
     MiembrosController miembrosController;
@@ -347,11 +347,11 @@ public class RegistroVisitasController implements Initializable{
                                 diferenciaDias = diferenciaEntreFechas(todaysDate.toString(), datos_Membresia.getVencimiento().toString());
                                 if(diferenciaDias >= 4){
                                     existeMembresia = true;
-                                    JOptionPane.showMessageDialog(null, "¡Bienvenid@ " + listaHuellas.get(i).getNombres() + "," + " HDTRPM!", "Verificación de Huella", JOptionPane.INFORMATION_MESSAGE);
+                                    JOptionPane.showMessageDialog(null, "¡Bienvenid@ " + listaHuellas.get(i).getNombres(), "Verificación de Huella", JOptionPane.INFORMATION_MESSAGE);
                                 }else if(diferenciaDias <=abs(3) && diferenciaDias >=abs(1)){
                                     //TODO avisar de multas
                                     existeMembresia = true;
-                                    JOptionPane.showMessageDialog(null, "¡Bienvenid@ " + listaHuellas.get(i).getNombres() + "," + " ATENCION! TU MEMBRESIA VENCE EL DIA: "+ datos_Membresia.getVencimiento().toString(), "Verificación de Huella", JOptionPane.WARNING_MESSAGE);
+                                    JOptionPane.showMessageDialog(null, "¡Bienvenid@ " + listaHuellas.get(i).getNombres() + "," + " ATENCIÓN! TU MEMBRESIA VENCE EL DIA: "+ datos_Membresia.getVencimiento().toString(), "Verificación de Huella", JOptionPane.WARNING_MESSAGE);
                                 }else if(diferenciaDias <= -1){
                                     alert.setTitle("Verificación de Huella");
                                     alert.setHeaderText("Membresía Vencida");
@@ -514,6 +514,24 @@ public class RegistroVisitasController implements Initializable{
             e.printStackTrace();
         }
         return difference_In_Days;
+    }
+
+    public void regresarMenuPrincipal(MouseEvent event) {
+        try {
+            Lector.stopCapture();
+            Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            este.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+            Parent root = fxmlLoader.load();
+            ScalableContentPane scp = new ScalableContentPane(root);
+            Stage stage = new Stage();
+            stage.setMaximized(true);
+            stage.setScene(new Scene(scp));
+            stage.show();
+
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
 }

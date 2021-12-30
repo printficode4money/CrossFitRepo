@@ -65,6 +65,13 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="117.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/graph.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
     </AnchorPane>
