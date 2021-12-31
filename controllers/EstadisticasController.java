@@ -62,14 +62,26 @@ public class EstadisticasController implements Initializable {
     @FXML private TableView tablaDiciembre;
     @FXML private TableColumn colFechaDic;
     @FXML private TableColumn colVisDic;
-    @FXML
-    private TextField txtMayor;
-    @FXML
-    private TextField txtMenor;
+    @FXML private TextField txtMayor;
+    @FXML private TextField txtMenor;
+    @FXML private TextField txtAnio;
+    @FXML private Label lblEnero;
+    @FXML private Label lblFebrero;
+    @FXML private Label lblMarzo;
+    @FXML private Label lblAbril;
+    @FXML private Label lblMayo;
+    @FXML private Label lblJunio;
+    @FXML private Label lblJulio;
+    @FXML private Label lblAgosto;
+    @FXML private Label lblSeptiembre;
+    @FXML private Label lblOctubre;
+    @FXML private Label lblNoviembre;
+    @FXML private Label lblDiciembre;
+
 
     @FXML private LineChart<String, Integer> graph;
     private List<EstadisticasModel> lista;
-    private int anio = Calendar.getInstance().get(Calendar.YEAR);
+    private int anio = 0;
 
     @FXML private void AccionPintar(ActionEvent event) {
         pintarGrafica();
@@ -77,6 +89,8 @@ public class EstadisticasController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        anio = Calendar.getInstance().get(Calendar.YEAR);
+        txtAnio.setText(String.valueOf(anio));
         columnaFecha.setCellValueFactory(new PropertyValueFactory<>("fechas"));
         columnaTotalVisitas.setCellValueFactory(new PropertyValueFactory<>("total"));
         tablaVisitasDiariasGeneral.setEditable(true);
@@ -120,6 +134,19 @@ public class EstadisticasController implements Initializable {
     }
 
     private void preparaTablasHistoricas(){
+        anio = Integer.parseInt(txtAnio.getText());
+        lblEnero.setText("Enero "+ String.valueOf(anio));
+        lblFebrero.setText("Febrero "+ String.valueOf(anio));
+        lblMarzo.setText("Marzo "+ String.valueOf(anio));;
+        lblAbril.setText("Abril "+ String.valueOf(anio));;
+        lblMayo.setText("Mayo "+ String.valueOf(anio));;
+        lblJunio.setText("Junio "+ String.valueOf(anio));;
+        lblJulio.setText("Julio "+ String.valueOf(anio));;
+        lblAgosto.setText("Agosto "+ String.valueOf(anio));;
+        lblSeptiembre.setText("Septiembre "+ String.valueOf(anio));;
+        lblOctubre.setText("Octubre "+ String.valueOf(anio));;
+        lblNoviembre.setText("Noviembre "+ String.valueOf(anio));;
+        lblDiciembre.setText("Diciembre "+ String.valueOf(anio));;
         EstadisticasDB estadisticasDB = new EstadisticasDB();
         ObservableList<EstadisticasModel> data;
         colFechaEnero.setCellValueFactory(new PropertyValueFactory<>("fechas"));
@@ -229,6 +256,10 @@ public class EstadisticasController implements Initializable {
         tablaDiciembre.getSelectionModel().setCellSelectionEnabled(false);
         data = estadisticasDB.consultarVisitasDiariasPorMesTabla(12, anio);
         tablaDiciembre.setItems(data);
+    }
+
+    public void consultaHistorico(){
+        preparaTablasHistoricas();
     }
 
 
