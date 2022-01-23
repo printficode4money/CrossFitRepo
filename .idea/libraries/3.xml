@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="3">
+    <CLASSES>
+      <root url="file://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.5" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.5" recursive="false" />
+  </library>
+</component>

@@ -1,5 +1,8 @@
 package controllers;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import eu.mihosoft.scaledfx.ScalableContentPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.InventarioDTM;
@@ -90,8 +94,26 @@ public class InventarioController implements Initializable {
     @FXML
     private Button btnEditar;
 
+    @FXML private JFXDrawer drawer;
+    @FXML private JFXHamburger hamburger;
+    @FXML private VBox box;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        drawer.setSidePane(box);
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            transition.setRate(transition.getRate() * -1);
+            transition.play();
+
+            if (drawer.isOpened()) {
+                drawer.close();
+            } else {
+                drawer.open();
+            }
+        });
+
         cmbBuscar.getItems().add("Nombre");
         cmbBuscar.getItems().add("Descripción");
         InventarioDB inventarioDB = new InventarioDB();
@@ -254,7 +276,7 @@ public class InventarioController implements Initializable {
     public void editarFila(){
         try {
             InventarioDTM inventarioObj = (InventarioDTM) tablaInventario.getSelectionModel().getSelectedItem();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ModificaInventarioModal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ModificaInventarioModal.fxml"));
             Parent root = loader.load();
             ModificaArticuloInventario scene2Controller = loader.getController();
             Stage stage = new Stage();
@@ -273,7 +295,7 @@ public class InventarioController implements Initializable {
             try {
                 Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
                 este.close();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
                 Parent root = fxmlLoader.load();
                 ScalableContentPane scp = new ScalableContentPane (root);
                 Stage stage = new Stage();

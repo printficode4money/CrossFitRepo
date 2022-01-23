@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="1102.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MiembrosEditarController">
+   <children>
+      <TableView fx:id="tableMiembros" layoutX="116.0" prefHeight="576.0" prefWidth="986.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <TableColumn fx:id="IDMIEMBRO" prefWidth="75.0" text="IDMIEMBRO" />
+            <TableColumn fx:id="NOMBRES" prefWidth="75.0" text="NOMBRES" />
+            <TableColumn fx:id="APELLIDO_PAT" prefWidth="75.0" text="APELLIDO_PAT" />
+            <TableColumn fx:id="APELLIDO_MAT" prefWidth="75.0" text="APELLIDO_MAT" />
+            <TableColumn fx:id="FECHA_REGISTRO" prefWidth="75.0" text="FECHA_REGISTRO" />
+         </columns>
+      </TableView>
+      <JFXDrawer fx:id="drawer" layoutY="-5.0" prefHeight="647.0" prefWidth="126.0">
+         <children>
+            <VBox fx:id="box" prefHeight="647.0" prefWidth="151.0">
+               <children>
+                  <ImageView fitHeight="111.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/back.jpg" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="btnRedirigeAgregarUsr" alignment="BASELINE_LEFT" onMouseClicked="#abreAgregarUsuarios" prefHeight="27.0" prefWidth="152.0" style="-fx-background-color: #355ECE;" styleClass="sidebarItem" text=" AGREGAR" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/add_color.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnRegresar" alignment="BASELINE_LEFT" onMouseClicked="#regresarMenuPrincipal" prefHeight="38.0" prefWidth="176.0" style="-fx-background-color: #355ECE;" styleClass="sidebarItem" text=" MENÚ" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/homepage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </JFXDrawer>
+      <JFXHamburger fx:id="hamburger" prefHeight="29.0" prefWidth="70.0" />
+   </children>
+</Pane>

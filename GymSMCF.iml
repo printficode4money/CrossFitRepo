@@ -90,5 +90,12 @@
         <jarDirectory url="file://$USER_HOME$/Downloads/jar_files" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="3" level="project" />
+    <orderEntry type="library" name="8.40" level="project" />
+    <orderEntry type="library" name="6.1.0" level="project" />
+    <orderEntry type="library" name="2.0" level="project" />
+    <orderEntry type="library" exported="" name="javafx.controls" level="project" />
+    <orderEntry type="library" name="jaxb-api-2.2.2" level="project" />
+    <orderEntry type="library" name="javafx.graphics" level="project" />
   </component>
 </module>

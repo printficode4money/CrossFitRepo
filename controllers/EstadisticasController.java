@@ -1,17 +1,29 @@
 package controllers;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import eu.mihosoft.scaledfx.ScalableContentPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import models.EstadisticasModel;
 import persistence.EstadisticasDB;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
@@ -77,6 +89,10 @@ public class EstadisticasController implements Initializable {
     @FXML private Label lblOctubre;
     @FXML private Label lblNoviembre;
     @FXML private Label lblDiciembre;
+    @FXML private JFXDrawer drawer;
+    @FXML private JFXHamburger hamburger;
+    @FXML private VBox box;
+
 
 
     @FXML private LineChart<String, Integer> graph;
@@ -89,6 +105,20 @@ public class EstadisticasController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        drawer.setSidePane(box);
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            transition.setRate(transition.getRate() * -1);
+            transition.play();
+
+            if (drawer.isOpened()) {
+                drawer.close();
+            } else {
+                drawer.open();
+            }
+        });
+
         anio = Calendar.getInstance().get(Calendar.YEAR);
         txtAnio.setText(String.valueOf(anio));
         columnaFecha.setCellValueFactory(new PropertyValueFactory<>("fechas"));
@@ -263,4 +293,20 @@ public class EstadisticasController implements Initializable {
     }
 
 
+    public void regresarMenuPrincipal(MouseEvent event){
+        try {
+            Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+            este.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
+            Parent root = fxmlLoader.load();
+            ScalableContentPane scp = new ScalableContentPane (root);
+            Stage stage = new Stage();
+            stage.setMaximized(true);
+            stage.setScene(new Scene(scp));
+            stage.show();
+
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
 }

@@ -13,6 +13,9 @@ import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import com.digitalpersona.onetouch.verification.DPFPVerification;
 import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import eu.mihosoft.scaledfx.ScalableContentPane;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,6 +35,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -138,6 +142,12 @@ public class MiembrosController implements Initializable{
 
     @FXML
     private Button btnRedirigeEditarUsuarios;
+    @FXML private Button btnRedirigeAgregarUsr;
+
+    @FXML private JFXDrawer drawer;
+    @FXML private JFXHamburger hamburger;
+    @FXML private VBox box;
+    @FXML private ComboBox comboFormaPago;
 
     private MiembrosModel miembrosModel = new MiembrosModel();
     private String sexo;
@@ -160,49 +170,34 @@ public class MiembrosController implements Initializable{
         this.sexo = sexo;
     }
 
-//    @FXML
-//    public void regresaMenuPrincipal(MouseEvent event) {
-//        if (event.getSource() == btnMenuPrincipal) {
-//                try {
-//                    Lector.stopCapture();
-////                    Node node = (Node) event.getSource();
-////                    Stage stage = (Stage) node.getScene().getWindow();
-////                    //stage.setMaximized(true);
-////                    stage.close();
-////                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Hub.fxml")));
-////                    stage.setScene(scene);
-////                    stage.show();
-//
-//                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
-//                    este.close();
-//                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
-//                    Parent root = fxmlLoader.load();
-//                    ScalableContentPane scp = new ScalableContentPane (root);
-//                    Stage stage = new Stage();
-//                    stage.setMaximized(true);
-//                    stage.setScene(new Scene(scp));
-//                    stage.show();
-//                } catch (IOException ex) {
-//                    System.err.println(ex.getMessage());
-//                }
-//        }
-//    }
-
     @FXML
     public void abreEditarUsuarios(MouseEvent event){
         if (event.getSource() == btnRedirigeEditarUsuarios) {
             try {
                 Lector.stopCapture();
-//                Node node = (Node) event.getSource();
-//                Stage stage = (Stage) node.getScene().getWindow();
-//                stage.close();
-//                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Usuarios_Todos_Editar.fxml")));
-//                stage.setScene(scene);
-//                stage.show();
-
                 Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
                 este.close();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Usuarios_Todos_Editar.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Usuarios_Todos_Editar.fxml"));
+                Parent root = fxmlLoader.load();
+                ScalableContentPane scp = new ScalableContentPane (root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
+                stage.show();
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    public void abreAgregarUsuarios(MouseEvent event){
+        if (event.getSource() == btnRedirigeAgregarUsr) {
+            try {
+                Lector.stopCapture();
+                Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+                este.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Miembros.fxml"));
                 Parent root = fxmlLoader.load();
                 ScalableContentPane scp = new ScalableContentPane (root);
                 Stage stage = new Stage();
@@ -418,7 +413,27 @@ public class MiembrosController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        comboFormaPago.getItems().add("Efectivo");
+        comboFormaPago.getItems().add("Transferencia");
+        comboFormaPago.getItems().add("Tarjeta");
+        drawer.setSidePane(box);
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            transition.setRate(transition.getRate() * -1);
+            transition.play();
+
+            if (drawer.isOpened()) {
+                drawer.close();
+            } else {
+                drawer.open();
+            }
+        });
+
         comboMembresias.getItems().add("Mensual");
+        comboMembresias.getItems().add("Trimestral");
+        comboMembresias.getItems().add("Semestral");
+        comboMembresias.getItems().add("Anual");
         comboMembresias.getItems().add("Por día");
         comboMembresias.getItems().add("Cortesía");
         cmbTipoSangre.getItems().add("O+");
@@ -429,15 +444,6 @@ public class MiembrosController implements Initializable{
         cmbTipoSangre.getItems().add("B+");
         cmbTipoSangre.getItems().add("AB-");
         cmbTipoSangre.getItems().add("AB+");
-
-        //detallesPane.setCollapsible(false);
-        /*// TODO
-        txtGender.getItems().addAll("Male", "Female", "Other");
-        txtGender.getSelectionModel().select("Male");
-        fetColumnList();
-        fetRowList();*/
-       /* menuLateralPane.setExpanded(true);
-        menuLateralPane.setAnimated(true);*/
         Iniciar();
 	    start();
         EstadoHuellas();
@@ -510,7 +516,7 @@ public class MiembrosController implements Initializable{
         if(resultado.contains("éxito")) {
             JOptionPane.showMessageDialog(null, resultado, "Resultado Cobro", JOptionPane.INFORMATION_MESSAGE);
         }else if(resultado.contains("error")){
-            JOptionPane.showMessageDialog(null, resultado + " ," + " HDTRPM!", "Resultado Cobro", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, resultado, "Resultado Cobro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -688,7 +694,7 @@ public class MiembrosController implements Initializable{
             Lector.stopCapture();
             Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
             este.close();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
             Parent root = fxmlLoader.load();
             ScalableContentPane scp = new ScalableContentPane (root);
             Stage stage = new Stage();

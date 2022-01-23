@@ -277,10 +277,10 @@ public class MiembrosDB {
         data = FXCollections.observableArrayList();
         ResultSet rs;
         try {
-            rs = newCon.conDB().createStatement().executeQuery("SELECT IDMIEMBRO, NOMBRES, APELLIDO_PAT, APELLIDO_MAT, DATE_FORMAT( FECHA_REGISTRO,  '%d-%m-%Y' ) as FECHA_REGISTRO FROM MIEMBROS");
+            rs = newCon.conDB().createStatement().executeQuery("SELECT IDMIEMBRO, NOMBRES, APELLIDO_PAT, APELLIDO_MAT, DATE_FORMAT( FECHA_REGISTRO,  '%d-%m-%Y' ) as FECHA_REGISTRO, CONCAT(NOMBRES, \" \", APELLIDO_PAT,\" \",APELLIDO_MAT) as NOMBRE_COMPLETO FROM MIEMBROS");
 
             while (rs.next()) {
-                MiembrosDataTableModel fila = new MiembrosDataTableModel(null, null, null, null, null);
+                MiembrosDataTableModel fila = new MiembrosDataTableModel(null, null, null, null, null, null);
                 int idMiembro = rs.getInt("idmiembro");
                 String idMiembroStg = String.valueOf(idMiembro);
                 fila.setIdmiembro(idMiembroStg);
@@ -288,6 +288,7 @@ public class MiembrosDB {
                 fila.setApellido_pat(rs.getString("apellido_pat"));
                 fila.setApellido_mat(rs.getString("apellido_mat"));
                 fila.setFecha_registro(rs.getString("fecha_registro"));
+                fila.setNombreCompleto(rs.getString("NOMBRE_COMPLETO"));
                 data.add(fila);
             }
             //tableMiembros.setItems(data);
@@ -306,12 +307,13 @@ public class MiembrosDB {
         PreparedStatement preparedStatement;
 
         try {
-            String st = "INSERT INTO ADEUDO ( IDMIEMBRO, CONCEPTO, CANTIDADADEUDO, FECHAADEUDO) VALUES (?,?,?,?)";
+            String st = "INSERT INTO ADEUDO ( IDMIEMBRO, CONCEPTO, CANTIDADADEUDO, FECHAADEUDO, ESTATUS) VALUES (?,?,?,?,?)";
             preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(st);
             preparedStatement.setInt(1, idMiembro);
             preparedStatement.setString(2, concepto);
             preparedStatement.setDouble(3, cantidadAdeudo);
             preparedStatement.setTimestamp(4, timestamp);
+            preparedStatement.setString(5, "ADEUDO");
             preparedStatement.execute();
             adeudo.setIdMiembro(idMiembro);
             adeudo.setConcepto(concepto);
@@ -382,4 +384,28 @@ public class MiembrosDB {
         }
         return listaDeuda;
     }
+
+//    public List<MiembrosDataTableModel> consultaUsuariosTodos() {
+//        List<MiembrosDataTableModel> data;
+//        ConnectionUtil newCon = new ConnectionUtil();
+//        data = FXCollections.observableArrayList();
+//        ResultSet rs;
+//        try {
+//            rs = newCon.conDB().createStatement().executeQuery("SELECT IDMIEMBRO, NOMBRES, APELLIDO_PAT, APELLIDO_MAT FROM MIEMBROS");
+//
+//            while (rs.next()) {
+//                MiembrosDataTableModel fila = new MiembrosDataTableModel(null, null, null, null, null);
+//                int idMiembro = rs.getInt("idmiembro");
+//                String idMiembroStg = String.valueOf(idMiembro);
+//                fila.setIdmiembro(idMiembroStg);
+//                fila.setNombres(rs.getString("nombres"));
+//                fila.setApellido_pat(rs.getString("apellido_pat"));
+//                fila.setApellido_mat(rs.getString("apellido_mat"));
+//                data.add(fila);
+//            }
+//        } catch (SQLException ex) {
+//            System.err.println(ex.getMessage());
+//        }
+//        return data;
+//    }
 }

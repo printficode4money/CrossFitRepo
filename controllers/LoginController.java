@@ -55,14 +55,14 @@ public class LoginController implements Initializable {
 //                    Stage stage = (Stage) node.getScene().getWindow();
 //                    //stage.setMaximized(true);
 //                    stage.close();
-//                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Hub.fxml")));
+//                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/views/Hub.fxml")));
 //                    stage.setScene(scene);
 //                    stage.show();
 
                     Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
                     este.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
                     Parent root = fxmlLoader.load();
                     ScalableContentPane scp = new ScalableContentPane (root);
                     Stage stage = new Stage();

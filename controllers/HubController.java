@@ -35,6 +35,9 @@ public class HubController implements Initializable{
 
     @FXML
     private Button btnEstadisticas;
+
+    @FXML
+    private Button btnReservaciones;
     
     public HubController() {
         connection = (Connection) ConnectionUtil.conDB();
@@ -61,14 +64,14 @@ public class HubController implements Initializable{
 //                    Stage stage = (Stage) node.getScene().getWindow();
 //                    //stage.setMaximized(true);
 //                    stage.close();
-//                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Usuarios2.fxml")));
+//                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/views/Usuarios2.fxml")));
 //                    stage.setScene(scene);
 //                    stage.show();
 
                     Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
                     este.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Usuarios2.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Miembros.fxml"));
                     Parent root = fxmlLoader.load();
                     ScalableContentPane scp = new ScalableContentPane (root);
                     Stage stage = new Stage();
@@ -84,7 +87,7 @@ public class HubController implements Initializable{
 //                    Node node = (Node) event.getSource();
 //                    Stage stage = (Stage) node.getScene().getWindow();
 //                    stage.close();
-//                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/RegistroVisitas_resize.fxml")));
+//                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/views/RegistroVisitas_resize.fxml")));
 //                    stage.setScene(scene);
 //                    //stage.setMaximized(true);
 //                    stage.show();
@@ -92,7 +95,7 @@ public class HubController implements Initializable{
              Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
              este.close();
 
-             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/RegistroVisitas.fxml"));
+             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/RegistroVisitas.fxml"));
              Parent root = fxmlLoader.load();
              ScalableContentPane scp = new ScalableContentPane (root);
              Stage stage = new Stage();
@@ -109,7 +112,7 @@ public class HubController implements Initializable{
                 Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
                 este.close();
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Inventario.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Inventario.fxml"));
                 Parent root = fxmlLoader.load();
                 ScalableContentPane scp = new ScalableContentPane (root);
                 Stage stage = new Stage();
@@ -124,7 +127,7 @@ public class HubController implements Initializable{
             try {
                 Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
                 este.close();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Estadisticas.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/test.fxml"));
                 Parent root = fxmlLoader.load();
                 ScalableContentPane scp = new ScalableContentPane (root);
                 Stage stage = new Stage();
@@ -135,6 +138,25 @@ public class HubController implements Initializable{
                 System.err.println(ex.getMessage());
             }
 
+        }else if(event.getSource() == btnReservaciones){
+            try {
+                Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+                este.close();
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/TestCal.fxml"));
+                Parent root = fxmlLoader.load();
+                ReservacionesController cc = fxmlLoader.getController();
+
+                ScalableContentPane scp = new ScalableContentPane (root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
+                //cc.initStageActions(stage);
+                stage.show();
+
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
         }
     }
    

@@ -13,6 +13,9 @@ import com.digitalpersona.onetouch.processing.DPFPFeatureExtraction;
 import com.digitalpersona.onetouch.processing.DPFPImageQualityException;
 import com.digitalpersona.onetouch.verification.DPFPVerification;
 import com.digitalpersona.onetouch.verification.DPFPVerificationResult;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import eu.mihosoft.scaledfx.ScalableContentPane;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -30,6 +33,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import models.Adeudo;
@@ -65,6 +69,20 @@ public class RegistroVisitasController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        drawer.setSidePane(box);
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            transition.setRate(transition.getRate() * -1);
+            transition.play();
+
+            if (drawer.isOpened()) {
+                drawer.close();
+            } else {
+                drawer.open();
+            }
+        });
+
         Iniciar();
 	    start();
         EstadoHuellas();
@@ -82,6 +100,10 @@ public class RegistroVisitasController implements Initializable{
     @FXML
     private GridPane gridPane;
 
+    @FXML private JFXDrawer drawer;
+    @FXML private JFXHamburger hamburger;
+    @FXML private VBox box;
+
 
 //    @FXML
 //    public void regresaMenuPrincipal(KeyEvent event) {
@@ -91,7 +113,7 @@ public class RegistroVisitasController implements Initializable{
 ////                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
 ////                    este.hide();
 ////
-////                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+////                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
 ////                    Parent root1 = (Parent) fxmlLoader.load();
 ////                    Stage stage = new Stage();
 ////                    stage.setScene(new Scene(root1));
@@ -99,7 +121,7 @@ public class RegistroVisitasController implements Initializable{
 //
 //                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
 //                    este.close();
-//                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+//                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
 //                    Parent root = fxmlLoader.load();
 //                    ScalableContentPane scp = new ScalableContentPane (root);
 //                    Stage stage = new Stage();
@@ -370,7 +392,7 @@ public class RegistroVisitasController implements Initializable{
 
                                     }else if(resultadoOpcModal.get() == btnRenovar) {
 
-                                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/MiembrosRenovar.fxml"));
+                                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MiembrosRenovar.fxml"));
                                         Parent root = loader.load();
                                         MiembrosRenovarController scene2Controller = loader.getController();
                                         scene2Controller.receiveData(listaHuellas.get(i).getIdMiembro());
@@ -397,7 +419,7 @@ public class RegistroVisitasController implements Initializable{
                                 alert.getButtonTypes().setAll(btnCrearMembresia, btnCancelar);
                                 resultadoOpcModal = alert.showAndWait();
                                 if (resultadoOpcModal.get() == btnCrearMembresia) {
-                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/MiembrosRenovar.fxml"));
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MiembrosRenovar.fxml"));
                                     Parent root = loader.load();
                                     MiembrosRenovarController scene2Controller = loader.getController();
                                     scene2Controller.receiveData(listaHuellas.get(i).getIdMiembro());
@@ -439,13 +461,13 @@ public class RegistroVisitasController implements Initializable{
                             Lector.stopCapture();
                             Window window = txtMensajes.getScene().getWindow();
                             window.hide();
-//                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Usuarios2.fxml"));
+//                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Usuarios2.fxml"));
 //                            Parent root1 = (Parent) fxmlLoader.load();
 //                            Stage stage = new Stage();
 //                            stage.setScene(new Scene(root1));
 //                            stage.show();
 
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Usuarios2.fxml"));
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Usuarios2.fxml"));
                             Parent root = fxmlLoader.load();
                             ScalableContentPane scp = new ScalableContentPane (root);
                             Stage stage = new Stage();
@@ -521,7 +543,7 @@ public class RegistroVisitasController implements Initializable{
             Lector.stopCapture();
             Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
             este.close();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
             Parent root = fxmlLoader.load();
             ScalableContentPane scp = new ScalableContentPane(root);
             Stage stage = new Stage();

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import java.net.URL?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="804.0" prefWidth="1057.0" styleClass="fondoBottonAnchorPanel" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EstadisticasController">
+   <children>
+      <Accordion layoutX="106.0" prefHeight="804.0" prefWidth="951.0">
+         <panes>
+            <TitledPane animated="false" prefHeight="804.0" prefWidth="916.0" text="DATOS DE REGISTRO DE VISITAS">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1095.0" prefWidth="1055.0">
+                     <children>
+                        <TabPane layoutX="7.6" layoutY="8.6" prefHeight="1048.0" prefWidth="1057.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+                           <tabs>
+                              <Tab text="Gráfica">
+                                 <content>
+                                    <ScrollPane prefHeight="778.0" prefWidth="1055.0">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="956.0" prefWidth="1057.0">
+                                             <children>
+                                                <Button fx:id="button" layoutX="805.0" layoutY="590.0" onAction="#AccionPintar" prefHeight="45.0" prefWidth="124.0" styleClass="boton" stylesheets="@../styling/fullpackstyling.css" text="Consultar" />
+                                                <LineChart fx:id="graph" layoutX="42.0" layoutY="85.0" prefHeight="518.0" prefWidth="926.0">
+                                                   <xAxis>
+                                                      <CategoryAxis fx:id="ejeDia" label="Día" tickLabelGap="1.0" tickLength="1.0" />
+                                                   </xAxis>
+                                                   <yAxis>
+                                                      <NumberAxis fx:id="ejeTotal" label="Visitas Diarias" minorTickLength="0.0" side="LEFT" tickLabelGap="5.0" tickLength="5.0" />
+                                                   </yAxis>
+                                                </LineChart>
+                                                <DatePicker fx:id="dateDesde" layoutX="185.0" layoutY="600.0" />
+                                                <DatePicker fx:id="dateHasta" layoutX="486.0" layoutY="601.0" />
+                                                <Label layoutX="89.0" layoutY="603.0" prefHeight="17.0" prefWidth="67.0" text="Desde:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="409.0" layoutY="603.0" prefHeight="17.0" prefWidth="47.0" text="Hasta:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="32.0" layoutY="29.0" prefHeight="53.0" prefWidth="440.0" text="Registro de Visitas Diarias">
+                                                   <font>
+                                                      <Font name="System Bold" size="36.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="89.0" layoutY="676.0" prefHeight="20.0" prefWidth="113.0" text="Mayor afluencia:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtMayor" editable="false" layoutX="234.0" layoutY="674.0" prefHeight="25.0" prefWidth="125.0" />
+                                                <Label layoutX="409.0" layoutY="677.0" prefHeight="20.0" prefWidth="113.0" text="Menor afluencia:">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtMenor" editable="false" layoutX="535.0" layoutY="675.0" prefHeight="25.0" prefWidth="125.0" />
+                                                <TableView fx:id="tablaVisitasDiariasGeneral" layoutX="89.0" layoutY="752.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="columnaFecha" prefWidth="160.0" text="Fecha" />
+                                                      <TableColumn fx:id="columnaTotalVisitas" prefWidth="158.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Datos Históricos">
+                                 <content>
+                                    <ScrollPane prefHeight="1057.0" prefWidth="1044.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1009.0" prefWidth="1285.0">
+                                             <children>
+                                                <TableView fx:id="tablaEnero" layoutX="24.0" layoutY="149.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaEnero" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisEnero" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaFebrero" layoutX="351.0" layoutY="149.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaFeb" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisFebrero" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaMarzo" layoutX="678.0" layoutY="149.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaMarzo" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisMarzo" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaAbril" layoutX="1006.0" layoutY="149.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colVisAbril" prefWidth="164.0" text="Total Visitas" />
+                                                      <TableColumn fx:id="colFechaAbril" prefWidth="153.9999942779541" text="Fecha" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaMayo" layoutX="24.0" layoutY="431.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaMayo" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisMayo" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaJunio" layoutX="351.0" layoutY="431.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaJunio" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisJunio" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaJulio" layoutX="678.0" layoutY="431.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaJulio" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisJulio" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaAgosto" layoutX="1006.0" layoutY="431.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaAgosto" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisAgosto" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaSeptiembre" layoutX="24.0" layoutY="702.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaSep" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisSep" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaOctubre" layoutX="351.0" layoutY="702.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaOct" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisOct" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaNoviembre" layoutX="678.0" layoutY="702.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaNov" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisNov" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <TableView fx:id="tablaDiciembre" layoutX="1006.0" layoutY="702.0" prefHeight="204.0" prefWidth="293.0" stylesheets="@../styling/botonEliminar.css">
+                                                   <columns>
+                                                      <TableColumn fx:id="colFechaDic" prefWidth="153.9999942779541" text="Fecha" />
+                                                      <TableColumn fx:id="colVisDic" prefWidth="164.0" text="Total Visitas" />
+                                                   </columns>
+                                                </TableView>
+                                                <Label fx:id="lblEnero" alignment="CENTER" layoutX="123.0" layoutY="112.0" prefHeight="25.0" prefWidth="95.0" text="Enero">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblFebrero" alignment="CENTER" layoutX="450.0" layoutY="114.0" prefHeight="25.0" prefWidth="95.0" text="Febrero">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblMarzo" alignment="CENTER" layoutX="777.0" layoutY="120.0" prefHeight="25.0" prefWidth="95.0" text="Marzo">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblAbril" alignment="CENTER" layoutX="1105.0" layoutY="120.0" prefHeight="25.0" prefWidth="95.0" text="Abril">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblMayo" alignment="CENTER" layoutX="123.0" layoutY="396.0" prefHeight="25.0" prefWidth="95.0" text="Mayo">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblJunio" alignment="CENTER" layoutX="450.0" layoutY="396.0" prefHeight="25.0" prefWidth="95.0" text="Junio">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblJulio" alignment="CENTER" layoutX="777.0" layoutY="396.0" prefHeight="25.0" prefWidth="95.0" text="Julio">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblAgosto" alignment="CENTER" layoutX="1105.0" layoutY="396.0" prefHeight="25.0" prefWidth="95.0" text="Agosto">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblSeptiembre" alignment="CENTER" layoutX="105.0" layoutY="666.0" prefHeight="25.0" prefWidth="146.0" text="Septiembre">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblOctubre" alignment="CENTER" layoutX="446.0" layoutY="666.0" prefHeight="25.0" prefWidth="102.0" text="Octubre">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblNoviembre" alignment="CENTER" layoutX="752.0" layoutY="666.0" prefHeight="25.0" prefWidth="146.0" text="Noviembre">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblDiciembre" alignment="CENTER" layoutX="1089.0" layoutY="666.0" prefHeight="25.0" prefWidth="127.0" text="Diciembre">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="56.0" layoutY="35.0" prefHeight="36.0" prefWidth="244.0" text="Estadísticas del año:">
+                                                   <font>
+                                                      <Font name="System Bold" size="25.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="txtAnio" layoutX="316.0" layoutY="27.0" prefHeight="44.0" prefWidth="71.0" text="2021">
+                                                   <font>
+                                                      <Font name="System Bold" size="20.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Button fx:id="buttonConsultaHistorico" layoutX="435.0" layoutY="27.0" onAction="#consultaHistorico" prefHeight="45.0" prefWidth="124.0" styleClass="boton" stylesheets="@../styling/fullpackstyling.css" text="Consultar">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TitledPane>
+            <TitledPane animated="false" prefHeight="782.0" prefWidth="916.0" text="REGISTROS DE VISITAS POR MIEMBRO">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TitledPane>
+         </panes>
+      </Accordion>
+      <JFXDrawer fx:id="drawer" layoutX="-2.0" layoutY="-2.0" prefHeight="804.0" prefWidth="128.0">
+         <children>
+            <VBox fx:id="box" prefHeight="632.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="72.0" fitWidth="149.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../images/smcftext.PNG" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="btnRegresar" alignment="BASELINE_LEFT" onMouseClicked="#regresarMenuPrincipal" prefHeight="38.0" prefWidth="176.0" style="-fx-background-color: #355ECE;" styleClass="sidebarItem" text=" MENÚ" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/homepage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </JFXDrawer>
+      <JFXHamburger fx:id="hamburger" prefHeight="29.0" prefWidth="70.0" />
+   </children>
+   <stylesheets>
+      <URL value="@../styling/botonEliminar.css" />
+   </stylesheets>
+</AnchorPane>

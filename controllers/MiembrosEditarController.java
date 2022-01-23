@@ -1,5 +1,8 @@
 package controllers;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import eu.mihosoft.scaledfx.ScalableContentPane;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -14,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.MiembrosDataTableModel;
 import models.MiembrosModel;
@@ -132,6 +136,9 @@ public class MiembrosEditarController implements Initializable {
 
     @FXML
     private Button btnCobrar;
+    @FXML private JFXDrawer drawer;
+    @FXML private JFXHamburger hamburger;
+    @FXML private VBox box;
 
 
     private ObservableList<MiembrosDataTableModel> data;
@@ -143,6 +150,19 @@ public class MiembrosEditarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        drawer.setSidePane(box);
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            transition.setRate(transition.getRate() * -1);
+            transition.play();
+
+            if (drawer.isOpened()) {
+                drawer.close();
+            } else {
+                drawer.open();
+            }
+        });
         MiembrosDB miembrosDBObj =new MiembrosDB();
         IDMIEMBRO.setCellValueFactory(new PropertyValueFactory<>("idmiembro"));
         NOMBRES.setCellValueFactory(new PropertyValueFactory<>("nombres"));
@@ -164,19 +184,19 @@ public class MiembrosEditarController implements Initializable {
                             MiembrosDataTableModel miembro = (MiembrosDataTableModel) tableMiembros.getSelectionModel().getSelectedItem();
 //                            Node node = (Node) mouseEvent.getSource();
 //                            Stage stage = (Stage) node.getScene().getWindow();
-//                            //stage.setMaximized(true);
+//                            stage.setMaximized(false);
 //                            stage.close();
 //                            Scene scene = null;
-//                            scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/EditarUsuario.fxml")));
+//                            scene = new Scene(FXMLLoader.load(getClass().getResource("/views/EditarUsuario.fxml")));
 //                            stage.setUserData(miembro);
 //                            stage.setScene(scene);
 //                            stage.show();
 
 
-//                            Stage currentStage = (Stage) tableMiembros.getScene().getWindow();
-//                            currentStage.close();
+                            Stage currentStage = (Stage) tableMiembros.getScene().getWindow();
+                            currentStage.close();
                             //Load second scene
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/EditarUsuario.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditarUsuario.fxml"));
                             Parent root = loader.load();
 
                             //Get controller of scene2
@@ -206,7 +226,7 @@ public class MiembrosEditarController implements Initializable {
                 Stage stage = (Stage) node.getScene().getWindow();
                 //stage.setMaximized(true);
                 stage.close();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Hub.fxml")));
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/views/Hub.fxml")));
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
@@ -322,13 +342,13 @@ public class MiembrosEditarController implements Initializable {
 //                Node node = (Node) event.getSource();
 //                Stage stage = (Stage) node.getScene().getWindow();
 //                stage.close();
-//                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/interfaces/Usuarios2.fxml")));
+//                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/views/Usuarios2.fxml")));
 //                stage.setScene(scene);
 //                stage.show();
             try {
                 Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
                 este.close();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Usuarios2.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Usuarios2.fxml"));
                 Parent root = fxmlLoader.load();
                 ScalableContentPane scp = new ScalableContentPane (root);
                 Stage stage = new Stage();
@@ -345,7 +365,7 @@ public class MiembrosEditarController implements Initializable {
         try {
             Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
             este.close();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/Hub.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
             Parent root = fxmlLoader.load();
             ScalableContentPane scp = new ScalableContentPane (root);
             Stage stage = new Stage();

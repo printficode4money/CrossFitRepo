@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import java.net.URL?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/8.0.111"
+            fx:controller="pk.calendar.controllers.CallendarController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <Menu text="File">
+                <MenuItem onAction="#loadFromXML" text="Import XML events"/>
+                <MenuItem onAction="#loadFromICS" text="Import ICS events"/>
+                <MenuItem onAction="#createSettingsWindow" text="Settings"/>
+            </Menu>
+            <Menu text="_Edit">
+                <MenuItem onAction="#createEventFilter" text="Event filter"/>
+            </Menu>
+            <Menu text="_Help">
+                <MenuItem onAction="#createAboutWindow" text="About"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+
+    </center>
+
+    <stylesheets>
+        <URL value="@../css/MainView.css"/>
+        <URL value="@../css/DateCellExt.css"/>
+    </stylesheets>
+</BorderPane>

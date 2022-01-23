@@ -1,0 +1,16 @@
+#addEventButton {
+    -fx-font-weight: bold;
+}
+
+#dateLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+#dateColumn {
+    -fx-alignment: CENTER;
+}
+
+#miembroColumn {
+    -fx-alignment: CENTER;
+}

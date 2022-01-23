@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="433.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegistroVisitasController">
+   <children>
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="433.0" prefWidth="855.0">
+         <children>
+            <ImageView fitHeight="402.0" fitWidth="693.0" layoutX="210.0" layoutY="23.0" opacity="0.51" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo_new-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgHuella" fitHeight="198.0" fitWidth="199.0" layoutX="312.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: #000000;">
+               <image>
+                  <Image url="@../images/finger_circle.gif" />
+               </image>
+            </ImageView>
+            <TextField fx:id="txtMensajes" layoutX="272.0" layoutY="364.0" prefHeight="35.0" prefWidth="278.0" style="-fx-border-color: #000000;" />
+            <JFXDrawer fx:id="drawer" prefHeight="433.0" prefWidth="128.0">
+               <children>
+                  <VBox fx:id="box" prefHeight="632.0" prefWidth="141.0">
+                     <children>
+                        <ImageView fitHeight="72.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/back.jpg" />
+                           </image>
+                        </ImageView>
+                        <JFXButton fx:id="btnRegresar" alignment="BASELINE_LEFT" onMouseClicked="#regresarMenuPrincipal" prefHeight="38.0" prefWidth="176.0" style="-fx-background-color: #355ECE;" styleClass="sidebarItem" text=" MENÚ" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/homepage.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </JFXDrawer>
+            <ImageView fitHeight="440.0" fitWidth="823.0" layoutX="289.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/giphy.gif" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <JFXHamburger fx:id="hamburger" prefHeight="29.0" prefWidth="70.0" />
+   </children>
+</Pane>

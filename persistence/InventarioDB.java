@@ -42,7 +42,7 @@ public class InventarioDB {
         PreparedStatement preparedStatement;
         try {
             String queryInsert = "INSERT INTO INVENTARIO ( NOMBRE, DESCRIPCION, PRECIO, EXISTENCIAS) VALUES (?,?,?,?)";
-            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(queryInsert);
+            preparedStatement = newCon.conDB().prepareStatement(queryInsert);
             preparedStatement.setString(1, inventarioObj.getNombre());
             preparedStatement.setString(2, inventarioObj.getDescripcion());
             preparedStatement.setDouble(3, inventarioObj.getPrecio());

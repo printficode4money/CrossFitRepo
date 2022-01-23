@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="1102.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MiembrosController">
+    <children>
+      <Pane layoutX="-1.0" layoutY="1.0" />
+        <Accordion layoutX="70.0" layoutY="1.0" prefHeight="632.0" prefWidth="1031.0">
+            <panes>
+                <TitledPane animated="false" prefHeight="607.0" prefWidth="987.0" text="AGREGA UN NUEVO MIEMBRO">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="501.0" prefWidth="936.0">
+                            <children>
+                                <TextField fx:id="txtNombres" layoutX="20.0" layoutY="22.0" promptText="Nombres(s)" />
+                                <TextField fx:id="txtApellidoPat" layoutX="20.0" layoutY="65.0" promptText="Apellido Paterno" />
+                                <TextField fx:id="txtApellidoMat" layoutX="20.0" layoutY="109.0" promptText="Apellido Materno" />
+                                <TextField fx:id="txtTelefono" layoutX="20.0" layoutY="153.0" promptText="Teléfono" />
+                                <TextField fx:id="txtEmail" layoutX="20.0" layoutY="196.0" promptText="E-mail" />
+                                <DatePicker fx:id="txtFecNacimiento" layoutX="20.0" layoutY="237.0" prefHeight="27.0" prefWidth="148.0" promptText="Nacimiento" style="-fx-border-color: #000000;" />
+                                <ImageView fx:id="imgHuella" fitHeight="195.0" fitWidth="200.0" layoutX="588.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/fingerprint.png" />
+                                    </image>
+                                </ImageView>
+                                <TextField fx:id="txtMensajes" layoutX="570.0" layoutY="252.0" prefHeight="25.0" prefWidth="230.0" />
+                                <Button fx:id="btnGuardarMiembro" layoutX="608.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#HandleEvents" prefHeight="25.0" prefWidth="154.0" text="Guardar" />
+                                <Button fx:id="btnVerificar" layoutX="655.0" layoutY="284.0" mnemonicParsing="false" onMouseClicked="#identificarHuella" text="Verificar" />
+                        <RadioButton fx:id="hombreRadBtn" layoutX="95.0" layoutY="288.0" mnemonicParsing="false" onMouseClicked="#radioGroupSexo" text="H" />
+                        <RadioButton fx:id="mujerRadBtn" layoutX="137.0" layoutY="288.0" mnemonicParsing="false" onMouseClicked="#radioGroupSexo" text="M" />
+                        <Label layoutX="32.0" layoutY="288.0" prefHeight="17.0" prefWidth="53.0" text="Sexo:" />
+                        <ComboBox fx:id="cmbTipoSangre" layoutX="253.0" layoutY="22.0" prefHeight="25.0" prefWidth="178.0" promptText="Tipo de Sangre" />
+                        <Label layoutX="19.0" layoutY="323.0" prefHeight="17.0" prefWidth="154.0" text="Contacto de Emergencia:" />
+                        <TextField fx:id="txtNombreContactoEmer" layoutX="253.0" layoutY="319.0" prefHeight="25.0" prefWidth="178.0" promptText="Nombre Completo" />
+                        <TextField fx:id="txtTelContactoEmer" layoutX="253.0" layoutY="366.0" prefHeight="25.0" prefWidth="178.0" promptText="Teléfono" />
+                        <TextArea fx:id="txtAreaObserv" layoutX="253.0" layoutY="78.0" prefHeight="200.0" prefWidth="178.0" promptText="Enfermedades crónicas, lesiones o alergías:" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </TitledPane>
+                <TitledPane fx:id="detallesPane" animated="false" onMouseClicked="#abreDetallesPane" text="DETALLES DE MEMBRESÍA">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="25.0" text="Tipo de Membresía:" />
+                        <ComboBox fx:id="comboMembresias" layoutX="143.0" layoutY="21.0" onAction="#comboMembresiasOnChange" prefWidth="150.0" promptText="Selecciona..." />
+                        <Label layoutX="14.0" layoutY="75.0" text="Total a Cobrar:" />
+                        <TextField fx:id="txtMontoMem" layoutX="144.0" layoutY="71.0" promptText="0.0" />
+                        <Label layoutX="368.0" layoutY="25.0" prefHeight="17.0" prefWidth="154.0" text="Otorgar descuento especial:" />
+                        <CheckBox fx:id="chkDescuentoEspecial" layoutX="542.0" layoutY="25.0" mnemonicParsing="false" />
+                        <TextField fx:id="txtPorcenDescuento" layoutX="487.0" layoutY="71.0" prefHeight="25.0" prefWidth="71.0" />
+                        <Label layoutX="368.0" layoutY="75.0" text="\% de Descuento:" />
+                        <Button fx:id="btnTotalMembresia" layoutX="384.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#calculaPorcentaje" text="Calcular" />
+                        <Button fx:id="btnCobrar" layoutX="483.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#cobrarMembresia" prefHeight="25.0" prefWidth="79.0" text="Cobrar" />
+                        <Label layoutX="14.0" layoutY="164.0" text="Foma de Pago:" />
+                        <ComboBox fx:id="comboFormaPago" layoutX="143.0" layoutY="160.0" onAction="#comboMembresiasOnChange" prefWidth="150.0" promptText="Selecciona..." />
+                        <Pane layoutX="53.0" layoutY="235.0" prefHeight="200.0" prefWidth="924.0" style="-fx-border-color: #000000;" />
+                        <Label layoutX="14.0" layoutY="119.0" prefHeight="17.0" prefWidth="193.0" text="Otorgar descuento  de estudiante:" />
+                        <CheckBox fx:id="chkDescuentoEspecial1" layoutX="277.0" layoutY="119.0" mnemonicParsing="false" />
+                     </children>
+                  </AnchorPane>
+                    </content>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+                </TitledPane>
+            </panes>
+        </Accordion>
+      <JFXDrawer fx:id="drawer" prefHeight="632.0" prefWidth="128.0">
+         <children>
+            <VBox fx:id="box" prefHeight="632.0" prefWidth="141.0">
+               <children>
+                  <ImageView fitHeight="72.0" fitWidth="128.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../images/bear.PNG" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="btnRedirigeEditarUsuarios" alignment="BASELINE_LEFT" onMouseClicked="#abreEditarUsuarios" prefHeight="38.0" prefWidth="176.0" style="-fx-background-color: #355ECE;" styleClass="sidebarItem" text=" EDITAR" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/edit_color.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnRegresar" alignment="BASELINE_LEFT" onMouseClicked="#regresarMenuPrincipal" prefHeight="38.0" prefWidth="176.0" style="-fx-background-color: #355ECE;" styleClass="sidebarItem" text=" MENÚ" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/homepage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </JFXDrawer>
+      <JFXHamburger fx:id="hamburger" prefHeight="29.0" prefWidth="70.0" />
+    </children>
+</Pane>

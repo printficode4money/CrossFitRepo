@@ -1,0 +1,33 @@
+#date-cell-today {
+    -fx-font-weight: bold;
+}
+
+#date-cell-today-event-red {
+    -fx-font-weight: bold;
+    -fx-background-color: indianred;
+    -fx-text-fill: white;
+}
+
+#date-cell-event-red {
+    -fx-background-color: lightcoral;
+    -fx-text-fill: white;
+}
+
+#date-cell-event-green {
+    -fx-background-color: darkseagreen;
+    -fx-text-fill: white;
+}
+
+#date-cell-today-event-green {
+    -fx-font-weight: bold;
+    -fx-background-color: darkseagreen;
+    -fx-text-fill: white;
+}
+
+#date-cell-default {
+
+}
+
+.menu-item .label {
+    -fx-font-size: 15px;
+}
