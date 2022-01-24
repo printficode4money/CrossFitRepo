@@ -24,20 +24,17 @@ import java.util.ResourceBundle;
  */
 public class HubController implements Initializable{
     
-    @FXML
-    private Button btnUsuariosInterfaz;  
+    @FXML private Button btnUsuariosInterfaz;
     
-    @FXML
-    private Button btnRegistroVisitas;
+    @FXML private Button btnRegistroVisitas;
 
-    @FXML
-    private Button btnInventario;
+    @FXML private Button btnInventario;
 
-    @FXML
-    private Button btnEstadisticas;
+    @FXML private Button btnEstadisticas;
 
-    @FXML
-    private Button btnReservaciones;
+    @FXML private Button btnReservaciones;
+
+    @FXML private Button btnPlanificador;
     
     public HubController() {
         connection = (Connection) ConnectionUtil.conDB();
@@ -59,7 +56,7 @@ public class HubController implements Initializable{
     @FXML
     public void direccionaInterfaces(MouseEvent event) {
         if (event.getSource() == btnUsuariosInterfaz) {
-                try {
+            try {
 //                    Node node = (Node) event.getSource();
 //                    Stage stage = (Stage) node.getScene().getWindow();
 //                    //stage.setMaximized(true);
@@ -68,22 +65,22 @@ public class HubController implements Initializable{
 //                    stage.setScene(scene);
 //                    stage.show();
 
-                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
-                    este.close();
+                Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                este.close();
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Miembros.fxml"));
-                    Parent root = fxmlLoader.load();
-                    ScalableContentPane scp = new ScalableContentPane (root);
-                    Stage stage = new Stage();
-                    stage.setMaximized(true);
-                    stage.setScene(new Scene(scp));
-                    stage.show();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Miembros.fxml"));
+                Parent root = fxmlLoader.load();
+                ScalableContentPane scp = new ScalableContentPane(root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
+                stage.show();
 
-                } catch (IOException ex) {
-                    System.err.println(ex.getMessage());
-                }
-        }else if(event.getSource() == btnRegistroVisitas){
-         try {
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+        } else if (event.getSource() == btnRegistroVisitas) {
+            try {
 //                    Node node = (Node) event.getSource();
 //                    Stage stage = (Stage) node.getScene().getWindow();
 //                    stage.close();
@@ -92,29 +89,29 @@ public class HubController implements Initializable{
 //                    //stage.setMaximized(true);
 //                    stage.show();
 
-             Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
-             este.close();
+                Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                este.close();
 
-             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/RegistroVisitas.fxml"));
-             Parent root = fxmlLoader.load();
-             ScalableContentPane scp = new ScalableContentPane (root);
-             Stage stage = new Stage();
-             stage.setMaximized(true);
-             stage.setScene(new Scene(scp));
-             stage.show();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/RegistroVisitas.fxml"));
+                Parent root = fxmlLoader.load();
+                ScalableContentPane scp = new ScalableContentPane(root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
+                stage.show();
 
-                } catch (IOException ex) {
-                    System.err.println(ex.getMessage());
-                }
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
 
-        }else if(event.getSource() == btnInventario){
+        } else if (event.getSource() == btnInventario) {
             try {
-                Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+                Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 este.close();
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Inventario.fxml"));
                 Parent root = fxmlLoader.load();
-                ScalableContentPane scp = new ScalableContentPane (root);
+                ScalableContentPane scp = new ScalableContentPane(root);
                 Stage stage = new Stage();
                 stage.setMaximized(true);
                 stage.setScene(new Scene(scp));
@@ -123,13 +120,13 @@ public class HubController implements Initializable{
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }
-        }else if(event.getSource() == btnEstadisticas){
+        } else if (event.getSource() == btnEstadisticas) {
             try {
-                Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+                Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 este.close();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/test.fxml"));
                 Parent root = fxmlLoader.load();
-                ScalableContentPane scp = new ScalableContentPane (root);
+                ScalableContentPane scp = new ScalableContentPane(root);
                 Stage stage = new Stage();
                 stage.setMaximized(true);
                 stage.setScene(new Scene(scp));
@@ -138,22 +135,37 @@ public class HubController implements Initializable{
                 System.err.println(ex.getMessage());
             }
 
-        }else if(event.getSource() == btnReservaciones){
+        } else if (event.getSource() == btnReservaciones) {
             try {
-                Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
+                Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 este.close();
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/TestCal.fxml"));
                 Parent root = fxmlLoader.load();
                 ReservacionesController cc = fxmlLoader.getController();
 
-                ScalableContentPane scp = new ScalableContentPane (root);
+                ScalableContentPane scp = new ScalableContentPane(root);
                 Stage stage = new Stage();
                 stage.setMaximized(true);
                 stage.setScene(new Scene(scp));
                 //cc.initStageActions(stage);
                 stage.show();
 
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+
+        } else if (event.getSource() == btnPlanificador) {
+            try {
+                Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                este.close();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Planificador.fxml"));
+                Parent root = fxmlLoader.load();
+                ScalableContentPane scp = new ScalableContentPane(root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
+                stage.show();
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }

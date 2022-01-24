@@ -69,6 +69,7 @@ public class RegistroVisitasController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        imgConfetti.setVisible(false);
         drawer.setSidePane(box);
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
@@ -103,37 +104,7 @@ public class RegistroVisitasController implements Initializable{
     @FXML private JFXDrawer drawer;
     @FXML private JFXHamburger hamburger;
     @FXML private VBox box;
-
-
-//    @FXML
-//    public void regresaMenuPrincipal(KeyEvent event) {
-//        if (event.getSource() == gridPane) {
-//                try {
-//                    Lector.stopCapture();
-////                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
-////                    este.hide();
-////
-////                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
-////                    Parent root1 = (Parent) fxmlLoader.load();
-////                    Stage stage = new Stage();
-////                    stage.setScene(new Scene(root1));
-////                    stage.show();
-//
-//                    Stage este = (Stage)((Node) event.getSource()).getScene().getWindow();
-//                    este.close();
-//                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Hub.fxml"));
-//                    Parent root = fxmlLoader.load();
-//                    ScalableContentPane scp = new ScalableContentPane (root);
-//                    Stage stage = new Stage();
-//                    stage.setMaximized(true);
-//                    stage.setScene(new Scene(scp));
-//                    stage.show();
-//
-//                } catch (IOException ex) {
-//                    System.err.println(ex.getMessage());
-//                }
-//        }
-//    }
+    @FXML private ImageView imgConfetti;
 
     RegistroVisitasDB registroVisitasDB;
     MiembrosController miembrosController;

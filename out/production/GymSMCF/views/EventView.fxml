@@ -93,7 +93,7 @@
 
     <TableView fx:id="eventTable" prefHeight="308.0" prefWidth="742.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
         <columns>
-            <TableColumn fx:id="dateColumn" prefWidth="151.0" text="Fecha" />
+            <TableColumn fx:id="dateColumn" prefWidth="151.0" text="Hora" />
             <TableColumn fx:id="miembroColumn" prefWidth="202.0" text="Miembro" />
             <TableColumn fx:id="descColumn" prefWidth="506.0" text="Descripción" />
         </columns>

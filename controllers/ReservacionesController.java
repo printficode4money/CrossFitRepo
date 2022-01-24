@@ -189,7 +189,7 @@ public class ReservacionesController implements Initializable {
         String result = null;
 
         // ask user to save events to db
-        Alert alert = WindowUtils.createAlert("Guardar evento(s)?");
+        Alert alert = WindowUtils.createAlert("Guardar evento?");
         if (alert.getResult() == ButtonType.YES) {
             ReservacionesDB reservacionesDB = new ReservacionesDB();
             result = reservacionesDB.createInsertQuery(eventManager.getEventsAdded());
@@ -202,9 +202,7 @@ public class ReservacionesController implements Initializable {
         // cancel all TimerTasks
         notifyController.close();
         String result = null;
-
-        // ask user to save events to db
-        Alert alert = WindowUtils.createAlert("Borrar evento(s)?");
+        Alert alert = WindowUtils.createAlert("Borrar evento?");
         if (alert.getResult() == ButtonType.YES) {
             ReservacionesDB reservacionesDB = new ReservacionesDB();
             result = reservacionesDB.eliminaEvento(de);

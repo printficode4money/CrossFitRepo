@@ -41,12 +41,12 @@ public class ModificaArticuloInventario implements Initializable {
     }
 
     public void receiveData(InventarioDTM inventarioObj, Stage stage) {
-    txtNombre.setText(inventarioObj.getNombre());
-    txtDescripcion.setText(inventarioObj.getDescripcion());
-    txtPrecio.setText(String.valueOf(inventarioObj.getPrecio()));
-    txtExistencias.setText(String.valueOf(inventarioObj.getExistencias()));
-    idInventario = inventarioObj.getIdInventario();
-    stageThis = stage;
+        txtNombre.setText(inventarioObj.getNombre());
+        txtDescripcion.setText(inventarioObj.getDescripcion());
+        txtPrecio.setText(String.valueOf(inventarioObj.getPrecio()));
+        txtExistencias.setText(String.valueOf(inventarioObj.getExistencias()));
+        idInventario = inventarioObj.getIdInventario();
+        stageThis = stage;
     }
 
     public void actualizarFilaInventario(){

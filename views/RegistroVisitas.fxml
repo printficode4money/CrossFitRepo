@@ -51,7 +51,7 @@
                   </VBox>
                </children>
             </JFXDrawer>
-            <ImageView fitHeight="440.0" fitWidth="823.0" layoutX="289.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgConfetti" fitHeight="440.0" fitWidth="823.0" layoutX="289.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/giphy.gif" />
                </image>

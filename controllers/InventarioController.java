@@ -129,7 +129,6 @@ public class InventarioController implements Initializable {
         tablaInventario.setEditable(true);
         tablaInventario.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tablaInventario.getSelectionModel().setCellSelectionEnabled(false);
-        tablaInventario.setEditable(true);
         data = inventarioDB.consultaInventario();
         tablaInventario.setItems(data);
         cmbBuscar.setVisible(false);
