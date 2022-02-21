@@ -6,13 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.InventarioDTM;
-import persistence.InventarioDB;
+import persistence.InventarioVentasDB;
 
 import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModificaArticuloInventario implements Initializable {
+public class ModificaArtInvVentas implements Initializable {
 
     @FXML
     private TextField txtNombre;
@@ -51,7 +51,7 @@ public class ModificaArticuloInventario implements Initializable {
 
     public void actualizarFilaInventario(){
         String resultado;
-        InventarioDB inventarioDB = new InventarioDB();
+        InventarioVentasDB inventarioDB = new InventarioVentasDB();
         inventarioObj.setIdInventario(idInventario);
         inventarioObj.setNombre(txtNombre.getText());
         inventarioObj.setDescripcion(txtDescripcion.getText());
@@ -74,3 +74,4 @@ public class ModificaArticuloInventario implements Initializable {
     }
 
 }
+

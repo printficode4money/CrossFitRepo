@@ -24,6 +24,24 @@ public class DateEvent implements Comparable<DateEvent>, Serializable {
     private int idEvento;
     private String description;
     private String nombreCompleto;
+    private int idSet;
+    private String set_nombre;
+
+    public int getIdSet() {
+        return idSet;
+    }
+
+    public void setIdSet(int idSet) {
+        this.idSet = idSet;
+    }
+
+    public String getSet_nombre() {
+        return set_nombre;
+    }
+
+    public void setSet_nombre(String set_nombre) {
+        this.set_nombre = set_nombre;
+    }
 
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime dateTime;
@@ -72,6 +90,12 @@ public class DateEvent implements Comparable<DateEvent>, Serializable {
     @Deprecated
     public DateEvent() {
         this(LocalDate.now(), 0, 0, 0, "", "");
+    }
+
+    public DateEvent(int idSet, LocalDateTime dateTime, String set_nombre) {
+        this.idSet = idSet;
+        this.dateTime = dateTime;
+        this.set_nombre = set_nombre;
     }
 
     public LocalDateTime getNotifyTime() {

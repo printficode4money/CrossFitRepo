@@ -48,15 +48,6 @@ public class ReservacionesController implements Initializable {
         ReservacionesDB reservacionesDB = new ReservacionesDB();
         eventManager = EventManager.getInstance();
         eventManager.initEvents(reservacionesDB.read());
-
-//        try (DBDateEventDao db = DateEventDaoFactory.getDBDao()) {
-//            eventManager.initEvents(db.read());
-//        } catch (SQLException e) {
-//            WindowUtils.createErrorAlert("Could not connect to databse!");
-//            eventManager.initEvents(new HashSet<>());
-//            e.printStackTrace();
-//        }
-
         notifyController = new NotifyPopupController();
         notifyController.initialize();
     }

@@ -2,10 +2,7 @@ package persistence;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import models.Adeudo;
-import models.AdeudoDataTableModel;
-import models.MiembrosDataTableModel;
-import models.MiembrosModel;
+import models.*;
 import org.jetbrains.annotations.NotNull;
 import utils.ConnectionUtil;
 
@@ -271,7 +268,7 @@ public class MiembrosDB {
         }
     }
 
-    public ObservableList consultaUsuariosExistentes() {
+    public ObservableList consultaMiembrosExistentes() {
         ObservableList<MiembrosDataTableModel> data;
         ConnectionUtil newCon = new ConnectionUtil();
         data = FXCollections.observableArrayList();
@@ -385,27 +382,22 @@ public class MiembrosDB {
         return listaDeuda;
     }
 
-//    public List<MiembrosDataTableModel> consultaUsuariosTodos() {
-//        List<MiembrosDataTableModel> data;
-//        ConnectionUtil newCon = new ConnectionUtil();
-//        data = FXCollections.observableArrayList();
-//        ResultSet rs;
-//        try {
-//            rs = newCon.conDB().createStatement().executeQuery("SELECT IDMIEMBRO, NOMBRES, APELLIDO_PAT, APELLIDO_MAT FROM MIEMBROS");
-//
-//            while (rs.next()) {
-//                MiembrosDataTableModel fila = new MiembrosDataTableModel(null, null, null, null, null);
-//                int idMiembro = rs.getInt("idmiembro");
-//                String idMiembroStg = String.valueOf(idMiembro);
-//                fila.setIdmiembro(idMiembroStg);
-//                fila.setNombres(rs.getString("nombres"));
-//                fila.setApellido_pat(rs.getString("apellido_pat"));
-//                fila.setApellido_mat(rs.getString("apellido_mat"));
-//                data.add(fila);
-//            }
-//        } catch (SQLException ex) {
-//            System.err.println(ex.getMessage());
-//        }
-//        return data;
-//    }
+    public ObservableList consultaUsuariosSistema() {
+        ObservableList<UsuariosDTM> data;
+        ConnectionUtil newCon = new ConnectionUtil();
+        data = FXCollections.observableArrayList();
+        ResultSet rs;
+        try {
+            rs = newCon.conDB().createStatement().executeQuery("SELECT DISTINCT NOMBRE_COMPLETO FROM USUARIOS");
+
+            while (rs.next()) {
+                UsuariosDTM fila = new UsuariosDTM(0, null, null, null, false, null);
+                fila.setNombre_completo(rs.getString("NOMBRE_COMPLETO"));
+                data.add(fila);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return data;
+    }
 }

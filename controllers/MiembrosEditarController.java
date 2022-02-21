@@ -172,7 +172,7 @@ public class MiembrosEditarController implements Initializable {
         tableMiembros.setEditable(true);
         tableMiembros.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tableMiembros.getSelectionModel().setCellSelectionEnabled(false);
-        data = miembrosDBObj.consultaUsuariosExistentes();
+        data = miembrosDBObj.consultaMiembrosExistentes();
         tableMiembros.setItems(data);
 
         tableMiembros.setOnMouseClicked(new EventHandler<MouseEvent>() {

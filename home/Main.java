@@ -56,4 +56,14 @@ public class Main extends Application {
         launch(args);
     }
 
+    public int cuentaLetras(String cadena, char letra){
+        int count =0;
+        for(int i = 0; i<cadena.length(); i++){
+            if(cadena.charAt(i) == letra) {
+                count++;
+            }
+        }
+        return count;
+    }
+
 }

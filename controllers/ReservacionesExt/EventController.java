@@ -86,7 +86,7 @@ public class EventController{
         MiembrosDB miembrosDB = new MiembrosDB();
         cmbMiembro.setEditable(true);
         TextFields.bindAutoCompletion(cmbMiembro.getEditor(), cmbMiembro.getItems());
-        ObservableList<MiembrosDataTableModel> listaMiembros = miembrosDB.consultaUsuariosExistentes();
+        ObservableList<MiembrosDataTableModel> listaMiembros = miembrosDB.consultaMiembrosExistentes();
         for (MiembrosDataTableModel miembro : listaMiembros){
             cmbMiembro.getItems().add(miembro.getNombreCompleto());
         }

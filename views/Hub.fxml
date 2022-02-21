@@ -16,7 +16,7 @@
                   <Image url="@../images/logo_new-removebg-preview.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnUsuariosInterfaz" contentDisplay="TOP" layoutX="105.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="MIEMBROS">
+            <Button fx:id="btnUsuariosInterfaz" contentDisplay="TOP" layoutX="73.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="MIEMBROS">
                <graphic>
                   <ImageView fitHeight="114.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -27,7 +27,7 @@
                <font>
                   <Font name="System Bold" size="20.0" />
                </font></Button>
-            <Button contentDisplay="TOP" layoutX="344.0" layoutY="107.0" mnemonicParsing="false" prefHeight="157.0" prefWidth="185.0" text="ADMINISTRACION">
+            <Button contentDisplay="TOP" layoutX="473.0" layoutY="48.0" mnemonicParsing="false" prefHeight="157.0" prefWidth="185.0" text="ADMINISTRACION">
                <graphic>
                   <ImageView fitHeight="125.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -38,7 +38,7 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Button>
-            <Button fx:id="btnInventario" contentDisplay="TOP" layoutX="624.0" layoutY="108.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="INVENTARIO">
+            <Button fx:id="btnInventario" contentDisplay="TOP" layoutX="473.0" layoutY="252.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="INVENTARIO">
                <graphic>
                   <ImageView fitHeight="114.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,7 +49,7 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Button>
-            <Button fx:id="btnRegistroVisitas" contentDisplay="TOP" layoutX="863.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="128.0" prefWidth="185.0" text="ASISTENCIA">
+            <Button fx:id="btnRegistroVisitas" contentDisplay="TOP" layoutX="849.0" layoutY="47.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="128.0" prefWidth="185.0" text="ASISTENCIA">
                <graphic>
                   <ImageView fitHeight="117.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -61,7 +61,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btnEstadisticas" contentDisplay="TOP" layoutX="105.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="ESTADISTICAS">
+            <Button fx:id="btnEstadisticas" contentDisplay="TOP" layoutX="73.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="ESTADISTICAS">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -73,7 +73,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnReservaciones" contentDisplay="TOP" layoutX="624.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="RESERVACIONES">
+            <Button fx:id="btnReservaciones" contentDisplay="TOP" layoutX="473.0" layoutY="446.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="RESERVACIONES">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -85,7 +85,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnEstadisticas3" contentDisplay="TOP" layoutX="863.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="CORTE">
+            <Button fx:id="btnEstadisticas3" contentDisplay="TOP" layoutX="849.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="CORTE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -97,7 +97,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnPlanificador" contentDisplay="TOP" layoutX="344.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="RUTINAS">
+            <Button fx:id="btnPlanificador" contentDisplay="TOP" layoutX="73.0" layoutY="446.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="RUTINAS">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -108,6 +108,18 @@
                      </image>
                   </ImageView>
                </graphic>
+            </Button>
+            <Button fx:id="btnVentas" contentDisplay="TOP" layoutX="849.0" layoutY="448.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="VENTAS">
+               <graphic>
+                  <ImageView fitHeight="114.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/sale.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
             </Button>
          </children>
     </AnchorPane>

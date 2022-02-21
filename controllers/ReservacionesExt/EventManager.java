@@ -1,5 +1,7 @@
 package controllers.ReservacionesExt;
 
+import models.RutinaDTM;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,10 +24,14 @@ public class EventManager {
      */
     private final Set<DateEvent> events;
 
+    private final Set<RutinaDTM> ejercicios;
+
     /**
      * Added events during running of application.
      */
     private final Set<DateEvent> eventsAdded;
+
+    private final Set<RutinaDTM> ejerciciosAgregados;
 
     /**
      * Deleted events during running of application.
@@ -39,6 +45,8 @@ public class EventManager {
         events = new HashSet<>();
         eventsAdded = new HashSet<>();
         eventsDeleted = new HashSet<>();
+        ejercicios = new HashSet<>();
+        ejerciciosAgregados = new HashSet<>();
     }
 
     /**
@@ -58,6 +66,12 @@ public class EventManager {
      */
     public Set<DateEvent> getEventsByDate(LocalDate date) {
         return events.stream()
+                .filter(e -> e.getDateTime().toLocalDate().isEqual(date))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<RutinaDTM> getRutinasByDate(LocalDate date) {
+        return ejercicios.stream()
                 .filter(e -> e.getDateTime().toLocalDate().isEqual(date))
                 .collect(Collectors.toSet());
     }
@@ -112,6 +126,13 @@ public class EventManager {
         }
     }
 
+    public void agregarEventos(RutinaDTM... eventsToAdd) {
+        for (RutinaDTM e : eventsToAdd) {
+            ejercicios.add(e);
+            ejerciciosAgregados.add(e);
+        }
+    }
+
     /**
      * Adds given set of events to events set and adds it to eventsAdded.
      *
@@ -137,6 +158,10 @@ public class EventManager {
 
     public Set<DateEvent> getEventsAdded() {
         return eventsAdded;
+    }
+
+    public Set<RutinaDTM> getEjerciciosAgregados() {
+        return ejerciciosAgregados;
     }
 
     public void vaciaEventos(){

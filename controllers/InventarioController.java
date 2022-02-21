@@ -182,7 +182,8 @@ public class InventarioController implements Initializable {
                 InventarioDTM inventarioDTM = new InventarioDTM();
                 inventarioDTM.setNombre(txtNombre.getText());
                 inventarioDTM.setDescripcion(txtDescripcion.getText());
-                inventarioDTM.setPrecio(Double.parseDouble(txtPrecio.getText()));
+                //inventarioDTM.setPrecio(Double.parseDouble(txtPrecio.getText()));
+                inventarioDTM.setPrecio(txtPrecio.getText());
                 inventarioDTM.setExistencias(Integer.parseInt(txtExistencias.getText()));
                 resultado = inventarioDB.guardarArticuloInventario(inventarioDTM);
                 JOptionPane.showMessageDialog(null, resultado, "Mensaje Informativo de Inventario", JOptionPane.INFORMATION_MESSAGE);

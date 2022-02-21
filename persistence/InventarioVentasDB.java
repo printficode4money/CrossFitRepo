@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InventarioDB {
+public class InventarioVentasDB {
 
     public ObservableList consultaInventario() {
         ObservableList<InventarioDTM> data;
@@ -17,12 +17,12 @@ public class InventarioDB {
         data = FXCollections.observableArrayList();
         ResultSet rs;
         try {
-            rs = newCon.conDB().createStatement().executeQuery("SELECT idinventario, nombre, descripcion, precio, existencias FROM INVENTARIO");
+            rs = newCon.conDB().createStatement().executeQuery("SELECT DISTINCT idinventario_ventas, nombre_articulo, descripcion, precio, existencias FROM INVENTARIO_VENTAS");
 
             while (rs.next()) {
                 InventarioDTM fila = new InventarioDTM();
-                fila.setIdInventario(rs.getInt("idinventario"));
-                fila.setNombre(rs.getString("nombre"));
+                fila.setIdInventario(rs.getInt("idinventario_ventas"));
+                fila.setNombre(rs.getString("nombre_articulo"));
                 fila.setDescripcion(rs.getString("descripcion"));
                 fila.setPrecio(rs.getString("precio"));
                 fila.setExistencias(rs.getInt("existencias"));
@@ -41,7 +41,7 @@ public class InventarioDB {
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         PreparedStatement preparedStatement;
         try {
-            String queryInsert = "INSERT INTO INVENTARIO ( NOMBRE, DESCRIPCION, PRECIO, EXISTENCIAS) VALUES (?,?,?,?)";
+            String queryInsert = "INSERT INTO INVENTARIO_VENTAS ( NOMBRE_ARTICULO, DESCRIPCION, PRECIO, EXISTENCIAS) VALUES (?,?,?,?)";
             preparedStatement = newCon.conDB().prepareStatement(queryInsert);
             preparedStatement.setString(1, inventarioObj.getNombre());
             preparedStatement.setString(2, inventarioObj.getDescripcion());
@@ -68,7 +68,7 @@ public class InventarioDB {
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         PreparedStatement preparedStatement;
         try {
-            String queryInsert = "DELETE FROM INVENTARIO WHERE IDINVENTARIO = ? ";
+            String queryInsert = "DELETE FROM INVENTARIO_VENTAS WHERE IDINVENTARIO_VENTAS = ? ";
             preparedStatement = newCon.conDB().prepareStatement(queryInsert);
             preparedStatement.setInt(1, inventarioObj.getIdInventario());
             preparedStatement.execute();
@@ -92,12 +92,12 @@ public class InventarioDB {
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         PreparedStatement preparedStatement;
         try {
-            String queryInsert = "UPDATE INVENTARIO SET NOMBRE=?, DESCRIPCION=?, EXISTENCIAS=?, PRECIO=? WHERE IDINVENTARIO = ?";
-            preparedStatement = (PreparedStatement) newCon.conDB().prepareStatement(queryInsert);
+            String queryInsert = "UPDATE INVENTARIO_VENTAS SET NOMBRE_ARTICULO=?, DESCRIPCION=?, EXISTENCIAS=?, PRECIO=? WHERE IDINVENTARIO_VENTAS = ?";
+            preparedStatement = newCon.conDB().prepareStatement(queryInsert);
             preparedStatement.setString(1, inventarioObj.getNombre());
             preparedStatement.setString(2, inventarioObj.getDescripcion());
             preparedStatement.setInt(3, inventarioObj.getExistencias());
-            //preparedStatement.setDouble(4, inventarioObj.getPrecio()); TODO REVISAR
+            //preparedStatement.setDouble(4, inventarioObj.getPrecio()); //TODO REVISAR ESTO
             preparedStatement.setInt(5, inventarioObj.getIdInventario());
             preparedStatement.execute();
             return "Inventario actualizado con éxito.";

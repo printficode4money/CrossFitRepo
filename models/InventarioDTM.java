@@ -1,25 +1,38 @@
 package models;
 
 public class InventarioDTM {
-    String idInventario;
+    int idInventario;
     String nombre;
     String descripcion;
-    double precio;
+    String precio;
     int existencias;
+    int cantidadVenta;
 
-    public InventarioDTM(String idInventario, String nombre, String descripcion, double precio, int existencias){
+    public String getTotalPrecioUnitario() {
+        return totalPrecioUnitario;
+    }
+
+    public void setTotalPrecioUnitario(String totalPrecioUnitario) {
+        this.totalPrecioUnitario = totalPrecioUnitario;
+    }
+
+    String totalPrecioUnitario;
+
+    public InventarioDTM(String idInventario, String nombre, String descripcion, String precio, int existencias, int cantidadVenta, String totalPrecioUnitario){
         super();
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.existencias = existencias;
+        this.cantidadVenta = cantidadVenta;
+        this.totalPrecioUnitario = totalPrecioUnitario;
     }
 
-    public String getIdInventario() {
+    public int getIdInventario() {
         return idInventario;
     }
 
-    public void setIdInventario(String idInventario) {
+    public void setIdInventario(int idInventario) {
         this.idInventario = idInventario;
     }
 
@@ -43,11 +56,11 @@ public class InventarioDTM {
         this.descripcion = descripcion;
     }
 
-    public double getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 
@@ -57,5 +70,13 @@ public class InventarioDTM {
 
     public void setExistencias(int existencias) {
         this.existencias = existencias;
+    }
+
+    public int getCantidadVenta() {
+        return cantidadVenta;
+    }
+
+    public void setCantidadVenta(int cantidadVenta) {
+        this.cantidadVenta = cantidadVenta;
     }
 }

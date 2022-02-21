@@ -35,6 +35,8 @@ public class HubController implements Initializable{
     @FXML private Button btnReservaciones;
 
     @FXML private Button btnPlanificador;
+
+    @FXML private Button btnVentas;
     
     public HubController() {
         connection = (Connection) ConnectionUtil.conDB();
@@ -161,11 +163,29 @@ public class HubController implements Initializable{
                 este.close();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Planificador.fxml"));
                 Parent root = fxmlLoader.load();
+                PlanificadorController cc = fxmlLoader.getController();
                 ScalableContentPane scp = new ScalableContentPane(root);
                 Stage stage = new Stage();
                 stage.setMaximized(true);
                 stage.setScene(new Scene(scp));
                 stage.show();
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+
+        }else if (event.getSource() == btnVentas) {
+            try {
+                Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                este.close();
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Ventas.fxml"));
+                Parent root = fxmlLoader.load();
+                ScalableContentPane scp = new ScalableContentPane(root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
+                stage.show();
+
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }

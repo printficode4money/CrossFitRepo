@@ -103,8 +103,7 @@ public class LoginController implements Initializable {
             setLblError(Color.TOMATO, "Credenciales vacías");
             status = "Error";
         } else {
-            //query
-            String sql = "SELECT * FROM admins Where email = ? and password = ?";
+            String sql = "SELECT * FROM USUARIOS Where usuario = ? and password = ?";
             try {
                 preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setString(1, email);
