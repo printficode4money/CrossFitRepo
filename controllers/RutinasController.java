@@ -37,16 +37,12 @@ public class RutinasController {
 
     private final SimpleStringProperty eventDateStr;
 
-    @FXML
-    private Label dateLabel;
-    @FXML
-    private TableView<RutinaDTM> eventTable;
-    @FXML
-    private TableColumn<RutinaDTM, String> set_nombreCol;
+    @FXML private Label dateLabel;
+    @FXML private TableView<RutinaDTM> eventTable;
+    @FXML private TableColumn<RutinaDTM, String> set_nombreCol;
     private ObservableList<RutinaDTM> data;
     private LocalDate eventDate;
-    @FXML
-    private JFXComboBox cmbEntrenador;
+    @FXML private JFXComboBox cmbEntrenador;
     private ObservableList<Catalogo_Ejercicio_DTM> seleccionados = FXCollections.observableArrayList();
 
     /**

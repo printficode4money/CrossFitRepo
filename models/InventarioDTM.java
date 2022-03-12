@@ -6,7 +6,7 @@ public class InventarioDTM {
     String descripcion;
     String precio;
     int existencias;
-    int cantidadVenta;
+    String cantidadVenta;
 
     public String getTotalPrecioUnitario() {
         return totalPrecioUnitario;
@@ -18,7 +18,7 @@ public class InventarioDTM {
 
     String totalPrecioUnitario;
 
-    public InventarioDTM(String idInventario, String nombre, String descripcion, String precio, int existencias, int cantidadVenta, String totalPrecioUnitario){
+    public InventarioDTM(String idInventario, String nombre, String descripcion, String precio, int existencias, String cantidadVenta, String totalPrecioUnitario){
         super();
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -72,11 +72,11 @@ public class InventarioDTM {
         this.existencias = existencias;
     }
 
-    public int getCantidadVenta() {
+    public String getCantidadVenta() {
         return cantidadVenta;
     }
 
-    public void setCantidadVenta(int cantidadVenta) {
+    public void setCantidadVenta(String cantidadVenta) {
         this.cantidadVenta = cantidadVenta;
     }
 }

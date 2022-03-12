@@ -85,7 +85,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnEstadisticas3" contentDisplay="TOP" layoutX="849.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="CORTE">
+            <Button fx:id="btnCorteCaja" contentDisplay="TOP" layoutX="849.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#direccionaInterfaces" prefHeight="157.0" prefWidth="185.0" text="CORTE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

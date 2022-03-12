@@ -22,29 +22,32 @@ import java.util.ResourceBundle;
  *
  * @author DonV3rga
  */
-public class HubController implements Initializable{
-    
-    @FXML private Button btnUsuariosInterfaz;
-    
-    @FXML private Button btnRegistroVisitas;
+public class HubController implements Initializable {
 
-    @FXML private Button btnInventario;
+    @FXML
+    private Button btnUsuariosInterfaz;
+    @FXML
+    private Button btnRegistroVisitas;
+    @FXML
+    private Button btnInventario;
+    @FXML
+    private Button btnEstadisticas;
+    @FXML
+    private Button btnReservaciones;
+    @FXML
+    private Button btnPlanificador;
+    @FXML
+    private Button btnVentas;
+    @FXML
+    private Button btnCorteCaja;
 
-    @FXML private Button btnEstadisticas;
-
-    @FXML private Button btnReservaciones;
-
-    @FXML private Button btnPlanificador;
-
-    @FXML private Button btnVentas;
-    
     public HubController() {
         connection = (Connection) ConnectionUtil.conDB();
     }
 
     Connection connection;
     private Button test;
-   // private static final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
+    // private static final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
     private static final String HOVERED_BUTTON_STYLE = "-fx-border-color: #4287f5";
 
 
@@ -173,7 +176,7 @@ public class HubController implements Initializable{
                 System.err.println(ex.getMessage());
             }
 
-        }else if (event.getSource() == btnVentas) {
+        } else if (event.getSource() == btnVentas) {
             try {
                 Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 este.close();
@@ -189,7 +192,24 @@ public class HubController implements Initializable{
             } catch (IOException ex) {
                 System.err.println(ex.getMessage());
             }
+        } else if (event.getSource() == btnCorteCaja) {
+            try {
+                Stage este = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                este.close();
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/CorteCajaView.fxml"));
+                Parent root = fxmlLoader.load();
+                ScalableContentPane scp = new ScalableContentPane(root);
+                Stage stage = new Stage();
+                stage.setMaximized(true);
+                stage.setScene(new Scene(scp));
+                stage.show();
+
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+
         }
+
     }
-   
 }

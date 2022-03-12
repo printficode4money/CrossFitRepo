@@ -25,7 +25,7 @@
         </columns>
       </TableView>
       <Button fx:id="btnPagar" layoutX="690.0" layoutY="483.0" mnemonicParsing="false" onAction="#pagar" prefHeight="25.0" prefWidth="87.0" text="PAGAR" />
-      <TextField fx:id="txtTotalVenta" layoutX="690.0" layoutY="409.0" prefHeight="25.0" prefWidth="87.0" />
+      <TextField fx:id="txtTotalVenta" alignment="CENTER_RIGHT" layoutX="690.0" layoutY="409.0" prefHeight="25.0" prefWidth="87.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="614.0" layoutY="411.0" prefHeight="17.0" prefWidth="54.0" text="Total:">
          <font>
             <Font size="14.0" />

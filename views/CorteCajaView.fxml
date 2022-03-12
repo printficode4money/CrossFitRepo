@@ -3,42 +3,33 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OrganizadorWODController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CorteCajaController">
    <children>
-      <Label fx:id="lblNombre" layoutX="101.0" layoutY="75.0" prefHeight="17.0" prefWidth="47.0" text="Nombre:" />
-      <Button fx:id="btnCancelar" layoutX="569.0" layoutY="597.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="87.0" text="Cancelar" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="101.0" layoutY="14.0" prefHeight="27.0" prefWidth="175.0" text="CORTE DE CAJA">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtNombreSet" layoutX="168.0" layoutY="71.0" prefHeight="25.0" prefWidth="175.0" />
       <Label fx:id="lblTipo" layoutX="122.0" layoutY="112.0" prefHeight="17.0" prefWidth="29.0" text="Tipo:" />
       <ComboBox fx:id="cmbTipo" layoutX="168.0" layoutY="108.0" prefHeight="25.0" prefWidth="175.0" promptText="Selecciona..." />
-      <TableView fx:id="tablaWodDia" layoutX="101.0" layoutY="157.0" prefHeight="410.0" prefWidth="615.0">
+      <TableView fx:id="tablaCorte" layoutX="101.0" layoutY="157.0" prefHeight="410.0" prefWidth="615.0">
          <columns>
-            <TableColumn fx:id="colEjercicio" prefWidth="282.0" text="Concepto" />
-            <TableColumn fx:id="colReps" minWidth="0.0" prefWidth="100.0" text="Forma Pago" />
-            <TableColumn fx:id="colTiempo" prefWidth="117.0" text="Cantidad" />
-            <TableColumn fx:id="colAction" prefWidth="115.0" text="Acción" />
+            <TableColumn fx:id="colConcepto" prefWidth="282.0" text="Concepto" />
+            <TableColumn fx:id="colFormaPago" minWidth="0.0" prefWidth="100.0" text="Forma Pago" />
+            <TableColumn fx:id="colMonto" prefWidth="117.0" text="Monto" />
+            <TableColumn fx:id="colCambio" prefWidth="115.0" text="Cambio" />
          </columns>
       </TableView>
-      <Label layoutX="383.0" layoutY="75.0" text="Tiempo por Set:" />
-      <TextField fx:id="txtTimeSet" layoutX="481.0" layoutY="71.0" />
-      <Button fx:id="btnGuardarSet" layoutX="151.0" layoutY="597.0" mnemonicParsing="false" onAction="#guardarSet" stylesheets="@../styling/fullpackstyling.css" text="Guardar Set" />
-      <Button fx:id="btnActualizarSet" layoutX="150.0" layoutY="597.0" mnemonicParsing="false" onAction="#actualizarSet" stylesheets="@../styling/fullpackstyling.css" text="Actualizar Set" />
       <JFXDrawer fx:id="drawer" layoutX="-3.0" prefHeight="658.0" prefWidth="128.0">
          <children>
             <VBox fx:id="box" prefHeight="702.0" prefWidth="128.0">
@@ -65,5 +56,10 @@
          </children>
       </JFXDrawer>
       <JFXHamburger fx:id="hamburger" layoutX="31.0" layoutY="614.0" />
+      <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="RIGHT" layoutX="286.0" layoutY="14.0" prefHeight="27.0" prefWidth="251.0" text="yyyy-mm-dd" textAlignment="JUSTIFY">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

@@ -13,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
 import models.InventarioDTM;
 
 import java.net.URL;
@@ -40,7 +39,7 @@ public class NuevaVentaController implements Initializable {
         colPrecioUnitario.setStyle( "-fx-alignment: CENTER;");
         colArt.setCellFactory(TextFieldTableCell.forTableColumn());
         colArt.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colCantidad.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colCantidad.setCellFactory(TextFieldTableCell.forTableColumn());
         colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidadVenta"));
         colTotal.setCellFactory(TextFieldTableCell.forTableColumn());
         //colTotal.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
@@ -53,7 +52,7 @@ public class NuevaVentaController implements Initializable {
                 new EventHandler<TableColumn.CellEditEvent<InventarioDTM, String>>() {
                     @Override
                     public void handle(TableColumn.CellEditEvent<InventarioDTM, String> t) {
-                        t.getTableView().getItems().get(t.getTablePosition().getRow()).setCantidadVenta(Integer.parseInt(t.getNewValue()));
+                        t.getTableView().getItems().get(t.getTablePosition().getRow()).setCantidadVenta(t.getNewValue());
                         String cantidad = t.getNewValue();
                         double totalPrecioUnitario = 0.0;
                         InventarioDTM inventarioObj = (InventarioDTM) tblCarrito.getSelectionModel().getSelectedItem();

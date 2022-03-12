@@ -30,7 +30,7 @@
       <TextField fx:id="txtDescripcion" layoutX="834.0" layoutY="74.0" prefHeight="25.0" prefWidth="155.0" promptText="Descripción" />
       <TextField fx:id="txtPrecio" layoutX="834.0" layoutY="116.0" prefHeight="25.0" prefWidth="155.0" promptText="Precio" />
       <TextField fx:id="txtExistencias" layoutX="833.0" layoutY="155.0" prefHeight="25.0" prefWidth="155.0" promptText="Existencias" />
-      <Button fx:id="btnAgregarFila" contentDisplay="CENTER" layoutX="881.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#guardarArticuloInventario" text="Agregar" />
+      <Button fx:id="btnAgregarFila" contentDisplay="CENTER" layoutX="866.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#guardarArticuloInventario" prefHeight="25.0" prefWidth="84.0" text="Agregar" />
       <Label fx:id="lblAgregar" alignment="CENTER" contentDisplay="CENTER" layoutX="819.0" layoutY="-2.0" prefHeight="30.0" prefWidth="177.0" text="Agregar Artículo">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -44,7 +44,7 @@
       <Button fx:id="btnBuscarInv" contentDisplay="CENTER" layoutX="881.0" layoutY="116.0" mnemonicParsing="false" onMouseClicked="#buscarArticuloInventario" prefHeight="25.0" prefWidth="59.0" text="Buscar" />
       <ComboBox fx:id="cmbBuscar" layoutX="833.0" layoutY="37.0" prefHeight="25.0" prefWidth="155.0" />
       <TextField fx:id="txtBusqueda" layoutX="833.0" layoutY="74.0" prefHeight="25.0" prefWidth="155.0" promptText="Búsqueda..." />
-      <Button fx:id="btnRestablecer" contentDisplay="CENTER" layoutX="867.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#recargaTablaInventario" prefHeight="25.0" prefWidth="86.0" text="Restablecer" />
+      <Button fx:id="btnRestablecer" contentDisplay="CENTER" layoutX="866.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#recargaTablaInventario" prefHeight="25.0" prefWidth="84.0" text="Restablecer" />
       <Button fx:id="btnEliminarFila" contentDisplay="CENTER" layoutX="917.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#eliminarFila" prefHeight="25.0" prefWidth="80.0" stylesheets="@../styling/botonEliminar.css" text="Eliminar" />
       <Button fx:id="btnEditar" contentDisplay="CENTER" layoutX="819.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#editarFila" prefHeight="25.0" prefWidth="80.0" text="Editar" />
       <JFXDrawer fx:id="drawer" layoutX="-3.0" prefHeight="632.0" prefWidth="112.0">
@@ -98,7 +98,7 @@
       </JFXDrawer>
       <JFXHamburger fx:id="hamburger" layoutY="565.0" prefHeight="29.0" prefWidth="70.0" />
       <Button fx:id="btnVenta" contentDisplay="CENTER" layoutX="854.0" layoutY="288.0" mnemonicParsing="false" onAction="#nuevaVenta" prefHeight="25.0" prefWidth="115.0" text="Nueva Venta" />
-      <Button fx:id="btnAgregaAlCarrito" layoutX="866.0" layoutY="231.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="84.0">
+      <Button fx:id="btnAgregaAlCarrito" layoutX="866.0" layoutY="231.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -45,7 +45,7 @@ public class InventarioVentasDB {
             preparedStatement = newCon.conDB().prepareStatement(queryInsert);
             preparedStatement.setString(1, inventarioObj.getNombre());
             preparedStatement.setString(2, inventarioObj.getDescripcion());
-            //preparedStatement.setDouble(3, inventarioObj.getPrecio());
+            preparedStatement.setString(3, inventarioObj.getPrecio());
             preparedStatement.setInt(4, inventarioObj.getExistencias());
             preparedStatement.execute();
             return "Artículo(s) agregado(s) con éxito.";
@@ -97,7 +97,7 @@ public class InventarioVentasDB {
             preparedStatement.setString(1, inventarioObj.getNombre());
             preparedStatement.setString(2, inventarioObj.getDescripcion());
             preparedStatement.setInt(3, inventarioObj.getExistencias());
-            //preparedStatement.setDouble(4, inventarioObj.getPrecio()); //TODO REVISAR ESTO
+            preparedStatement.setString(4, inventarioObj.getPrecio());
             preparedStatement.setInt(5, inventarioObj.getIdInventario());
             preparedStatement.execute();
             return "Inventario actualizado con éxito.";

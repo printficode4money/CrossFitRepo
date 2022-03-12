@@ -107,7 +107,7 @@ public class VentasController implements Initializable{
                     seleccionados = tablaInventario.getSelectionModel().getSelectedItems();
                     boolean existeEnCarrito = false;
                     for(InventarioDTM selecc : seleccionados){
-                        selecc.setCantidadVenta(1); //default venta 1
+                        selecc.setCantidadVenta("1"); //default venta 1
                         for(InventarioDTM artCarrito : carrito){
                             if(selecc.getIdInventario() == artCarrito.getIdInventario()){
                                 existeEnCarrito = true;
@@ -258,9 +258,9 @@ public class VentasController implements Initializable{
         public void editarFila(){
             try {
                 InventarioDTM inventarioObj = (InventarioDTM) tablaInventario.getSelectionModel().getSelectedItem();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ModificaInventarioModal.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ModificaInvModalVentas.fxml"));
                 Parent root = loader.load();
-                ModificaArticuloInventario scene2Controller = loader.getController();
+                ModificaArtInvVentas scene2Controller = loader.getController();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setTitle("Editar Inventario");

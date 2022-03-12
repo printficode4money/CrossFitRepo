@@ -55,7 +55,7 @@ public class ModificaArtInvVentas implements Initializable {
         inventarioObj.setIdInventario(idInventario);
         inventarioObj.setNombre(txtNombre.getText());
         inventarioObj.setDescripcion(txtDescripcion.getText());
-        //inventarioObj.setPrecio(Double.parseDouble(txtPrecio.getText()));
+        inventarioObj.setPrecio(txtPrecio.getText());
         inventarioObj.setPrecio(txtPrecio.getText());
         inventarioObj.setExistencias(Integer.parseInt(txtExistencias.getText()));
         resultado = inventarioDB.actualizaFilaInventario(inventarioObj);

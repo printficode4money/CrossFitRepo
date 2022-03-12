@@ -273,8 +273,7 @@ public class PlanificadorController implements Initializable {
 
     private void createEventMenu(DateCell dc) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-                    .getResource("/views/RutinasView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/RutinasView.fxml"));
             fxmlLoader.setControllerFactory(c -> new RutinasController(dc));
             GridPane root = fxmlLoader.load();
             Scene scene = new Scene(root, 900, 600);
